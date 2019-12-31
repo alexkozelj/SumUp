@@ -1,0 +1,134 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  background-color: #77bd98;
+}
+
+.navbar {
+  justify-content: center;
+}
+
+.container-fluid {
+  height: 90vh;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.stage-right {
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.stage-left {
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.stage {
+  flex-direction: column;
+}
+
+.stage-up {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 100%;
+  /* margin: 0 0 15px 0; */
+}
+
+.stage-down {
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.comp-cards {
+  
+}
+
+.deck-holder {
+  border-style: ridge;
+  padding: 11.2px 0 0 11.2px;
+  height: 131.409px;
+  width: 102.284px;
+  /* width: 85.081px; */
+  /* height: 114.206px; */
+  margin: 5px;
+  background-color: ;
+}
+
+.result-div {
+  display: flex;
+  flex-direction: column;
+  padding: 15px 30px 15px 0;
+}
+
+.game-info-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border-style: ridge;
+  background-color: #77bd98;
+}
+
+.overall-result-container {
+  display: flex;
+  flex-direction: column;
+  height: 30%;
+  border-style: ridge;
+  background-color: #77bd98;
+}
+
+.current-result-container {
+  display: flex;
+  flex-direction: column;
+  height: 70%;
+  border-style: ridge;
+  background-color: #77bd98;
+}
+
+
+.placeholder {
+  border-style: groove;
+  padding: 11.2px 0 0 11.2px;
+  height: 119.409px;
+  width: 99.284px;
+  /* width: 85.081px; */
+  /* height: 114.206px; */
+  margin: 5px;
+  background-color: #7ca385;
+}
+
+.center {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.flex {
+  display: flex;
+}
+
+.deck-container {
+}
+
+.card-container {
+}
+
+.display-flex {
+}
+
+#deck-img {
+}
