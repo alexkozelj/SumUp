@@ -17,67 +17,58 @@ body {
   height: 90vh;
 }
 
-h1, h2, h3, h4, h5, h6, p {
-  margin: 0;
-}
-
-table {
-  height: 100%;
-  
-}
-
-.table th, .table td {
-  padding: 1em;
-
-}
-
-th, tr, td, thead, tbody {
-  text-align: center;
-  width: 100%;
-}
-
 .row {
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
 
-.stage-right {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+.stage-area-right {
   height: 90vh;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
 }
 
-.stage-left {
+.stage-area-left {
   height: 90vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-evenly;
+}
+
+%stage-shared {
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
 }
 
 .stage {
   flex-direction: column;
-}
 
-.stage-up {
-  display: flex;
-  flex-wrap: nowrap;
-  width: 100%;
-  /* margin: 0 0 15px 0; */
-}
+  &-up {
+    @extend %stage-shared;
+  }
 
-.stage-down {
-  width: 100%;
-  display: flex;
-  flex-wrap: nowrap;
+  &-down {
+    @extend %stage-shared;
+  }
 }
-
 
 .deck-holder {
   border-style: groove;
-  border-radius: .4em;
-  padding: .8em 0 0 .8em;
+  border-radius: 0.4em;
+  padding: 0.8em 0 0 0.8em;
   height: 131.409px;
   width: 102.284px;
   /* width: 85.081px; */
@@ -90,15 +81,35 @@ th, tr, td, thead, tbody {
   flex-direction: column;
   padding: 15px 30px 15px 0;
   height: 100%;
-}
 
+  th,
+  tr,
+  td,
+  thead,
+  tbody {
+    text-align: center;
+    width: 100%;
+  }
+}
 
 .placeholder {
   border-style: groove;
-  border-radius: .4em;
+  border-radius: 0.4em;
   padding: 11.2px 0 0 11.2px;
   height: 119.409px;
   width: 99.284px;
+  /* width: 85.081px; */
+  /* height: 114.206px; */
+  margin: 5px;
+  background-color: #7ca385;
+}
+
+.player-img, .comp-img {
+  border-style: groove;
+  border-radius: 0.4em;
+  padding: 11.2px 0 0 11.2px;
+  height: 3rem;
+  width: 3rem;
   /* width: 85.081px; */
   /* height: 114.206px; */
   margin: 5px;
@@ -115,7 +126,6 @@ th, tr, td, thead, tbody {
   display: flex;
 }
 
-.table-primary th{
-  background-color:rgb(95, 226, 156);
+.table-primary th {
+  background-color: rgb(95, 226, 156);
 }
-

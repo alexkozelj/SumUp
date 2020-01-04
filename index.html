@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="bootstrap.min.css" />
     <link
       rel="stylesheet"
-      href="CSS-Playing-Cards-master\CSS-Playing-Cards-master\cards.css"
+      href="cards.css"
     />
     <link rel="stylesheet" type="text/css" href="sumUp.css" />
 
@@ -72,15 +72,56 @@
           </div>
         </div>
         <div class="col-3 result-div">
-          <div class="game-info-container">
-            <div class="overall-result-container">
-              <div class="overall-result"></div>
-            </div>
-            <div class="current-result-container">
-                <div class="current-game-info"></div>
-                <div class="current-game-result"></div>
-                <div class="current-swipes"></div>
-            </div>
+            <table class="table">
+              <thead>
+                <tr class="table-dark">
+                  <th scope="col" colspan="2">
+                    <h3>
+                      Overall Result    
+                    </h3>
+                  </th>
+                </tr>
+                <tr class="table-success table-hover">
+                  <th scope="col">Computer: <span>5</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="table-success table-hover">
+                  <td scope="col"><span>Player: <span>3</span></td>
+                </tr>
+                <tr>
+                  <th>
+                    <p class="text-muted"> <em>Game 8 of 10</em></p>
+                  </th>
+                </tr>
+              </tbody>
+            </table>
+            <table class="table">
+              <thead >
+                <tr class="table-dark">
+                  <th scope="col" colspan="2">
+                    <h3>
+                      <p class="text-warning">Current Game Result</p>   
+                    </h3>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="table-warning">
+                  <th scope="col">Computer: <span>11</span></th>
+                  <th>|||</th>
+                </tr>
+                <tr class="table-warning">
+                  <th scope="col">Player: <span>9</span></th>
+                  <th>|||||||||||||||</th>
+                </tr>
+                <tr>
+                  <th colspan="2">
+                    <p class="text-muted"> Deal: <span>3/6</span></p>
+                  </th>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
