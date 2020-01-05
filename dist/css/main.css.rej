@@ -1,0 +1,9 @@
+diff a/dist/css/main.css b/dist/css/main.css	(rejected hunks)
+@@ -54,7 +54,6 @@
+   height: 131.409px;
+   width: 102.284px;
+   /* width: 85.081px; */
+-  /* height: 114.206px; */
+   margin: 5px; }
+ 
+ .result-div {
