@@ -1,4 +1,4 @@
-SumUp! aka Tablic, Tabinet
+SumUp! a.k.a. Tablic, Tabinet
 
 Introduction
 Tablić is a fishing game played in Serbia and other countries of the former Yugoslavia. The Serbian game is described first, followed by the differences in other countries so far as I know them. The almost identical Romanian game Tabinet is also described on this page.
