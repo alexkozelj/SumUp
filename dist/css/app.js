@@ -1,7 +1,8 @@
-// Storage Controller
+// //////// Storage Controller ////////// //
 
-// Item Controller
+// //////// Item Controller //////// //
 const ItemCtrl = (function() {
+
   // Card Selection Constructor
   const SelectedCard = function(id, rank, suit, value) {
     this.id = id;
@@ -10,8 +11,14 @@ const ItemCtrl = (function() {
     this.value = value;
   };
 
+  
   // Data Structure / State
   const data = {
+
+    suits: ["spades", "diams", "clubs", "hearts"],
+
+    rank: ["a", "2", "3", "4", "5", "6", "7", "8", "9", "10", "j", "q", "k"],
+
     items: [
       {id: 0, rank: '7', suit: 'hearts', value: 0},
       {id: 5, rank: '10', suit: 'diams', value: 2},
@@ -23,6 +30,22 @@ const ItemCtrl = (function() {
 
   // Public methods
   return {
+
+    getDeck: function() {
+      let deck = [];
+
+      for(let i = 0; i < data.suits.length; i++)
+      {
+        for(let x = 0; x < data.rank.length; x++)
+        {
+          let card = {rank: [x], suit: [i]};
+          deck.push(card);
+        }
+      }
+
+      return deck;
+    },
+
     logData: function(){
       return data;
     }
@@ -30,7 +53,7 @@ const ItemCtrl = (function() {
 
 })();
 
-// UI Controller
+// ///////// UI Controller //////// //
 const UICtrl = (function() {
 
   // Public methods
@@ -40,13 +63,15 @@ const UICtrl = (function() {
 
 })();
 
-// App Controller
+// //////// App Controller //////// //
 const App = (function(ItemCtrl, UICtrl) {
   
   // Public methods
   return {
     init: function() {
-      console.log('Initialazing App');
+      console.log(ItemCtrl.getDeck());
+      
+      
     }
   }
   
