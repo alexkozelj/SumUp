@@ -15,6 +15,8 @@ const ItemCtrl = (function() {
   // Data Structure / State
   const data = {
 
+    id: [],
+
     suits: ["spades", "diams", "clubs", "hearts"],
 
     ranks: ["a", "2", "3", "4", "5", "6", "7", "8", "9", "10", "j", "q", "k"],
@@ -33,16 +35,18 @@ const ItemCtrl = (function() {
 
     getDeck: function() {
       let deck = [];
+      let id = 0;
 
       for(let i = 0; i < data.suits.length; i++)
       {
         for(let x = 0; x < data.ranks.length; x++)
         {
-          let card = {Rank: data.ranks[x], Suit: data.suits[i]};
-          deck.push(card);
+            id += 1;
+            let card = {ID: id, Rank: data.ranks[x], Suit: data.suits[i]};
+            deck.push(card);   
         }
       }
-
+      
       return deck;
     },
 
