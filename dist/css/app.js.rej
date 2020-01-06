@@ -1,0 +1,16 @@
+diff a/dist/css/app.js b/dist/css/app.js	(rejected hunks)
+@@ -11,8 +11,14 @@
+     this.value = value;
+   };
+ 
++  
+   // Data Structure / State
+   const data = {
++
++    suits: ["spades", "diams", "clubs", "hearts"],
++
++    rank: ["a", "2", "3", "4", "5", "6", "7", "8", "9", "10", "j", "q", "k"],
++
+     items: [
+       {id: 0, rank: '7', suit: 'hearts', value: 0},
+       {id: 5, rank: '10', suit: 'diams', value: 2},

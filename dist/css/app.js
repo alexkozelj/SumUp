@@ -17,7 +17,7 @@ const ItemCtrl = (function() {
 
     suits: ["spades", "diams", "clubs", "hearts"],
 
-    rank: ["a", "2", "3", "4", "5", "6", "7", "8", "9", "10", "j", "q", "k"],
+    ranks: ["a", "2", "3", "4", "5", "6", "7", "8", "9", "10", "j", "q", "k"],
 
     items: [
       {id: 0, rank: '7', suit: 'hearts', value: 0},
@@ -36,9 +36,9 @@ const ItemCtrl = (function() {
 
       for(let i = 0; i < data.suits.length; i++)
       {
-        for(let x = 0; x < data.rank.length; x++)
+        for(let x = 0; x < data.ranks.length; x++)
         {
-          let card = {rank: [x], suit: [i]};
+          let card = {Rank: data.ranks[x], Suit: data.suits[i]};
           deck.push(card);
         }
       }
