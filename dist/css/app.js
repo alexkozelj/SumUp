@@ -33,19 +33,33 @@ const ItemCtrl = (function() {
   // Public methods
   return {
 
-    getDeck: function() {
+    createDeck: function() {
       let deck = [];
       let id = 0;
+      let value = 0;
 
       for(let i = 0; i < data.suits.length; i++)
       {
         for(let x = 0; x < data.ranks.length; x++)
         {
+
+            if(data.ranks[x] === "a" || data.ranks[x] === "j" || data.ranks[x] === "q" || data.ranks[x] === "k" || (data.ranks[x] === "10" && (!data.suits === "diams"))) {
+              value = 1;
+            } else if (data.ranks[x] === "2" && data.suits[i] === "clubs"){
+              value = 1;
+            } else if (data.ranks[x] === "10" && data.suits[i] === "diams"){
+              value = 2;
+            } else {
+              value = 0;
+            }
             id += 1;
-            let card = {ID: id, Rank: data.ranks[x], Suit: data.suits[i]};
+            let card = {ID: id, Rank: data.ranks[x], Suit: data.suits[i], Value: value};
+            
             deck.push(card);   
         }
       }
+
+      
       
       return deck;
     },
@@ -73,7 +87,7 @@ const App = (function(ItemCtrl, UICtrl) {
   // Public methods
   return {
     init: function() {
-      console.log(ItemCtrl.getDeck());
+      console.log(ItemCtrl.createDeck());
       
       
     }
