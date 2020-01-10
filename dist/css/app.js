@@ -98,6 +98,11 @@ const App = (function (ItemCtrl, UICtrl) {
     
     init: function () {
       console.log(ItemCtrl.createDeck());
+
+      // Fetch items from data structure... i need items for stage, comp and player cards
+      const items = ItemCtrl.getItems();
+
+      console.log(items);
     }
   };
 })(ItemCtrl, UICtrl);
