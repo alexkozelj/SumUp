@@ -1,9 +1,9 @@
 // //////// Storage Controller ////////// //
 
 // //////// Item Controller //////// //
-const ItemCtrl = (function() {
+const ItemCtrl = (function () {
   // Card Selection Constructor
-  const SelectedCard = function(id, rank, suit, value) {
+  const SelectedCard = function (id, rank, suit, value) {
     this.id = id;
     this.rank = rank;
     this.suit = suit;
@@ -23,7 +23,7 @@ const ItemCtrl = (function() {
 
   // Public methods
   return {
-    createDeck: function() {
+    createDeck: function () {
       let deck = [];
       let id = 0;
 
@@ -62,23 +62,26 @@ const ItemCtrl = (function() {
       return deck;
     },
 
-    logData: function() {
+    logData: function () {
       return data;
     }
   };
 })();
 
 // ///////// UI Controller //////// //
-const UICtrl = (function() {
+const UICtrl = (function () {
+
   // Public methods
   return {};
 })();
 
 // //////// App Controller //////// //
-const App = (function(ItemCtrl, UICtrl) {
+const App = (function (ItemCtrl, UICtrl) {
+
   // Public methods
   return {
-    init: function() {
+    
+    init: function () {
       console.log(ItemCtrl.createDeck());
     }
   };
