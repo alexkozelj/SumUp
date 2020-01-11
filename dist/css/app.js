@@ -43,9 +43,6 @@ const ItemCtrl = (function () {
 
   // Public methods
   return {
-    getItems: function(){
-      return data.items;
-    },
     createDeck: function () {
       let deck = [];
       let id = 0;
@@ -98,8 +95,6 @@ const ItemCtrl = (function () {
     	}
     },
     dealCardsToPlayers: function(){
-        // this.createDeck();
-        // this.deckSchuffle();
         if(data.compInHandCards.length === 0){
         data.compInHandCards.push(data.fullDeck[0].splice(0,6));
           };
@@ -112,8 +107,8 @@ const ItemCtrl = (function () {
     dealCardsToTable: function(){
       data.cardsOnTable.push(data.fullDeck[0].splice(0,4));
     },
-    moveRestCardsToDealingDeck: function(){
-      data.cardsToDeal.push(data.fullDeck[0]);
+    moveRestCardsToDealingDeck: function(from){
+      data.cardsToDeal.push(from);
       data.fullDeck = [];
     },
     firstDeal: function(){
@@ -121,7 +116,7 @@ const ItemCtrl = (function () {
       this.deckSchuffle();
       this.dealCardsToPlayers();
       this.dealCardsToTable();
-      this.moveRestCardsToDealingDeck();
+      this.moveRestCardsToDealingDeck(data.fullDeck[0]);
     },
     showFullDeck: function(){
       console.log(data.fullDeck[0]);
@@ -139,7 +134,11 @@ const ItemCtrl = (function () {
 const UICtrl = (function () {
 
   // Public methods
-  return {};
+  return {
+    populateCardPlaceholders: function(cards){
+      console.log(cards);
+    }
+  };
 })();
 
 
@@ -153,14 +152,12 @@ const App = (function (ItemCtrl, UICtrl) {
   return {
     
     init: function () {
-      // console.log(ItemCtrl.createDeck());
-
-      // Fetch items from data structure... i need items for stage, comp and player cards
-      // const items = ItemCtrl.getItems();
-      // ItemCtrl.createDeck();
-      // ItemCtrl.deckSchuffle();
-      // ItemCtrl.showFullDeck();
+      // 1st Round of Game
       ItemCtrl.firstDeal();
+      const getDataObject = ItemCtrl.logData()
+      // Populate card placeholders players & table
+      UICtrl.populateCardPlaceholders(getDataObject);
+
       console.log(ItemCtrl.logData())
     }
   };
