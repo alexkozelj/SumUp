@@ -1,8 +1,8 @@
-// //////// >>>>>> Storage Controller <<<<<<< ////////// //
+         // //////// >>>>>> Storage Controller <<<<<<< ////////// //
 
 
 
-// //////// >>>>>> Item Controller <<<<<< //////// //
+          // //////// >>>>>> Item Controller <<<<<< //////// //
 const ItemCtrl = (function () {
   // Card Selection Constructor
   const SelectedCard = function (id, rank, suit, value) {
@@ -25,9 +25,13 @@ const ItemCtrl = (function () {
 
     fullDeck: [],
 
-    compCards: [],
+    compCollectedCards: [],
 
-    playerCards: [],
+    playerCollectedCards: [],
+
+    compInHandCards: [],
+
+    playerInHandCards: [],
 
     cardsOnTable: [],
 
@@ -41,19 +45,6 @@ const ItemCtrl = (function () {
   return {
     getItems: function(){
       return data.items;
-    },
-    deckSchuffle: function(){
-      // for 1000 turns
-      // switch the values of two random cards
-      for (var i = 0; i < 1000; i++)
-      {
-        var location1 = Math.floor((Math.random() * data.fullDeck[0].length));
-        var location2 = Math.floor((Math.random() * data.fullDeck[0].length));
-        var tmp = data.fullDeck[0][location1];
-
-        data.fullDeck[0][location1] = data.fullDeck[0][location2];
-        data.fullDeck[0][location2] = tmp;
-    	}
     },
     createDeck: function () {
       let deck = [];
@@ -93,6 +84,25 @@ const ItemCtrl = (function () {
       data.fullDeck.push(deck);
       return deck;
     },
+    deckSchuffle: function(){
+      // for 1000 turns
+      // switch the values of two random cards
+      for (var i = 0; i < 1000; i++)
+      {
+        var location1 = Math.floor((Math.random() * data.fullDeck[0].length));
+        var location2 = Math.floor((Math.random() * data.fullDeck[0].length));
+        var tmp = data.fullDeck[0][location1];
+
+        data.fullDeck[0][location1] = data.fullDeck[0][location2];
+        data.fullDeck[0][location2] = tmp;
+    	}
+    },
+    populateDataArray: function(){
+        this.createDeck();
+        this.deckSchuffle();
+        data.compInHandCards.push(data.fullDeck[0].splice(0,6));
+      
+    },
     showFullDeck: function(){
       console.log(data.fullDeck[0]);
     },
@@ -105,7 +115,7 @@ const ItemCtrl = (function () {
 
 
 
-// ///////// >>>>>>> UI Controller <<<<<<< //////// //
+           // ///////// >>>>>>> UI Controller <<<<<<< //////// //
 const UICtrl = (function () {
 
   // Public methods
@@ -116,7 +126,7 @@ const UICtrl = (function () {
 
 
 
-// //////// >>>>>> App Controller <<<<<<< //////// //
+            // //////// >>>>>> App Controller <<<<<<< //////// //
 const App = (function (ItemCtrl, UICtrl) {
 
   // Public methods
@@ -127,9 +137,10 @@ const App = (function (ItemCtrl, UICtrl) {
 
       // Fetch items from data structure... i need items for stage, comp and player cards
       // const items = ItemCtrl.getItems();
-      ItemCtrl.createDeck();
-      ItemCtrl.showFullDeck();
-      ItemCtrl.deckSchuffle();
+      // ItemCtrl.createDeck();
+      // ItemCtrl.deckSchuffle();
+      // ItemCtrl.showFullDeck();
+      ItemCtrl.populateDataArray();
             // gebajzla = ItemCtrl.data.fullDeck;
       // console.log(gebajzla);
     }
