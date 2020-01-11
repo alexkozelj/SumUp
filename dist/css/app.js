@@ -1,8 +1,8 @@
-// //////// Storage Controller ////////// //
+// //////// >>>>>> Storage Controller <<<<<<< ////////// //
 
 
 
-// //////// Item Controller //////// //
+// //////// >>>>>> Item Controller <<<<<< //////// //
 const ItemCtrl = (function () {
   // Card Selection Constructor
   const SelectedCard = function (id, rank, suit, value) {
@@ -25,6 +25,14 @@ const ItemCtrl = (function () {
 
     fullDeck: [],
 
+    compCards: [],
+
+    playerCards: [],
+
+    cardsOnTable: [],
+
+    cardsToDeal: [],
+
     currentItem: null,
     totalValue: 0
   };
@@ -33,9 +41,6 @@ const ItemCtrl = (function () {
   return {
     getItems: function(){
       return data.items;
-    },
-    showFullDeck: function(){
-      console.log(data.fullDeck[0]);
     },
     deckSchuffle: function(){
       // for 1000 turns
@@ -88,7 +93,9 @@ const ItemCtrl = (function () {
       data.fullDeck.push(deck);
       return deck;
     },
-
+    showFullDeck: function(){
+      console.log(data.fullDeck[0]);
+    },
     logData: function () {
       return data;
     }
@@ -98,7 +105,7 @@ const ItemCtrl = (function () {
 
 
 
-// ///////// UI Controller //////// //
+// ///////// >>>>>>> UI Controller <<<<<<< //////// //
 const UICtrl = (function () {
 
   // Public methods
@@ -109,7 +116,7 @@ const UICtrl = (function () {
 
 
 
-// //////// App Controller //////// //
+// //////// >>>>>> App Controller <<<<<<< //////// //
 const App = (function (ItemCtrl, UICtrl) {
 
   // Public methods
