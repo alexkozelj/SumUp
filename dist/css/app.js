@@ -112,6 +112,17 @@ const ItemCtrl = (function () {
     dealCardsToTable: function(){
       data.cardsOnTable.push(data.fullDeck[0].splice(0,4));
     },
+    moveRestCardsToDealingDeck: function(){
+      data.cardsToDeal.push(data.fullDeck[0]);
+      data.fullDeck = [];
+    },
+    firstDeal: function(){
+      this.createDeck();
+      this.deckSchuffle();
+      this.dealCardsToPlayers();
+      this.dealCardsToTable();
+      this.moveRestCardsToDealingDeck();
+    },
     showFullDeck: function(){
       console.log(data.fullDeck[0]);
     },
@@ -146,11 +157,10 @@ const App = (function (ItemCtrl, UICtrl) {
 
       // Fetch items from data structure... i need items for stage, comp and player cards
       // const items = ItemCtrl.getItems();
-      ItemCtrl.createDeck();
-      ItemCtrl.deckSchuffle();
+      // ItemCtrl.createDeck();
+      // ItemCtrl.deckSchuffle();
       // ItemCtrl.showFullDeck();
-      ItemCtrl.dealCardsToPlayers();
-      ItemCtrl.dealCardsToTable();
+      ItemCtrl.firstDeal();
       console.log(ItemCtrl.logData())
     }
   };
