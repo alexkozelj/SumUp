@@ -118,6 +118,24 @@ const ItemCtrl = (function () {
       this.dealCardsToTable();
       this.moveRestCardsToDealingDeck(data.fullDeck[0]);
     },
+    getPlayerInHandCards: function(){
+      return data.playerInHandCards[0];
+    },
+    getCompInHandCards: function(){
+      return data.compInHandCards[0];
+    },
+    getCardsOnTable: function(){
+      return data.cardsOnTable[0];
+    },
+    getCardsToDeal: function(){
+      return data.cardsToDeal[0];
+    },
+    getPlayerCollectedCards: function(){
+      return data.playerCollectedCards[0];
+    },
+    getCompCollectedCards: function(){
+      return data.compCollectedCards[0]
+    },
     showFullDeck: function(){
       console.log(data.fullDeck[0]);
     },
@@ -135,8 +153,20 @@ const UICtrl = (function () {
 
   // Public methods
   return {
-    populateCardPlaceholders: function(cards){
-      console.log(cards);
+    populatePlayerCards: function(player){
+      player.forEach(function(cards){
+        console.log(cards);
+      })
+    },
+    populateCompCards: function(comp){
+      comp.forEach(function(cards){
+        console.log(cards);
+      })
+    },
+    populateTableCards: function(table){
+      table.forEach(function(cards){
+        console.log(cards);
+      })
     }
   };
 })();
@@ -148,15 +178,27 @@ const UICtrl = (function () {
             // //////// >>>>>> App Controller <<<<<<< //////// //
 const App = (function (ItemCtrl, UICtrl) {
 
+  
+
   // Public methods
   return {
     
     init: function () {
       // 1st Round of Game
       ItemCtrl.firstDeal();
-      const getDataObject = ItemCtrl.logData()
+
+      const playerInHandCards = ItemCtrl.getPlayerInHandCards();
+      const compInHandCards = ItemCtrl.getCompInHandCards();
+      const cardsOnTable = ItemCtrl.getCardsOnTable();
+      const playerCollectedCards = ItemCtrl.getPlayerCollectedCards();
+      const compCollectedCards = ItemCtrl.getCompCollectedCards();
+      const cardsToDeal = ItemCtrl.getCardsToDeal()
+
+
       // Populate card placeholders players & table
-      UICtrl.populateCardPlaceholders(getDataObject);
+      UICtrl.populatePlayerCards(playerInHandCards);
+      UICtrl.populateCompCards(compInHandCards);
+      UICtrl.populateTableCards(cardsOnTable);
 
       console.log(ItemCtrl.logData())
     }
