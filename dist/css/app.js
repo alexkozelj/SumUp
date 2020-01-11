@@ -22,6 +22,9 @@ const ItemCtrl = (function () {
     {ID: 2, Rank: "2", Suit: "spades", Value: 0},
     {ID: 10, Rank: "10", Suit: "spades", Value: 1}
     ],
+
+    fullDeck: [],
+
     currentItem: null,
     totalValue: 0
   };
@@ -30,6 +33,9 @@ const ItemCtrl = (function () {
   return {
     getItems: function(){
       return data.items;
+    },
+    showFullDeck: function(){
+      console.log(data.fullDeck[0][0]);
     },
     createDeck: function () {
       let deck = [];
@@ -66,7 +72,7 @@ const ItemCtrl = (function () {
           deck.push(card);
         }
       }
-      // data.items.push(deck);
+      data.fullDeck.push(deck);
       return deck;
     },
 
@@ -97,12 +103,14 @@ const App = (function (ItemCtrl, UICtrl) {
   return {
     
     init: function () {
-      console.log(ItemCtrl.createDeck());
+      // console.log(ItemCtrl.createDeck());
 
       // Fetch items from data structure... i need items for stage, comp and player cards
-      const items = ItemCtrl.getItems();
-
-      console.log(items);
+      // const items = ItemCtrl.getItems();
+      ItemCtrl.createDeck();
+      ItemCtrl.showFullDeck()
+            // gebajzla = ItemCtrl.data.fullDeck;
+      // console.log(gebajzla);
     }
   };
 })(ItemCtrl, UICtrl);
