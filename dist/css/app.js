@@ -97,11 +97,20 @@ const ItemCtrl = (function () {
         data.fullDeck[0][location2] = tmp;
     	}
     },
-    populateDataArray: function(){
-        this.createDeck();
-        this.deckSchuffle();
+    dealCardsToPlayers: function(){
+        // this.createDeck();
+        // this.deckSchuffle();
+        if(data.compInHandCards.length === 0){
         data.compInHandCards.push(data.fullDeck[0].splice(0,6));
-      
+          };
+        
+        if (data.playerInHandCards.length === 0){
+          data.playerInHandCards.push(data.fullDeck[0].splice(0,6));
+          };
+        // console.log(data.fullDeck[0])
+    },
+    dealCardsToTable: function(){
+      data.cardsOnTable.push(data.fullDeck[0].splice(0,4));
     },
     showFullDeck: function(){
       console.log(data.fullDeck[0]);
@@ -137,12 +146,12 @@ const App = (function (ItemCtrl, UICtrl) {
 
       // Fetch items from data structure... i need items for stage, comp and player cards
       // const items = ItemCtrl.getItems();
-      // ItemCtrl.createDeck();
-      // ItemCtrl.deckSchuffle();
+      ItemCtrl.createDeck();
+      ItemCtrl.deckSchuffle();
       // ItemCtrl.showFullDeck();
-      ItemCtrl.populateDataArray();
-            // gebajzla = ItemCtrl.data.fullDeck;
-      // console.log(gebajzla);
+      ItemCtrl.dealCardsToPlayers();
+      ItemCtrl.dealCardsToTable();
+      console.log(ItemCtrl.logData())
     }
   };
 })(ItemCtrl, UICtrl);
