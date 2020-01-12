@@ -167,7 +167,35 @@ const UICtrl = (function () {
     playerCard5: "#player-card-5",
     playerCard6: "#player-card-6",
 
+    // Stage cards
+    stageCard1: "#stage-card-1",
+    stageCard2: "#stage-card-2",
+    stageCard3: "#stage-card-3",
+    stageCard4: "#stage-card-4",
+    stageCard5: "#stage-card-5",
+    stageCard6: "#stage-card-6",
+    stageCard7: "#stage-card-7",
+    stageCard8: "#stage-card-8",
+    stageCard9: "#stage-card-9",
+    stageCard10: "#stage-card-10",
    
+    // Deck of cards on the table
+    deckOfCards: ".deck",
+
+    // Result board
+
+    // Overall Info
+    compOverallScore: "compOverallScore",
+    playerOverallScore: "playerOverallScore",
+    GameNr: "numberOfPlayedGames",
+    totalGameNr: "numberOfScheduledGames",
+
+    // Current Game Info
+    compPoints: "compPoints",
+    compTablaPoints: "compTablaPoints",
+    playerPoints: "playerPoints",
+    playerTablaPoints: "playerTablaPoints",
+    dealNr: "dealNr",
   };
 
 
