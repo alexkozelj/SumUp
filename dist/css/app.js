@@ -150,6 +150,26 @@ const ItemCtrl = (function () {
 
            // ///////// >>>>>>> UI Controller <<<<<<< //////// //
 const UICtrl = (function () {
+  const UISelectors = {
+    // Comp cards
+    compCard1: "#comp-card-1",
+    compCard2: "#comp-card-2",
+    compCard3: "#comp-card-3",
+    compCard4: "#comp-card-4",
+    compCard5: "#comp-card-5",
+    compCard6: "#comp-card-6",
+
+    // Player cards
+    playerCard1: "#player-card-1",
+    playerCard2: "#player-card-2",
+    playerCard3: "#player-card-3",
+    playerCard4: "#player-card-4",
+    playerCard5: "#player-card-5",
+    playerCard6: "#player-card-6",
+
+   
+  };
+
 
   // Public methods
   return {
@@ -178,7 +198,11 @@ const UICtrl = (function () {
             // //////// >>>>>> App Controller <<<<<<< //////// //
 const App = (function (ItemCtrl, UICtrl) {
 
-  
+  // Load event listeners
+  const loadEventListeners = function() {
+    // Get UI Selectors
+    const UISelectors = UICtrl.getSelectors();
+  }
 
   // Public methods
   return {
