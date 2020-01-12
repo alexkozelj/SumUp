@@ -341,18 +341,18 @@
 .playingCards.faceImages .card.rank-k,
 .playingCards.faceImages .card.joker {
   background-repeat: no-repeat;
-  background-position: -1em 0;
+  background-position: -1.5em 0;
   /* @change: smaller cards: more negative distance from the left
        bigger cards: 0 or more positive distance from the left */
 
-  /* for a centered full background image:
-    background-position: .35em 0;
+  /* for a centered full background image: */
+    background-position: .90em 0.90em;
     -moz-background-size: contain;
     -o-background-size: contain;
     -webkit-background-size: contain;
     -khtml-background-size: contain;
     background-size: contain;
-    */
+   
 }
 
 .playingCards.faceImages .card.rank-j.diams {
@@ -413,7 +413,7 @@
 .playingCards .card.joker .rank:after {
   font-family: Georgia, serif;
   position: absolute;
-  font-size: 3em;
+  font-size: 2.5em;
   right: 0.1em;
   bottom: 0.25em;
   word-spacing: normal;
@@ -421,14 +421,19 @@
   line-height: 1;
 }
 .playingCards .card.rank-j .suit:after {
-  content: "\265F";
-  right: 0.15em;
+  content: "\265F" !important;
+  left: 0.2em;
+  top: 1.45em; 
 }
 .playingCards .card.rank-q .suit:after {
-  content: "\265B";
+  content: "\265B" !important;
+  left: 0.2em;
+  top: 1.45em;  
 }
 .playingCards .card.rank-k .suit:after {
-  content: "\265A";
+  content: "\265A" !important;
+  left: 0.2em;
+  top: 1.45em; 
 }
 /* joker (inner symbol) */
 .playingCards.faceImages .card.joker .rank:after {
@@ -445,7 +450,7 @@
 .playingCards.simpleCards .card .suit:after,
 .playingCards .card.rank-a .suit:after {
   font-family: Arial, sans-serif;
-  line-height: 0.9;
+  line-height: 0.9em;
   bottom: 0.35em;
 }
 .playingCards.simpleCards .card.diams .suit:after,
