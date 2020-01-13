@@ -216,29 +216,6 @@ const UICtrl = (function () {
       document.querySelector(UISelectors.compCard1).innerHTML = html;
       
     },
-    // populateCompCards: function(comp){
-    //   comp.forEach(function(cards){
-    //     console.log(cards);
-    //   })
-    // },
-    // populateTableCards: function(table){
-    //   table.forEach(function(cards){
-    //     console.log(cards);
-    //   })
-    // },
-    // populateItemList: function(items) {
-    //   let html = "";
-
-    //   items.forEach(function(item) {
-    //     html += `<li class="collection-item" id="item-${item.id}">
-    //     <strong>${item.name}: </strong> <em>${item.calories} Calories</em>
-    //     <a href="#" class="secondary-content"><i class="edit-item fa fa-pencil"></i></a>
-    //   </li>`;
-    //   });
-
-    //   // Insert list items
-    //   document.querySelector(UISelectors.itemList).innerHTML = html;
-    // },
   };
 })();
 

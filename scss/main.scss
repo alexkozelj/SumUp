@@ -13,8 +13,83 @@ body {
   justify-content: center;
 }
 
+
+
 .container-fluid {
   height: 90vh;
+  // display: grid;
+  // grid-template-columns: 10fr 2fr;
+  .card-container {
+    display: grid;
+    grid-template-columns: 1fr 8fr;
+  }
+    .stage-area-right,
+    .stage-area-left {
+      height: 90vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-self: center;
+      justify-self: center;
+      // display: grid;
+      // grid-template-rows: 1fr 2fr 1fr;
+      // grid-row-gap: 10px;
+    
+      .comp-cards-section,
+      .player-cards-section,
+      .stage {
+        display: flex;
+        justify-content: space-around;
+        border-style: groove;
+        border-radius: 1em;
+        background-color: #7ca385;
+        // height: 100%;
+        width: 100%;
+        // margin: 1em;
+        // justify-self: stretch;
+        // align-self: stretch;
+      }
+    
+      .comp-img-container,
+      .player-img-container {
+        // display: flex;
+        // justify-content: flex-end;
+        // justify-self: start;
+        // align-self: center;
+        // width: 4em;
+        
+    
+        .player-img,
+        .comp-img {
+          border-style: groove;
+          border-radius: 0.4em;
+          padding: 11.2px 0 0 11.2px;
+          height: 3rem;
+          width: 3rem;
+          /* width: 85.081px; */
+          /* height: 114.206px; */
+          margin: 5px;
+          background-color: #7ca385;
+          justify-self: center;
+          align-self: center;
+        }
+      }
+    }
+    .result-div {
+      display: flex;
+      flex-direction: column;
+      padding: 15px 30px 15px 0;
+      height: 100%;
+    
+      th,
+      tr,
+      td,
+      thead,
+      tbody {
+        text-align: center;
+        width: 100%;
+      }
+    }
 }
 
 .row {
@@ -33,41 +108,6 @@ p {
   margin: 0;
 }
 
-.stage-area-right,
-.stage-area-left {
-  height: 90vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-
-  .comp-img-container,
-  .player-img-container {
-    display: flex;
-    justify-content: flex-end;
-
-    .player-img,
-    .comp-img {
-      border-style: groove;
-      border-radius: 0.4em;
-      padding: 11.2px 0 0 11.2px;
-      height: 3rem;
-      width: 3rem;
-      /* width: 85.081px; */
-      /* height: 114.206px; */
-      margin: 5px;
-      background-color: #7ca385;
-    }
-  }
-}
-
-.comp-cards-section,
-.player-cards-section,
-.stage {
-  border-style: groove;
-  border-radius: 1em;
-  background-color: #7ca385;
-}
-
 .playingCards {
   margin-bottom: 0em;
   margin-top: 0.5em;
@@ -77,10 +117,24 @@ p {
   width: 100%;
   display: flex;
   flex-wrap: nowrap;
+
+}
+.comp-cards-section {
+  height: 23%;
+}
+
+#comp-card-1 {
+  height: 80%;
+}
+
+.player-cards-section {
+  height: 23%;
 }
 
 .stage {
   flex-direction: column;
+  height: 47%;
+  
 
   &-up {
     @extend %stage-shared;
@@ -91,44 +145,24 @@ p {
   }
 }
 
-.deck-holder {
-  border-style: groove;
-  border-radius: 0.4em;
-  padding: 0.8em 0 0 0.8em;
-  height: 131.409px;
-  width: 102.284px;
-  /* width: 85.081px; */
-  /* height: 114.206px; */
-  margin: 5px;
+.deck-container {
+  display: grid;
+  justify-self: start;
+  align-self: center;
+  width:4em;
 }
 
-.result-div {
-  display: flex;
-  flex-direction: column;
-  padding: 15px 30px 15px 0;
-  height: 100%;
-
-  th,
-  tr,
-  td,
-  thead,
-  tbody {
-    text-align: center;
-    width: 100%;
-  }
-}
-
-.placeholder {
-  border-style: groove;
-  border-radius: 0.4em;
-  padding: 11.2px 0 0 11.2px;
-  height: 119.409px;
-  width: 99.284px;
-  /* width: 85.081px; */
-  /* height: 114.206px; */
-  margin: 5px;
-  background-color: #7ca385;
-}
+// .placeholder {
+//   border-style: groove;
+//   border-radius: 0.4em;
+//   padding: 11.2px 0 0 11.2px;
+//   height: 119.409px;
+//   width: 99.284px;
+//   /* width: 85.081px; */
+//   /* height: 114.206px; */
+//   margin: 5px;
+//   background-color: #7ca385;
+// }
 
 .center {
   display: flex;
