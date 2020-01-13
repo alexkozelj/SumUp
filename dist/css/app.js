@@ -202,20 +202,43 @@ const UICtrl = (function () {
   // Public methods
   return {
     populatePlayerCards: function(player){
-      player.forEach(function(cards){
-        console.log(cards);
-      })
+        let html = "";
+
+      player.forEach(function(cards) {
+        html += `<li class=" center card rank-${cards.Rank} ${cards.Suit}">
+            <span class="rank">${cards.Rank.toUpperCase()}</span>
+            <span class="suit">&${cards.Suit};</span>
+         </li>`;
+
+      });
+
+      // Insert list items
+      document.querySelector(UISelectors.compCard1).innerHTML = html;
+      
     },
-    populateCompCards: function(comp){
-      comp.forEach(function(cards){
-        console.log(cards);
-      })
-    },
-    populateTableCards: function(table){
-      table.forEach(function(cards){
-        console.log(cards);
-      })
-    }
+    // populateCompCards: function(comp){
+    //   comp.forEach(function(cards){
+    //     console.log(cards);
+    //   })
+    // },
+    // populateTableCards: function(table){
+    //   table.forEach(function(cards){
+    //     console.log(cards);
+    //   })
+    // },
+    // populateItemList: function(items) {
+    //   let html = "";
+
+    //   items.forEach(function(item) {
+    //     html += `<li class="collection-item" id="item-${item.id}">
+    //     <strong>${item.name}: </strong> <em>${item.calories} Calories</em>
+    //     <a href="#" class="secondary-content"><i class="edit-item fa fa-pencil"></i></a>
+    //   </li>`;
+    //   });
+
+    //   // Insert list items
+    //   document.querySelector(UISelectors.itemList).innerHTML = html;
+    // },
   };
 })();
 
@@ -249,8 +272,8 @@ const App = (function (ItemCtrl, UICtrl) {
 
       // Populate card placeholders players & table
       UICtrl.populatePlayerCards(playerInHandCards);
-      UICtrl.populateCompCards(compInHandCards);
-      UICtrl.populateTableCards(cardsOnTable);
+      // UICtrl.populateCompCards(compInHandCards);
+      // UICtrl.populateTableCards(cardsOnTable);
 
       console.log(ItemCtrl.logData())
     }

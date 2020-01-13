@@ -57,6 +57,17 @@ p {
       margin: 5px;
       background-color: #7ca385; }
 
+.comp-cards-section,
+.player-cards-section,
+.stage {
+  border-style: groove;
+  border-radius: 1em;
+  background-color: #7ca385; }
+
+.playingCards {
+  margin-bottom: 0em;
+  margin-top: 0.5em; }
+
 .stage-up, .stage-down {
   width: 100%;
   display: flex;
@@ -100,9 +111,10 @@ p {
   background-color: #7ca385; }
 
 .center {
+  display: flex;
+  align-content: center;
   align-items: center;
-  justify-content: center;
-  display: flex; }
+  justify-content: center; }
 
 .table-primary th {
   background-color: #5fe29c; }

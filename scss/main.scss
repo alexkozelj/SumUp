@@ -60,10 +60,18 @@ p {
   }
 }
 
-// .comp-cards-section {
-//   border-style: groove;
-//   border-radius: 0.4em;
-// }
+.comp-cards-section,
+.player-cards-section,
+.stage {
+  border-style: groove;
+  border-radius: 1em;
+  background-color: #7ca385;
+}
+
+.playingCards {
+  margin-bottom: 0em;
+  margin-top: 0.5em;
+}
 
 %stage-shared {
   width: 100%;
@@ -123,9 +131,10 @@ p {
 }
 
 .center {
+  display: flex;
+  align-content: center;
   align-items: center;
   justify-content: center;
-  display: flex;
 }
 
 .table-primary th {
