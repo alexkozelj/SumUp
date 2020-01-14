@@ -153,20 +153,10 @@ const UICtrl = (function () {
   const UISelectors = {
     // Comp cards
     compCards: "#compCards",
-    playerCards: "#playerCards",
-    // compCard2: "#comp-card-2",
-    // compCard3: "#comp-card-3",
-    // compCard4: "#comp-card-4",
-    // compCard5: "#comp-card-5",
-    // compCard6: "#comp-card-6",
-
+    
     // Player cards
-    playerCard1: "#player-card-1",
-    playerCard2: "#player-card-2",
-    playerCard3: "#player-card-3",
-    playerCard4: "#player-card-4",
-    playerCard5: "#player-card-5",
-    playerCard6: "#player-card-6",
+    playerCards: "#playerCards",
+
 
     // Stage cards
     stageCard1: "#stage-card-1",
@@ -202,14 +192,33 @@ const UICtrl = (function () {
 
   // Public methods
   return {
-    populatePlayerCards: function(player){
-        let html = "";
+    populateCompCards: function(comp){
+      let html = "";
+      console.log(comp);
+      comp.forEach(function() {
+        // html += `<li class=" center card rank-${card.Rank} ${card.Suit}">
+        //   <span class="rank">${card.Rank.toUpperCase()}</span>
+        //   <span class="suit">&${card.Suit};</span>
+        // </li>`;
+        html += `<li>
+          <div class="card back"></div>
+        </li>`
+      });
 
-      player.forEach(function(cards) {
-        html += `<li class=" center card rank-${cards.Rank} ${cards.Suit}">
-            <span class="rank">${cards.Rank.toUpperCase()}</span>
-            <span class="suit">&${cards.Suit};</span>
-         </li>`;
+      // Insert list items
+      document.querySelector(UISelectors.compCards).innerHTML = html;
+      
+    
+    },
+
+    populatePlayerCards: function(player){
+      let html = "";
+
+      player.forEach(function(racku) {
+        html += `<li class=" center card rank-${racku.Rank} ${racku.Suit}">
+            <span class="rank">${racku.Rank.toUpperCase()}</span>
+            <span class="suit">&${racku.Suit};</span>
+        </li>`;
 
       });
 
@@ -217,6 +226,7 @@ const UICtrl = (function () {
       document.querySelector(UISelectors.playerCards).innerHTML = html;
       
     },
+
   };
 })();
 
@@ -248,12 +258,13 @@ const App = (function (ItemCtrl, UICtrl) {
       const cardsToDeal = ItemCtrl.getCardsToDeal()
 
 
-      // Populate card placeholders players & table
+      // Populate cards comp, player & table
+      UICtrl.populateCompCards(compInHandCards);
       UICtrl.populatePlayerCards(playerInHandCards);
-      // UICtrl.populateCompCards(compInHandCards);
       // UICtrl.populateTableCards(cardsOnTable);
 
       console.log(ItemCtrl.logData())
+      // console.log(compInHandCards);
     }
   };
 })(ItemCtrl, UICtrl);

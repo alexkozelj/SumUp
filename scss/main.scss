@@ -22,7 +22,7 @@ body {
     display: grid;
     grid-template-columns: 1fr 8fr;
   }
-  
+
     .stage-area-right,
     .stage-area-left {
       height: 90vh;
@@ -152,6 +152,9 @@ p {
 //   margin: 5px;
 //   background-color: #7ca385;
 // }
+.table{
+  color: none;
+}
 
 .center {
   display: flex;

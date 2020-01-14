@@ -109,6 +109,9 @@ p {
   align-self: center;
   width: 4em; }
 
+.table {
+  color: none; }
+
 .center {
   display: flex;
   align-content: center;
