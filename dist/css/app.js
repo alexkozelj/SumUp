@@ -152,12 +152,13 @@ const ItemCtrl = (function () {
 const UICtrl = (function () {
   const UISelectors = {
     // Comp cards
-    compCard1: "#comp-card-1",
-    compCard2: "#comp-card-2",
-    compCard3: "#comp-card-3",
-    compCard4: "#comp-card-4",
-    compCard5: "#comp-card-5",
-    compCard6: "#comp-card-6",
+    compCards: "#compCards",
+    playerCards: "#playerCards",
+    // compCard2: "#comp-card-2",
+    // compCard3: "#comp-card-3",
+    // compCard4: "#comp-card-4",
+    // compCard5: "#comp-card-5",
+    // compCard6: "#comp-card-6",
 
     // Player cards
     playerCard1: "#player-card-1",
@@ -213,7 +214,7 @@ const UICtrl = (function () {
       });
 
       // Insert list items
-      document.querySelector(UISelectors.compCard1).innerHTML = html;
+      document.querySelector(UISelectors.playerCards).innerHTML = html;
       
     },
   };

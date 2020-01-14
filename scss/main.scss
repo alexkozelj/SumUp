@@ -17,12 +17,12 @@ body {
 
 .container-fluid {
   height: 90vh;
-  // display: grid;
-  // grid-template-columns: 10fr 2fr;
+
   .card-container {
     display: grid;
     grid-template-columns: 1fr 8fr;
   }
+  
     .stage-area-right,
     .stage-area-left {
       height: 90vh;
@@ -31,9 +31,7 @@ body {
       justify-content: space-around;
       align-self: center;
       justify-self: center;
-      // display: grid;
-      // grid-template-rows: 1fr 2fr 1fr;
-      // grid-row-gap: 10px;
+      
     
       .comp-cards-section,
       .player-cards-section,
@@ -43,21 +41,12 @@ body {
         border-style: groove;
         border-radius: 1em;
         background-color: #7ca385;
-        // height: 100%;
         width: 100%;
-        // margin: 1em;
-        // justify-self: stretch;
-        // align-self: stretch;
       }
     
       .comp-img-container,
       .player-img-container {
-        // display: flex;
-        // justify-content: flex-end;
-        // justify-self: start;
-        // align-self: center;
-        // width: 4em;
-        
+                
     
         .player-img,
         .comp-img {
