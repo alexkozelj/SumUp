@@ -203,17 +203,16 @@ const UICtrl = (function () {
 
       // Insert list items
       document.querySelector(UISelectors.compCards).innerHTML = html;
-      
     
     },
 
     populatePlayerCards: function(player){
       let html = "";
 
-      player.forEach(function(racku) {
-        html += `<li class=" center card rank-${racku.Rank} ${racku.Suit}">
-            <span class="rank">${racku.Rank.toUpperCase()}</span>
-            <span class="suit">&${racku.Suit};</span>
+      player.forEach(function(card) {
+        html += `<li class=" center card rank-${card.Rank} ${card.Suit}">
+            <span class="rank">${card.Rank.toUpperCase()}</span>
+            <span class="suit">&${card.Suit};</span>
         </li>`;
 
       });
@@ -221,6 +220,10 @@ const UICtrl = (function () {
       // Insert list items
       document.querySelector(UISelectors.playerCards).innerHTML = html;
       
+    },
+
+    populateTableCards: function() {
+
     },
 
   };
@@ -257,7 +260,7 @@ const App = (function (ItemCtrl, UICtrl) {
       // Populate cards comp, player & table
       UICtrl.populateCompCards(compInHandCards);
       UICtrl.populatePlayerCards(playerInHandCards);
-      // UICtrl.populateTableCards(cardsOnTable);
+      UICtrl.populateTableCards(cardsOnTable);
 
       console.log(ItemCtrl.logData())
       // console.log(compInHandCards);
