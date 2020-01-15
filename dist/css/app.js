@@ -159,16 +159,7 @@ const UICtrl = (function () {
 
 
     // Stage cards
-    stageCard1: "#stage-card-1",
-    stageCard2: "#stage-card-2",
-    stageCard3: "#stage-card-3",
-    stageCard4: "#stage-card-4",
-    stageCard5: "#stage-card-5",
-    stageCard6: "#stage-card-6",
-    stageCard7: "#stage-card-7",
-    stageCard8: "#stage-card-8",
-    stageCard9: "#stage-card-9",
-    stageCard10: "#stage-card-10",
+    stageCards: "#stageCards",
    
     // Deck of cards on the table
     deckOfCards: ".deck",
@@ -222,8 +213,20 @@ const UICtrl = (function () {
       
     },
 
-    populateTableCards: function() {
+    populateTableCards: function(table) {
+      let html = "";
 
+      table.forEach(function(card) {
+        html += `<li class=" center card rank-${card.Rank} ${card.Suit}">
+            <span class="rank">${card.Rank.toUpperCase()}</span>
+            <span class="suit">&${card.Suit};</span>
+        </li>`;
+
+      });
+      console.log(table);
+      // Insert list items
+      document.querySelector(UISelectors.stageCards).innerHTML = html;
+      
     },
 
   };
