@@ -196,13 +196,9 @@ const UICtrl = (function () {
       let html = "";
       console.log(comp);
       comp.forEach(function() {
-        // html += `<li class=" center card rank-${card.Rank} ${card.Suit}">
-        //   <span class="rank">${card.Rank.toUpperCase()}</span>
-        //   <span class="suit">&${card.Suit};</span>
-        // </li>`;
-        html += `<li>
-          <div class="card back"></div>
-        </li>`
+        
+        html += `<div class="card back"></div>`
+        
       });
 
       // Insert list items
