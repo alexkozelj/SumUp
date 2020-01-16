@@ -46,21 +46,28 @@ body {
     
       .comp-img-container,
       .player-img-container {
-                
-    
+         display: flex;
+         justify-content: center; 
+         align-items: center;  
+         height: 4rem;
+         width: 4rem;
+         margin: 0 0 0 10px;
+ 
         .player-img,
         .comp-img {
+          display: flex;
+          justify-content: center; 
+          align-items: center; 
           border-style: groove;
           border-radius: 0.4em;
-          padding: 11.2px 0 0 11.2px;
-          height: 3rem;
-          width: 3rem;
+          // padding: 11.2px 0 0 11.2px;
+          height: 4rem;
+          width: 4rem;
           /* width: 85.081px; */
           /* height: 114.206px; */
-          margin: 5px;
           background-color: #7ca385;
-          justify-self: center;
-          align-self: center;
+          // justify-self: center;
+          // align-self: center;
         }
       }
     }
@@ -153,6 +160,11 @@ p {
 //   background-color: #7ca385;
 // }
 
+img {
+  object-fit: contain;
+  max-width: 3.8rem;
+  max-height: 3.8rem;
+}
 
 .center {
   display: flex;
