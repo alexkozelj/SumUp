@@ -118,6 +118,14 @@ p {
   align-self: center;
   width: 4em; }
 
+.placeholder {
+  border-style: groove;
+  border-radius: 0.4em;
+  width: 5.5rem;
+  /* width: 85.081px;  99.284px;*/
+  /* height: 114.206px; 119.409px*/
+  background-color: #7ca385; }
+
 img {
   object-fit: contain;
   max-width: 3.8rem;
@@ -131,5 +139,8 @@ img {
 
 .table-primary th {
   background-color: #5fe29c; }
+
+#deck {
+  margin: 0; }
 
 /*# sourceMappingURL=main.css.map */

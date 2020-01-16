@@ -146,8 +146,21 @@ p {
   justify-self: start;
   align-self: center;
   width:4em;
+  // height: 100px;
 }
 
+.placeholder {
+  border-style: groove;
+  border-radius: 0.4em;
+  // padding: 11.2px 0 0 11.2px;
+  // height: ;
+  width: 5.5rem;
+  /* width: 85.081px;  99.284px;*/
+  /* height: 114.206px; 119.409px*/
+  // margin: 5px;
+  background-color: #7ca385;
+  // margin: ;
+}
 
 img {
   object-fit: contain;
@@ -164,4 +177,8 @@ img {
 
 .table-primary th {
   background-color: rgb(95, 226, 156);
+}
+
+#deck {
+  margin: 0;
 }
