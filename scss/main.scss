@@ -142,10 +142,10 @@ p {
 }
 
 .deck-container {
-  display: grid;
-  justify-self: start;
+  display: flex;
+  // justify-self: center;
   align-self: center;
-  width:4em;
+  width:6em;
   // height: 100px;
 }
 
@@ -154,12 +154,13 @@ p {
   border-radius: 0.4em;
   // padding: 11.2px 0 0 11.2px;
   // height: ;
-  width: 5.5rem;
   /* width: 85.081px;  99.284px;*/
   /* height: 114.206px; 119.409px*/
   // margin: 5px;
   background-color: #7ca385;
   // margin: ;
+  // align-items: center;
+  // justify-content: center;
 }
 
 img {
@@ -180,5 +181,11 @@ img {
 }
 
 #deck {
-  margin: 0;
+  // margin: 0;
+  // align-self: center;
+}
+
+.playingCards ul.deck {
+  height: 6.5rem;
+  width: 5rem;
 }

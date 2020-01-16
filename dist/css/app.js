@@ -229,6 +229,17 @@ const UICtrl = (function () {
       
     },
 
+    populateDealDeck: function(deck) {
+      let html = "";
+
+      deck.forEach(function() {
+        html += `<div class="card back" id="deck"></div>`
+      });
+      console.log(deck);
+      // Insert list items
+      document.querySelector(UISelectors.deckOfCards).innerHTML = html;
+    }
+
   };
 })();
 
@@ -264,6 +275,7 @@ const App = (function (ItemCtrl, UICtrl) {
       UICtrl.populateCompCards(compInHandCards);
       UICtrl.populatePlayerCards(playerInHandCards);
       UICtrl.populateTableCards(cardsOnTable);
+      // UICtrl.populateDealDeck(cardsToDeal);
 
       console.log(ItemCtrl.logData())
       // console.log(compInHandCards);

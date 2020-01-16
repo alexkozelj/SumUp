@@ -113,15 +113,13 @@ p {
   height: 47%; }
 
 .deck-container {
-  display: grid;
-  justify-self: start;
+  display: flex;
   align-self: center;
-  width: 4em; }
+  width: 6em; }
 
 .placeholder {
   border-style: groove;
   border-radius: 0.4em;
-  width: 5.5rem;
   /* width: 85.081px;  99.284px;*/
   /* height: 114.206px; 119.409px*/
   background-color: #7ca385; }
@@ -140,7 +138,8 @@ img {
 .table-primary th {
   background-color: #5fe29c; }
 
-#deck {
-  margin: 0; }
+.playingCards ul.deck {
+  height: 6.5rem;
+  width: 5rem; }
 
 /*# sourceMappingURL=main.css.map */
