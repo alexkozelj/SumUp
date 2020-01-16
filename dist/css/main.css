@@ -13,8 +13,7 @@ body {
 .container-fluid {
   height: 90vh; }
   .container-fluid .card-container {
-    display: grid;
-    grid-template-columns: 1fr 8fr; }
+    display: flex; }
   .container-fluid .stage-area-right,
   .container-fluid .stage-area-left {
     height: 90vh;

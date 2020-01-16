@@ -19,8 +19,8 @@ body {
   height: 90vh;
 
   .card-container {
-    display: grid;
-    grid-template-columns: 1fr 8fr;
+    display: flex;
+    // grid-template-columns: 1fr 8fr;
   }
 
     .stage-area-right,
@@ -38,6 +38,7 @@ body {
       .stage {
         display: flex;
         justify-content: space-around;
+        // padding: 0 0 0 0.5rem;
         border-style: groove;
         border-radius: 1em;
         background-color: #7ca385;
