@@ -207,7 +207,7 @@ const UICtrl = (function () {
         </li>`;
 
       });
-
+      console.log(player);
       // Insert list items
       document.querySelector(UISelectors.playerCards).innerHTML = html;
       
