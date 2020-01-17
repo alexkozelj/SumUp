@@ -233,7 +233,7 @@ const UICtrl = (function () {
       let html = "";
 
       deck.forEach(function() {
-        html += `<div class="card back" id="deck"></div>`
+        html += `<li class="card back" id="deck"></li>`
       });
       console.log(deck);
       // Insert list items
@@ -275,7 +275,7 @@ const App = (function (ItemCtrl, UICtrl) {
       UICtrl.populateCompCards(compInHandCards);
       UICtrl.populatePlayerCards(playerInHandCards);
       UICtrl.populateTableCards(cardsOnTable);
-      // UICtrl.populateDealDeck(cardsToDeal);
+      UICtrl.populateDealDeck(cardsToDeal);
 
       console.log(ItemCtrl.logData())
       // console.log(compInHandCards);
