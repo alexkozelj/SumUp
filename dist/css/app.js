@@ -167,17 +167,17 @@ const UICtrl = (function () {
     // Result board
 
     // Overall Info
-    compOverallScore: "compOverallScore",
-    playerOverallScore: "playerOverallScore",
-    GameNr: "numberOfPlayedGames",
-    totalGameNr: "numberOfScheduledGames",
+    compOverallScore: "#compOverallScore",
+    playerOverallScore: "#playerOverallScore",
+    GameNr: "#numberOfPlayedGames",
+    totalGameNr: "#numberOfScheduledGames",
 
     // Current Game Info
-    compPoints: "compPoints",
-    compTablaPoints: "compTablaPoints",
-    playerPoints: "playerPoints",
-    playerTablaPoints: "playerTablaPoints",
-    dealNr: "dealNr",
+    compPoints: "#compPoints",
+    compTablaPoints: "#compTablaPoints",
+    playerPoints: "#playerPoints",
+    playerTablaPoints: "#playerTablaPoints",
+    dealNr: "#dealNr",
   };
 
 
