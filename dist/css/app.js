@@ -248,13 +248,21 @@ const UICtrl = (function () {
       // const cardID = `"${id}"`;
       cards.forEach(function(card){
         if(`card-${card.ID}` === id){
-          selectedCard.innerHTML = `<a class="card rank-${card.Rank} ${card.Rank}" id="card-${card.ID}" href="#">
-          <span class="rank">${card.Rank.toUpperCase()}</span>
-          <span class="suit">&${card.Suit};</span>
-         </a>`
+          selectedCard.style.removeProprety('border');
+          selectedCard.classList.add('selectedCard');
+        //   innerHTML = `<strong> <span class="card rank-${card.Rank} ${card.Suit}" id="card-${card.ID}">
+        //   <span class="rank">${card.Rank.toUpperCase()}</span>
+        //   <span class="suit">&${card.Suit};</span>
+        //  </strong>`
+        //  selectedCard.remove();
         }
       })
-
+//       <strong>
+//     <span class="card rank-a clubs">
+//         <span class="rank">A</span>
+//         <span class="suit">&clubs;</span>
+//     </span>
+// </strong>
 
     //   cards.forEach(function (card) {
     //     `<a class="card rank-${card.Rank} ${card.Rank}" id="card-${card.ID}" href="#">

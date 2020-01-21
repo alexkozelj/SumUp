@@ -137,6 +137,12 @@ img {
 .table-primary th {
   background-color: #5fe29c; }
 
+.selectedCard {
+  border: 3px solid #666;
+  border-radius: 2em;
+  border-color: green;
+  background-color: blue; }
+
 .playingCards ul.deck {
   height: 6.5rem;
   width: 5rem; }
