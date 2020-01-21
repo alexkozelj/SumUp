@@ -259,9 +259,7 @@ const App = (function (ItemCtrl, UICtrl) {
     // Get UI Selectors
     const UISelectors = UICtrl.getSelectors();
     
-    // Select cards in stage area
-    // const stageCard = document.querySelector(UISelectors.stageCards).children();
-    
+  
     // Card selecton
     document.querySelector(UISelectors.stageCards).addEventListener('click', selectStageCard)
   }
@@ -271,7 +269,13 @@ const App = (function (ItemCtrl, UICtrl) {
      if(e.target.classList.contains('card') ||
      e.target.classList.contains('rank') ||
      e.target.classList.contains('suit')){
-       console.log('test card')
+       if(e.target.parentNode.id === "stageCards"){
+         grabId = e.target.id;
+       } else {
+         grabId = e.target.parentNode.id;
+       }
+
+       console.log(grabId);
      }
 
     e.preventDefault();
