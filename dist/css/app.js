@@ -81,7 +81,7 @@ const ItemCtrl = (function () {
       data.fullDeck.push(deck);
       return deck;
     },
-    deckSchuffle: function(){
+    deckShuffle: function(){
       // for 1000 turns
       // switch the values of two random cards
       for (var i = 0; i < 1000; i++)
@@ -113,7 +113,7 @@ const ItemCtrl = (function () {
     },
     firstDeal: function(){
       this.createDeck();
-      this.deckSchuffle();
+      this.deckShuffle();
       this.dealCardsToPlayers();
       this.dealCardsToTable();
       this.moveRestCardsToDealingDeck(data.fullDeck[0]);
@@ -186,9 +186,9 @@ const UICtrl = (function () {
     populateCompCards: function(comp){
       let html = "";
       console.log(comp);
-      comp.forEach(function() {
+      comp.forEach(function(card) {
         
-        html += `<div class="card back"></div>`
+        html += `<div class="card back" ${card.ID}></div>`
         
       });
 
@@ -201,7 +201,7 @@ const UICtrl = (function () {
       let html = "";
 
       player.forEach(function(card) {
-        html += `<li class=" center card rank-${card.Rank} ${card.Suit}">
+        html += `<li class=" center card rank-${card.Rank} ${card.Suit}" id="${card.ID}">
             <span class="rank">${card.Rank.toUpperCase()}</span>
             <span class="suit">&${card.Suit};</span>
         </li>`;
@@ -217,7 +217,7 @@ const UICtrl = (function () {
       let html = "";
 
       table.forEach(function(card) {
-        html += `<li class=" center card rank-${card.Rank} ${card.Suit}">
+        html += `<li class=" center card rank-${card.Rank} ${card.Suit}" id="${card.ID}">
             <span class="rank">${card.Rank.toUpperCase()}</span>
             <span class="suit">&${card.Suit};</span>
         </li>`;
@@ -232,14 +232,18 @@ const UICtrl = (function () {
     populateDealDeck: function(deck) {
       let html = "";
 
-      deck.forEach(function() {
-        html += `<li class="card back" id="deck"></li>`
+      deck.forEach(function(card) {
+        html += `<li class="card back" id="${card.ID}"></li>`
       });
       console.log(deck);
       // Insert list items
       document.querySelector(UISelectors.deckOfCards).innerHTML = html;
-    }
+    },
 
+
+    getSelectors: function() {
+      return UISelectors;
+    }
   };
 })();
 
@@ -254,7 +258,28 @@ const App = (function (ItemCtrl, UICtrl) {
   const loadEventListeners = function() {
     // Get UI Selectors
     const UISelectors = UICtrl.getSelectors();
+    
+  
+    // Card selecton
+    document.querySelector(UISelectors.stageCards).addEventListener('click', selectStageCard)
   }
+
+  // Select card on Stage - function
+   const selectStageCard = function(e){
+     if(e.target.classList.contains('card') ||
+     e.target.classList.contains('rank') ||
+     e.target.classList.contains('suit')){
+       if(e.target.parentNode.id === "stageCards"){
+         grabId = e.target.id;
+       } else {
+         grabId = e.target.parentNode.id;
+       }
+
+       console.log(grabId);
+     }
+
+    e.preventDefault();
+   }
 
   // Public methods
   return {
@@ -279,6 +304,9 @@ const App = (function (ItemCtrl, UICtrl) {
 
       console.log(ItemCtrl.logData())
       // console.log(compInHandCards);
+
+      // Load event listeners
+      loadEventListeners();
     }
   };
 })(ItemCtrl, UICtrl);
