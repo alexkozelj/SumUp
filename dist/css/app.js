@@ -241,17 +241,28 @@ const UICtrl = (function () {
     },
 
     addSelectedCardStyle: function (id) {
-      // let selectedCard = document.querySelector(id);
-      let html = "";
-      let cards = ItemCtrl.getCardsOnTable();
-      
-      cards.forEach(function (card) {
-        `<a class="card rank-${card.Rank} ${card.Rank}" id="card-${card.ID}" href="#">
-      <span class="rank">${card.Rank.toUpperCase()}</span>
-      <span class="suit">&${card.Suit};</span>
-     </a>`});
+      let selectedCard = document.querySelector(`#${id}`);
+      console.log(selectedCard);
+      // let html = "";
+      const cards = ItemCtrl.getCardsOnTable();
+      // const cardID = `"${id}"`;
+      cards.forEach(function(card){
+        if(`card-${card.ID}` === id){
+          selectedCard.innerHTML = `<a class="card rank-${card.Rank} ${card.Rank}" id="card-${card.ID}" href="#">
+          <span class="rank">${card.Rank.toUpperCase()}</span>
+          <span class="suit">&${card.Suit};</span>
+         </a>`
+        }
+      })
 
-      document.querySelector(`"#${id}"`).innerHTML = html;
+
+    //   cards.forEach(function (card) {
+    //     `<a class="card rank-${card.Rank} ${card.Rank}" id="card-${card.ID}" href="#">
+    //   <span class="rank">${card.Rank.toUpperCase()}</span>
+    //   <span class="suit">&${card.Suit};</span>
+    //  </a>`});
+
+    //   document.querySelector(cardID).innerHTML = html;
 
 
     },
