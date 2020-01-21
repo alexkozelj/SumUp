@@ -188,7 +188,7 @@ const UICtrl = (function () {
       console.log(comp);
       comp.forEach(function(card) {
         
-        html += `<div class="card back" ${card.ID}></div>`
+        html += `<div class="card back" id="card-${card.ID}"></div>`
         
       });
 
@@ -201,7 +201,7 @@ const UICtrl = (function () {
       let html = "";
 
       player.forEach(function(card) {
-        html += `<li class=" center card rank-${card.Rank} ${card.Suit}" id="${card.ID}">
+        html += `<li class=" center card rank-${card.Rank} ${card.Suit}" id="card-${card.ID}">
             <span class="rank">${card.Rank.toUpperCase()}</span>
             <span class="suit">&${card.Suit};</span>
         </li>`;
@@ -217,7 +217,7 @@ const UICtrl = (function () {
       let html = "";
 
       table.forEach(function(card) {
-        html += `<li class=" center card rank-${card.Rank} ${card.Suit}" id="${card.ID}">
+        html += `<li class=" center card rank-${card.Rank} ${card.Suit}" id="card-${card.ID}">
             <span class="rank">${card.Rank.toUpperCase()}</span>
             <span class="suit">&${card.Suit};</span>
         </li>`;
@@ -233,11 +233,27 @@ const UICtrl = (function () {
       let html = "";
 
       deck.forEach(function(card) {
-        html += `<li class="card back" id="${card.ID}"></li>`
+        html += `<li class="card back" id="card-${card.ID}"></li>`
       });
       console.log(deck);
       // Insert list items
       document.querySelector(UISelectors.deckOfCards).innerHTML = html;
+    },
+
+    addSelectedCardStyle: function (id) {
+      // let selectedCard = document.querySelector(id);
+      let html = "";
+      let cards = ItemCtrl.getCardsOnTable();
+      
+      cards.forEach(function (card) {
+        `<a class="card rank-${card.Rank} ${card.Rank}" id="card-${card.ID}" href="#">
+      <span class="rank">${card.Rank.toUpperCase()}</span>
+      <span class="suit">&${card.Suit};</span>
+     </a>`});
+
+      document.querySelector(`"#${id}"`).innerHTML = html;
+
+
     },
 
 
@@ -274,7 +290,7 @@ const App = (function (ItemCtrl, UICtrl) {
        } else {
          grabId = e.target.parentNode.id;
        }
-
+       UICtrl.addSelectedCardStyle(grabId);
        console.log(grabId);
      }
 
