@@ -186,7 +186,7 @@ const UICtrl = (function () {
     populateCompCards: function(comp){
       let html = "";
       console.log(comp);
-      comp.forEach(function(card) {
+      comp.forEach(card => {
         
         html += `<div class="card back" id="card-${card.ID}"></div>`
         
@@ -200,7 +200,7 @@ const UICtrl = (function () {
     populatePlayerCards: function(player){
       let html = "";
 
-      player.forEach(function(card) {
+      player.forEach(card => {
         html += `<li class=" center card rank-${card.Rank} ${card.Suit}" id="card-${card.ID}">
             <span class="rank">${card.Rank.toUpperCase()}</span>
             <span class="suit">&${card.Suit};</span>
@@ -216,7 +216,7 @@ const UICtrl = (function () {
     populateTableCards: function(table) {
       let html = "";
 
-      table.forEach(function(card) {
+      table.forEach(card => {
         html += `<li class=" center card rank-${card.Rank} ${card.Suit}" id="card-${card.ID}">
             <span class="rank">${card.Rank.toUpperCase()}</span>
             <span class="suit">&${card.Suit};</span>
@@ -232,7 +232,7 @@ const UICtrl = (function () {
     populateDealDeck: function(deck) {
       let html = "";
 
-      deck.forEach(function(card) {
+      deck.forEach(card => {
         html += `<li class="card back" id="card-${card.ID}"></li>`
       });
       console.log(deck);
@@ -246,7 +246,7 @@ const UICtrl = (function () {
       // let html = "";
       const cards = ItemCtrl.getCardsOnTable();
       // const cardID = `"${id}"`;
-      cards.forEach(function(card){
+      cards.forEach(card => {
         if(`card-${card.ID}` === id){
           selectedCard.style.removeProprety('border');
           selectedCard.classList.add('selectedCard');
