@@ -248,9 +248,8 @@ const UICtrl = (function () {
       // const cardID = `"${id}"`;
       cards.forEach(card => {
         if(`card-${card.ID}` === id){
-          selectedCard.style.removeProprety('border');
           selectedCard.classList.add('selectedCard');
-        //   innerHTML = `<strong> <span class="card rank-${card.Rank} ${card.Suit}" id="card-${card.ID}">
+        //   selectedCard.innerHTML = `<strong> <span class="card rank-${card.Rank} ${card.Suit}" id="card-${card.ID}">
         //   <span class="rank">${card.Rank.toUpperCase()}</span>
         //   <span class="suit">&${card.Suit};</span>
         //  </strong>`
