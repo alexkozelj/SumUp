@@ -1,8 +1,8 @@
-         // //////// >>>>>> Storage Controller <<<<<<< ////////// //
+// //////// >>>>>> Storage Controller <<<<<<< ////////// //
 
 
 
-          // //////// >>>>>> Item Controller <<<<<< //////// //
+// //////// >>>>>> Item Controller <<<<<< //////// //
 const ItemCtrl = (function () {
   // Card Selection Constructor
   const SelectedCard = function (id, rank, suit, value) {
@@ -18,9 +18,9 @@ const ItemCtrl = (function () {
 
     ranks: ["a", "2", "3", "4", "5", "6", "7", "8", "9", "10", "j", "q", "k"],
 
-    items: [{ID: 1, Rank: "a", Suit: "spades", Value: 1},
-    {ID: 2, Rank: "2", Suit: "spades", Value: 0},
-    {ID: 10, Rank: "10", Suit: "spades", Value: 1}
+    items: [{ ID: 1, Rank: "a", Suit: "spades", Value: 1 },
+    { ID: 2, Rank: "2", Suit: "spades", Value: 0 },
+    { ID: 10, Rank: "10", Suit: "spades", Value: 1 }
     ],
 
     fullDeck: [],
@@ -81,62 +81,61 @@ const ItemCtrl = (function () {
       data.fullDeck.push(deck);
       return deck;
     },
-    deckShuffle: function(){
+    deckShuffle: function () {
       // for 1000 turns
       // switch the values of two random cards
-      for (var i = 0; i < 1000; i++)
-      {
+      for (var i = 0; i < 1000; i++) {
         var location1 = Math.floor((Math.random() * data.fullDeck[0].length));
         var location2 = Math.floor((Math.random() * data.fullDeck[0].length));
         var tmp = data.fullDeck[0][location1];
 
         data.fullDeck[0][location1] = data.fullDeck[0][location2];
         data.fullDeck[0][location2] = tmp;
-    	}
+      }
     },
-    dealCardsToPlayers: function(){
-        if(data.compInHandCards.length === 0){
-        data.compInHandCards.push(data.fullDeck[0].splice(0,6));
-          };
-        
-        if (data.playerInHandCards.length === 0){
-          data.playerInHandCards.push(data.fullDeck[0].splice(0,6));
-          };
-        // console.log(data.fullDeck[0])
+    dealCardsToPlayers: function () {
+      if (data.compInHandCards.length === 0) {
+        data.compInHandCards.push(data.fullDeck[0].splice(0, 6));
+      };
+
+      if (data.playerInHandCards.length === 0) {
+        data.playerInHandCards.push(data.fullDeck[0].splice(0, 6));
+      };
+      // console.log(data.fullDeck[0])
     },
-    dealCardsToTable: function(){
-      data.cardsOnTable.push(data.fullDeck[0].splice(0,4));
+    dealCardsToTable: function () {
+      data.cardsOnTable.push(data.fullDeck[0].splice(0, 4));
     },
-    moveRestCardsToDealingDeck: function(from){
+    moveRestCardsToDealingDeck: function (from) {
       data.cardsToDeal.push(from);
       data.fullDeck = [];
     },
-    firstDeal: function(){
+    firstDeal: function () {
       this.createDeck();
       this.deckShuffle();
       this.dealCardsToPlayers();
       this.dealCardsToTable();
       this.moveRestCardsToDealingDeck(data.fullDeck[0]);
     },
-    getPlayerInHandCards: function(){
+    getPlayerInHandCards: function () {
       return data.playerInHandCards[0];
     },
-    getCompInHandCards: function(){
+    getCompInHandCards: function () {
       return data.compInHandCards[0];
     },
-    getCardsOnTable: function(){
+    getCardsOnTable: function () {
       return data.cardsOnTable[0];
     },
-    getCardsToDeal: function(){
+    getCardsToDeal: function () {
       return data.cardsToDeal[0];
     },
-    getPlayerCollectedCards: function(){
+    getPlayerCollectedCards: function () {
       return data.playerCollectedCards[0];
     },
-    getCompCollectedCards: function(){
+    getCompCollectedCards: function () {
       return data.compCollectedCards[0]
     },
-    showFullDeck: function(){
+    showFullDeck: function () {
       console.log(data.fullDeck[0]);
     },
     logData: function () {
@@ -148,19 +147,22 @@ const ItemCtrl = (function () {
 
 
 
-           // ///////// >>>>>>> UI Controller <<<<<<< //////// //
+// ///////// >>>>>>> UI Controller <<<<<<< //////// //
 const UICtrl = (function () {
   const UISelectors = {
     // Comp cards
     compCards: "#compCards",
-    
+
     // Player cards
     playerCards: "#playerCards",
 
 
     // Stage cards
     stageCards: "#stageCards",
-   
+
+    // Class from selected card in stage
+    selectedCard: ".selectedCard",
+
     // Deck of cards on the table
     deckOfCards: ".deck",
 
@@ -183,21 +185,21 @@ const UICtrl = (function () {
 
   // Public methods
   return {
-    populateCompCards: function(comp){
+    populateCompCards: comp => {
       let html = "";
       console.log(comp);
       comp.forEach(card => {
-        
+
         html += `<div class="card back" id="card-${card.ID}"></div>`
-        
+
       });
 
       // Insert list items
       document.querySelector(UISelectors.compCards).innerHTML = html;
-    
+
     },
 
-    populatePlayerCards: function(player){
+    populatePlayerCards: player => {
       let html = "";
 
       player.forEach(card => {
@@ -210,10 +212,10 @@ const UICtrl = (function () {
       console.log(player);
       // Insert list items
       document.querySelector(UISelectors.playerCards).innerHTML = html;
-      
+
     },
 
-    populateTableCards: function(table) {
+    populateTableCards: table => {
       let html = "";
 
       table.forEach(card => {
@@ -226,10 +228,10 @@ const UICtrl = (function () {
       console.log(table);
       // Insert list items
       document.querySelector(UISelectors.stageCards).innerHTML = html;
-      
+
     },
 
-    populateDealDeck: function(deck) {
+    populateDealDeck: deck => {
       let html = "";
 
       deck.forEach(card => {
@@ -240,21 +242,35 @@ const UICtrl = (function () {
       document.querySelector(UISelectors.deckOfCards).innerHTML = html;
     },
 
-    addSelectedCardStyle: function (id) {
+    addSelectedCardStyle: id => {
       let selectedCard = document.querySelector(`#${id}`);
       console.log(selectedCard);
 
       const cards = ItemCtrl.getCardsOnTable();
 
       cards.forEach(card => {
-        if(`card-${card.ID}` === id){
+        if (`card-${card.ID}` === id) {
           selectedCard.classList.add('selectedCard');
         }
       })
     },
 
+    removeSelectedCardStyle: id => {
+      let selectedCard = document.querySelector(`#${id}`);
+      console.log(selectedCard);
 
-    getSelectors: function() {
+      const cards = ItemCtrl.getCardsOnTable();
+
+      cards.forEach(card => {
+        if (`card-${card.ID}` === id) {
+          selectedCard.classList.remove('selectedCard');
+        }
+      })
+
+    },
+
+
+    getSelectors: () => {
       return UISelectors;
     }
   };
@@ -264,39 +280,56 @@ const UICtrl = (function () {
 
 
 
-            // //////// >>>>>> App Controller <<<<<<< //////// //
+// //////// >>>>>> App Controller <<<<<<< //////// //
 const App = (function (ItemCtrl, UICtrl) {
 
   // Load event listeners
-  const loadEventListeners = function() {
+  const loadEventListeners = function () {
     // Get UI Selectors
     const UISelectors = UICtrl.getSelectors();
-    
-  
+
+
     // Card selecton
-    document.querySelector(UISelectors.stageCards).addEventListener('click', selectStageCard)
+    document.querySelector(UISelectors.stageCards).addEventListener('click', selectDeselectStageCard);
+
   }
 
+
   // Select card on Stage - function
-   const selectStageCard = function(e){
-     if(e.target.classList.contains('card') ||
-     e.target.classList.contains('rank') ||
-     e.target.classList.contains('suit')){
-       if(e.target.parentNode.id === "stageCards"){
-         grabId = e.target.id;
-       } else {
-         grabId = e.target.parentNode.id;
-       }
-       UICtrl.addSelectedCardStyle(grabId);
-       console.log(grabId);
-     }
+  const selectDeselectStageCard = e => {
+    const classList = e.target.classList;
+
+    if (classList.contains('card') ||
+      classList.contains('rank') ||
+      classList.contains('suit')) {
+      if (e.target.parentNode.id === "stageCards") {
+        grabId = e.target.id;
+      } else {
+        grabId = e.target.parentNode.id;
+      }
+
+      if(classList.contains('selectedCard') || e.target.parentNode.classList.contains('selectedCard')) {
+        UICtrl.removeSelectedCardStyle(grabId);
+      } else {
+        UICtrl.addSelectedCardStyle(grabId);
+      }
+      
+      console.log(grabId);
+    }
 
     e.preventDefault();
-   }
+  }
+
+  // Deselect card on Stage
+  const deselectCard = e => {
+    const classList = e.target.classList;
+
+    
+  }
 
   // Public methods
   return {
-    
+
     init: function () {
       // 1st Round of Game
       ItemCtrl.firstDeal();

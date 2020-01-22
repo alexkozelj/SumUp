@@ -138,7 +138,7 @@ img {
   background-color: #5fe29c; }
 
 .selectedCard {
-  border: 0.15em outset #44f9ff !important;
+  border: 0.16em outset #44f9ff !important;
   font-size: 1.39em !important; }
 
 .playingCards ul.deck {
