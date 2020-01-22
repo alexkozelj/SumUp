@@ -37,6 +37,8 @@ const ItemCtrl = (function () {
 
     cardsToDeal: [],
 
+    cardsInCalculation: [],
+
     currentItem: null,
     totalValue: 0
   };
