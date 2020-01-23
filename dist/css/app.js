@@ -137,6 +137,9 @@ const ItemCtrl = (function () {
     getCompCollectedCards: function () {
       return data.compCollectedCards[0]
     },
+    getCardsInCalculation: () => {
+      return data.cardsInCalculation;
+    },
     showFullDeck: function () {
       console.log(data.fullDeck[0]);
     },
@@ -249,10 +252,12 @@ const UICtrl = (function () {
       console.log(selectedCard);
 
       const cards = ItemCtrl.getCardsOnTable();
+      const cardsInCalculation = ItemCtrl.getCardsInCalculation();
 
       cards.forEach(card => {
         if (`card-${card.ID}` === id) {
           selectedCard.classList.add('selectedCard');
+          cardsInCalculation.push(card);
         }
       })
     },
@@ -262,10 +267,13 @@ const UICtrl = (function () {
       console.log(selectedCard);
 
       const cards = ItemCtrl.getCardsOnTable();
+      const cardsInCalculation = ItemCtrl.getCardsInCalculation();
 
       cards.forEach(card => {
         if (`card-${card.ID}` === id) {
           selectedCard.classList.remove('selectedCard');
+          cardsInCalculation.pop(card);
+
         }
       })
 
@@ -320,13 +328,6 @@ const App = (function (ItemCtrl, UICtrl) {
     }
 
     e.preventDefault();
-  }
-
-  // Deselect card on Stage
-  const deselectCard = e => {
-    const classList = e.target.classList;
-
-    
   }
 
   // Public methods
