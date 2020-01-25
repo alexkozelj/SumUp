@@ -144,7 +144,18 @@ const ItemCtrl = (function () {
       console.log(data.fullDeck[0]);
     },
     getCardId: () => {
+      const classList = e.target.classList;
 
+      if (classList.contains('card') ||
+        classList.contains('rank') ||
+        classList.contains('suit')) {
+          if (e.target.parentNode.id === parentId) {
+            cardId = e.target.id;
+          } else {
+            cardId = e.target.parentNode.id;
+          }
+        }
+      return cardId;
     },
     logData: function () {
       return data;
