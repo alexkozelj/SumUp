@@ -278,7 +278,31 @@ const UICtrl = (function () {
       })
 
     },
+    // Select card on Stage - function
+    const selectDeselectStageCard = e => {
+      const classList = e.target.classList;
 
+      if (classList.contains('card') ||
+        classList.contains('rank') ||
+        classList.contains('suit')) {
+        if (e.target.parentNode.id === "stageCards") {
+          grabId = e.target.id;
+        } else {
+          grabId = e.target.parentNode.id;
+        }
+
+        if (classList.contains('selectedCard') || e.target.parentNode.classList.contains('selectedCard')) {
+          UICtrl.removeSelectedCardStyle(grabId);
+        } else {
+          UICtrl.addSelectedCardStyle(grabId);
+        }
+
+        console.log(grabId);
+      }
+      console.log(ItemCtrl.logData());
+
+      e.preventDefault();
+    }
 
     getSelectors: () => {
       return UISelectors;
@@ -307,31 +331,7 @@ const App = (function (ItemCtrl, UICtrl) {
   }
 
 
-  // Select card on Stage - function
-  const selectDeselectStageCard = e => {
-    const classList = e.target.classList;
 
-    if (classList.contains('card') ||
-      classList.contains('rank') ||
-      classList.contains('suit')) {
-      if (e.target.parentNode.id === "stageCards") {
-        grabId = e.target.id;
-      } else {
-        grabId = e.target.parentNode.id;
-      }
-
-      if(classList.contains('selectedCard') || e.target.parentNode.classList.contains('selectedCard')) {
-        UICtrl.removeSelectedCardStyle(grabId);
-      } else {
-        UICtrl.addSelectedCardStyle(grabId);
-      }
-      
-      console.log(grabId);
-    }
-    console.log(ItemCtrl.logData());
-
-    e.preventDefault();
-  }
 
   const selectPlayerCard = e => {
     const classList = e.target.classList;
@@ -345,12 +345,12 @@ const App = (function (ItemCtrl, UICtrl) {
         grabId = e.target.parentNode.id;
       }
 
-      if(classList.contains('selectedCard') || e.target.parentNode.classList.contains('selectedCard')) {
+      if (classList.contains('selectedCard') || e.target.parentNode.classList.contains('selectedCard')) {
         UICtrl.removeSelectedCardStyle(grabId);
       } else {
         UICtrl.addSelectedCardStyle(grabId);
       }
-      
+
       console.log(grabId);
     }
     console.log(ItemCtrl.logData());
