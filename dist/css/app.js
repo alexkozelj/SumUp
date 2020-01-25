@@ -246,20 +246,25 @@ const UICtrl = (function () {
       // Insert list items
       document.querySelector(UISelectors.deckOfCards).innerHTML = html;
     },
+    addStyle: (card) {
+      
+    },
 
-    addSelectedStageCardStyle: id => {
-      let selectedCard = document.querySelector(`#${id}`);
+    addSelectedStageCardStyle: function (id) {
+      const selectedCard = document.querySelector(`#${id}`);
       console.log(selectedCard);
 
-      const cards = ItemCtrl.getCardsOnTable();
-      const cardsInCalculation = ItemCtrl.getCardsInCalculation();
+      this.addStyle(selectedCard);
 
-      cards.forEach(card => {
-        if (`card-${card.ID}` === id) {
-          selectedCard.classList.add('selectedCard');
-          cardsInCalculation.push(card);
-        }
-      })
+      // const cards = ItemCtrl.getCardsOnTable();
+      // const cardsInCalculation = ItemCtrl.getCardsInCalculation();
+
+      // cards.forEach(card => {
+      //   if (`card-${card.ID}` === id) {
+      //     selectedCard.classList.add('selectedCard');
+      //     cardsInCalculation.push(card);
+      //   }
+      // })
     },
 
     removeSelectedStageCardStyle: id => {
