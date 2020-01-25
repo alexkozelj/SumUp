@@ -247,7 +247,7 @@ const UICtrl = (function () {
       document.querySelector(UISelectors.deckOfCards).innerHTML = html;
     },
 
-    addSelectedCardStyle: id => {
+    addSelectedStageCardStyle: id => {
       let selectedCard = document.querySelector(`#${id}`);
       console.log(selectedCard);
 
@@ -262,7 +262,7 @@ const UICtrl = (function () {
       })
     },
 
-    removeSelectedCardStyle: id => {
+    removeSelectedStageCardStyle: id => {
       let selectedCard = document.querySelector(`#${id}`);
       console.log(selectedCard);
 
@@ -321,9 +321,9 @@ const App = (function (ItemCtrl, UICtrl) {
       }
 
       if(classList.contains('selectedCard') || e.target.parentNode.classList.contains('selectedCard')) {
-        UICtrl.removeSelectedCardStyle(grabId);
+        UICtrl.removeSelectedStageCardStyle(grabId);
       } else {
-        UICtrl.addSelectedCardStyle(grabId);
+        UICtrl.addSelectedStageCardStyle(grabId);
       }
       
       console.log(grabId);
@@ -339,16 +339,16 @@ const App = (function (ItemCtrl, UICtrl) {
     if (classList.contains('card') ||
       classList.contains('rank') ||
       classList.contains('suit')) {
-      if (e.target.parentNode.id === "stageCards") {
+      if (e.target.parentNode.id === "playerCards") {
         grabId = e.target.id;
       } else {
         grabId = e.target.parentNode.id;
       }
 
       if(classList.contains('selectedCard') || e.target.parentNode.classList.contains('selectedCard')) {
-        UICtrl.removeSelectedCardStyle(grabId);
+        UICtrl.removeSelectedStageCardStyle(grabId);
       } else {
-        UICtrl.addSelectedCardStyle(grabId);
+        UICtrl.addSelectedStageCardStyle(grabId);
       }
       
       console.log(grabId);
