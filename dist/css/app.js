@@ -294,14 +294,15 @@ const UICtrl = (function () {
 const App = (function (ItemCtrl, UICtrl) {
 
   // Load event listeners
-  const loadEventListeners = function () {
+  const loadEventListeners = () => {
     // Get UI Selectors
     const UISelectors = UICtrl.getSelectors();
 
 
-    // Card selecton
+    // Stage card selecton
     document.querySelector(UISelectors.stageCards).addEventListener('click', selectDeselectStageCard);
 
+    // Player card selection
   }
 
 
@@ -327,6 +328,7 @@ const App = (function (ItemCtrl, UICtrl) {
       console.log(grabId);
     }
     console.log(ItemCtrl.logData());
+
     e.preventDefault();
   }
 
