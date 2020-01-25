@@ -326,7 +326,7 @@ const App = (function (ItemCtrl, UICtrl) {
       
       console.log(grabId);
     }
-
+    console.log(ItemCtrl.logData());
     e.preventDefault();
   }
 
@@ -340,9 +340,9 @@ const App = (function (ItemCtrl, UICtrl) {
       const playerInHandCards = ItemCtrl.getPlayerInHandCards();
       const compInHandCards = ItemCtrl.getCompInHandCards();
       const cardsOnTable = ItemCtrl.getCardsOnTable();
-      const playerCollectedCards = ItemCtrl.getPlayerCollectedCards();
-      const compCollectedCards = ItemCtrl.getCompCollectedCards();
-      const cardsToDeal = ItemCtrl.getCardsToDeal()
+      const cardsToDeal = ItemCtrl.getCardsToDeal();
+      // const playerCollectedCards = ItemCtrl.getPlayerCollectedCards();
+      // const compCollectedCards = ItemCtrl.getCompCollectedCards();
 
 
       // Populate cards comp, player & table
