@@ -45,7 +45,7 @@ const ItemCtrl = (function () {
 
   // Public methods
   return {
-    createDeck: function () {
+    createDeck: () => {
       let deck = [];
       let id = 0;
 
@@ -83,7 +83,7 @@ const ItemCtrl = (function () {
       data.fullDeck.push(deck);
       return deck;
     },
-    deckShuffle: function () {
+    deckShuffle: () => {
       // for 1000 turns
       // switch the values of two random cards
       for (var i = 0; i < 1000; i++) {
@@ -95,7 +95,7 @@ const ItemCtrl = (function () {
         data.fullDeck[0][location2] = tmp;
       }
     },
-    dealCardsToPlayers: function () {
+    dealCardsToPlayers: () => {
       if (data.compInHandCards.length === 0) {
         data.compInHandCards.push(data.fullDeck[0].splice(0, 6));
       };
@@ -105,43 +105,46 @@ const ItemCtrl = (function () {
       };
       // console.log(data.fullDeck[0])
     },
-    dealCardsToTable: function () {
+    dealCardsToTable: () => {
       data.cardsOnTable.push(data.fullDeck[0].splice(0, 4));
     },
-    moveRestCardsToDealingDeck: function (from) {
+    moveRestCardsToDealingDeck: (from) => {
       data.cardsToDeal.push(from);
       data.fullDeck = [];
     },
-    firstDeal: function () {
+    firstDeal: () => {
       this.createDeck();
       this.deckShuffle();
       this.dealCardsToPlayers();
       this.dealCardsToTable();
       this.moveRestCardsToDealingDeck(data.fullDeck[0]);
     },
-    getPlayerInHandCards: function () {
+    getPlayerInHandCards: () => {
       return data.playerInHandCards[0];
     },
-    getCompInHandCards: function () {
+    getCompInHandCards: () => {
       return data.compInHandCards[0];
     },
-    getCardsOnTable: function () {
+    getCardsOnTable: () => {
       return data.cardsOnTable[0];
     },
-    getCardsToDeal: function () {
+    getCardsToDeal: () => {
       return data.cardsToDeal[0];
     },
-    getPlayerCollectedCards: function () {
+    getPlayerCollectedCards: () => {
       return data.playerCollectedCards[0];
     },
-    getCompCollectedCards: function () {
+    getCompCollectedCards: () => {
       return data.compCollectedCards[0]
     },
     getCardsInCalculation: () => {
       return data.cardsInCalculation;
     },
-    showFullDeck: function () {
+    showFullDeck: () => {
       console.log(data.fullDeck[0]);
+    },
+    getCardId: () => {
+
     },
     logData: function () {
       return data;
@@ -303,6 +306,7 @@ const App = (function (ItemCtrl, UICtrl) {
     document.querySelector(UISelectors.stageCards).addEventListener('click', selectDeselectStageCard);
 
     // Player card selection
+    document.querySelector(UISelectors.playerCards).addEventListener('click', selectPlayerCard);
   }
 
 
@@ -331,6 +335,31 @@ const App = (function (ItemCtrl, UICtrl) {
 
     e.preventDefault();
   }
+
+  // const selectPlayerCard = e => {
+  //   const classList = e.target.classList;
+
+  //   if (classList.contains('card') ||
+  //     classList.contains('rank') ||
+  //     classList.contains('suit')) {
+  //     if (e.target.parentNode.id === "stageCards") {
+  //       grabId = e.target.id;
+  //     } else {
+  //       grabId = e.target.parentNode.id;
+  //     }
+
+  //     if(classList.contains('selectedCard') || e.target.parentNode.classList.contains('selectedCard')) {
+  //       UICtrl.removeSelectedCardStyle(grabId);
+  //     } else {
+  //       UICtrl.addSelectedCardStyle(grabId);
+  //     }
+      
+  //     console.log(grabId);
+  //   }
+  //   console.log(ItemCtrl.logData());
+
+  //   e.preventDefault();
+  // }
 
   // Public methods
   return {
