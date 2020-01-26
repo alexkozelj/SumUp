@@ -139,6 +139,26 @@ const ItemCtrl = (function () {
         }
       })
     },
+    addPlayerCardInCalculation: (id) => {
+      const cards = ItemCtrl.getPlayerInHandCards();
+      const cardsInCalculation = ItemCtrl.getCardsInCalculation();
+
+      cards.forEach(card => {
+        if (`card-${card.ID}` === id) {
+          cardsInCalculation.push(card);
+        }
+      })
+    },
+    removePlayerCardInCalculation: (id) => {
+      const cards = ItemCtrl.getPlayerInHandCards();
+      const cardsInCalculation = ItemCtrl.getCardsInCalculation();
+
+      cards.forEach(card => {
+        if (`card-${card.ID}` === id) {
+          cardsInCalculation.pop(card);
+        }
+      })
+    },
     getPlayerInHandCards: () => {
       return data.playerInHandCards[0];
     },
@@ -347,15 +367,20 @@ const App = (function (ItemCtrl, UICtrl) {
       } else {
         grabId = e.target.parentNode.id;
       }
-
-      if (classList.contains('selectedCard') || e.target.parentNode.classList.contains('selectedCard')) {
-        UICtrl.removeSelectedStageCardStyle(grabId);
-      } else {
-        UICtrl.addSelectedStageCardStyle(grabId);
-      }
-
-      console.log(grabId);
+      const cardsInCalculation = ItemCtrl.getCardsInCalculation();
+      const playerCards = ItemCtrl.getPlayerInHandCards();
+  
+      playerCards.forEach(card => {
+        if (`card-${card.ID}` === grabId) {
+          // calculate from calculation array
+        } else {
+          cardsInCalculation.pop(card);
+        }
+      })
     }
+    console.log(grabId);
+
+
     console.log(ItemCtrl.logData());
 
     e.preventDefault();
