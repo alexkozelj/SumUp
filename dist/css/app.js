@@ -248,9 +248,13 @@ const UICtrl = (function () {
     },
     addStyle: (card) => {
       const styledCard = card.classList.add('selectedCard');
-      return styledCard
+      return styledCard;
       // const cardsInCalculation = ItemCtrl.getCardsInCalculation();
       // cardsInCalculation.push(card);
+    },
+    removeStyle: (card) => {
+      const styledCard = card.classList.remove('selectedCard');
+      return styledCard;
     },
 
     addSelectedStageCardStyle: function (id) {
@@ -270,20 +274,18 @@ const UICtrl = (function () {
       // })
     },
 
-    removeSelectedStageCardStyle: id => {
+    removeSelectedStageCardStyle: function (id) {
       let selectedCard = document.querySelector(`#${id}`);
       console.log(selectedCard);
 
-      const cards = ItemCtrl.getCardsOnTable();
-      const cardsInCalculation = ItemCtrl.getCardsInCalculation();
+      this.removeStyle(selectedCard);
+      // const cards = ItemCtrl.getCardsOnTable();
+      // const cardsInCalculation = ItemCtrl.getCardsInCalculation();
 
-      cards.forEach(card => {
-        if (`card-${card.ID}` === id) {
-          selectedCard.classList.remove('selectedCard');
-          cardsInCalculation.pop(card);
-
-        }
-      })
+      // cards.forEach(card => {
+      //   if (`card-${card.ID}` === id) {
+      //     selectedCard.classList.remove('selectedCard');
+      //     cardsInCalculation.pop(card);
 
     },
 
