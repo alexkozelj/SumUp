@@ -119,6 +119,26 @@ const ItemCtrl = (function () {
       this.dealCardsToTable();
       this.moveRestCardsToDealingDeck(data.fullDeck[0]);
     },
+    addStageCardInCalculation: (id) => {
+      const cards = ItemCtrl.getCardsOnTable();
+      const cardsInCalculation = ItemCtrl.getCardsInCalculation();
+
+      cards.forEach(card => {
+        if (`card-${card.ID}` === id) {
+          cardsInCalculation.push(card);
+        }
+      })
+    },
+    removeStageCardInCalculation: (id) => {
+      const cards = ItemCtrl.getCardsOnTable();
+      const cardsInCalculation = ItemCtrl.getCardsInCalculation();
+
+      cards.forEach(card => {
+        if (`card-${card.ID}` === id) {
+          cardsInCalculation.pop(card);
+        }
+      })
+    },
     getPlayerInHandCards: () => {
       return data.playerInHandCards[0];
     },
@@ -246,31 +266,12 @@ const UICtrl = (function () {
       // Insert list items
       document.querySelector(UISelectors.deckOfCards).innerHTML = html;
     },
-    // addStyle: (card) => {
-      
-    //   // const cardsInCalculation = ItemCtrl.getCardsInCalculation();
-    //   // cardsInCalculation.push(card);
-    // },
-    // removeStyle: (card) => {
-      
-    // },
 
     addSelectedStageCardStyle: function (id) {
       const selectedCard = document.querySelector(`#${id}`);
       console.log(selectedCard);
       const styledCard = selectedCard.classList.add('selectedCard');
       return styledCard;
-      // this.addStyle(selectedCard);
-
-      // const cards = ItemCtrl.getCardsOnTable();
-      // const cardsInCalculation = ItemCtrl.getCardsInCalculation();
-
-      // cards.forEach(card => {
-      //   if (`card-${card.ID}` === id) {
-      //     selectedCard.classList.add('selectedCard');
-      //     cardsInCalculation.push(card);
-      //   }
-      // })
     },
 
     removeSelectedStageCardStyle: function (id) {
@@ -278,17 +279,7 @@ const UICtrl = (function () {
       console.log(selectedCard);
       const styledCard = selectedCard.classList.remove('selectedCard');
       return styledCard;
-      // this.removeStyle(selectedCard);
-      // const cards = ItemCtrl.getCardsOnTable();
-      // const cardsInCalculation = ItemCtrl.getCardsInCalculation();
-
-      // cards.forEach(card => {
-      //   if (`card-${card.ID}` === id) {
-      //     selectedCard.classList.remove('selectedCard');
-      //     cardsInCalculation.pop(card);
-
     },
-
 
     getSelectors: () => {
       return UISelectors;
@@ -332,8 +323,10 @@ const App = (function (ItemCtrl, UICtrl) {
 
       if (classList.contains('selectedCard') || e.target.parentNode.classList.contains('selectedCard')) {
         UICtrl.removeSelectedStageCardStyle(grabId);
+        ItemCtrl.removeStageCardInCalculation(grabId);        
       } else {
         UICtrl.addSelectedStageCardStyle(grabId);
+        ItemCtrl.addStageCardInCalculation(grabId);
       }
 
       console.log(grabId);
