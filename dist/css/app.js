@@ -246,22 +246,21 @@ const UICtrl = (function () {
       // Insert list items
       document.querySelector(UISelectors.deckOfCards).innerHTML = html;
     },
-    addStyle: (card) => {
-      const styledCard = card.classList.add('selectedCard');
-      return styledCard;
-      // const cardsInCalculation = ItemCtrl.getCardsInCalculation();
-      // cardsInCalculation.push(card);
-    },
-    removeStyle: (card) => {
-      const styledCard = card.classList.remove('selectedCard');
-      return styledCard;
-    },
+    // addStyle: (card) => {
+      
+    //   // const cardsInCalculation = ItemCtrl.getCardsInCalculation();
+    //   // cardsInCalculation.push(card);
+    // },
+    // removeStyle: (card) => {
+      
+    // },
 
     addSelectedStageCardStyle: function (id) {
       const selectedCard = document.querySelector(`#${id}`);
       console.log(selectedCard);
-
-      this.addStyle(selectedCard);
+      const styledCard = selectedCard.classList.add('selectedCard');
+      return styledCard;
+      // this.addStyle(selectedCard);
 
       // const cards = ItemCtrl.getCardsOnTable();
       // const cardsInCalculation = ItemCtrl.getCardsInCalculation();
@@ -277,8 +276,9 @@ const UICtrl = (function () {
     removeSelectedStageCardStyle: function (id) {
       let selectedCard = document.querySelector(`#${id}`);
       console.log(selectedCard);
-
-      this.removeStyle(selectedCard);
+      const styledCard = selectedCard.classList.remove('selectedCard');
+      return styledCard;
+      // this.removeStyle(selectedCard);
       // const cards = ItemCtrl.getCardsOnTable();
       // const cardsInCalculation = ItemCtrl.getCardsInCalculation();
 
