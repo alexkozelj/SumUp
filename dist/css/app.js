@@ -246,8 +246,11 @@ const UICtrl = (function () {
       // Insert list items
       document.querySelector(UISelectors.deckOfCards).innerHTML = html;
     },
-    addStyle: (card) {
-      
+    addStyle: (card) => {
+      const styledCard = card.classList.add('selectedCard');
+      return styledCard
+      // const cardsInCalculation = ItemCtrl.getCardsInCalculation();
+      // cardsInCalculation.push(card);
     },
 
     addSelectedStageCardStyle: function (id) {
@@ -325,12 +328,12 @@ const App = (function (ItemCtrl, UICtrl) {
         grabId = e.target.parentNode.id;
       }
 
-      if(classList.contains('selectedCard') || e.target.parentNode.classList.contains('selectedCard')) {
+      if (classList.contains('selectedCard') || e.target.parentNode.classList.contains('selectedCard')) {
         UICtrl.removeSelectedStageCardStyle(grabId);
       } else {
         UICtrl.addSelectedStageCardStyle(grabId);
       }
-      
+
       console.log(grabId);
     }
     console.log(ItemCtrl.logData());
@@ -350,12 +353,12 @@ const App = (function (ItemCtrl, UICtrl) {
         grabId = e.target.parentNode.id;
       }
 
-      if(classList.contains('selectedCard') || e.target.parentNode.classList.contains('selectedCard')) {
+      if (classList.contains('selectedCard') || e.target.parentNode.classList.contains('selectedCard')) {
         UICtrl.removeSelectedStageCardStyle(grabId);
       } else {
         UICtrl.addSelectedStageCardStyle(grabId);
       }
-      
+
       console.log(grabId);
     }
     console.log(ItemCtrl.logData());
