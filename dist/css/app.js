@@ -1,8 +1,8 @@
-         // //////// >>>>>> Storage Controller <<<<<<< ////////// //
+// //////// >>>>>> Storage Controller <<<<<<< ////////// //
 
 
 
-          // //////// >>>>>> Item Controller <<<<<< //////// //
+// //////// >>>>>> Item Controller <<<<<< //////// //
 const ItemCtrl = (function () {
   // Card Selection Constructor
   const SelectedCard = function (id, rank, suit, value) {
@@ -18,9 +18,9 @@ const ItemCtrl = (function () {
 
     ranks: ["a", "2", "3", "4", "5", "6", "7", "8", "9", "10", "j", "q", "k"],
 
-    items: [{ID: 1, Rank: "a", Suit: "spades", Value: 1},
-    {ID: 2, Rank: "2", Suit: "spades", Value: 0},
-    {ID: 10, Rank: "10", Suit: "spades", Value: 1}
+    items: [{ ID: 1, Rank: "a", Suit: "spades", Value: 1 },
+    { ID: 2, Rank: "2", Suit: "spades", Value: 0 },
+    { ID: 10, Rank: "10", Suit: "spades", Value: 1 }
     ],
 
     fullDeck: [],
@@ -37,16 +37,15 @@ const ItemCtrl = (function () {
 
     cardsToDeal: [],
 
+    cardsInCalculation: [],
+
     currentItem: null,
     totalValue: 0
   };
 
   // Public methods
   return {
-    getItems: function(){
-      return data.items;
-    },
-    createDeck: function () {
+    createDeck: () => {
       let deck = [];
       let id = 0;
 
@@ -84,46 +83,84 @@ const ItemCtrl = (function () {
       data.fullDeck.push(deck);
       return deck;
     },
-    deckSchuffle: function(){
+    deckShuffle: () => {
       // for 1000 turns
       // switch the values of two random cards
-      for (var i = 0; i < 1000; i++)
-      {
+      for (var i = 0; i < 1000; i++) {
         var location1 = Math.floor((Math.random() * data.fullDeck[0].length));
         var location2 = Math.floor((Math.random() * data.fullDeck[0].length));
         var tmp = data.fullDeck[0][location1];
 
         data.fullDeck[0][location1] = data.fullDeck[0][location2];
         data.fullDeck[0][location2] = tmp;
-    	}
+      }
     },
-    dealCardsToPlayers: function(){
-        // this.createDeck();
-        // this.deckSchuffle();
-        if(data.compInHandCards.length === 0){
-        data.compInHandCards.push(data.fullDeck[0].splice(0,6));
-          };
-        
-        if (data.playerInHandCards.length === 0){
-          data.playerInHandCards.push(data.fullDeck[0].splice(0,6));
-          };
-        // console.log(data.fullDeck[0])
+    dealCardsToPlayers: () => {
+      if (data.compInHandCards.length === 0) {
+        data.compInHandCards.push(data.fullDeck[0].splice(0, 6));
+      };
+
+      if (data.playerInHandCards.length === 0) {
+        data.playerInHandCards.push(data.fullDeck[0].splice(0, 6));
+      };
+      // console.log(data.fullDeck[0])
     },
-    dealCardsToTable: function(){
-      data.cardsOnTable.push(data.fullDeck[0].splice(0,4));
+    dealCardsToTable: () => {
+      data.cardsOnTable.push(data.fullDeck[0].splice(0, 4));
     },
-    moveRestCardsToDealingDeck: function(){
-      data.cardsToDeal.push(data.fullDeck[0]);
+    moveRestCardsToDealingDeck: (from) => {
+      data.cardsToDeal.push(from);
       data.fullDeck = [];
     },
-    firstDeal: function(){
+    firstDeal: function () {
       this.createDeck();
-      this.deckSchuffle();
+      this.deckShuffle();
       this.dealCardsToPlayers();
       this.dealCardsToTable();
-      this.moveRestCardsToDealingDeck();
+      this.moveRestCardsToDealingDeck(data.fullDeck[0]);
     },
-    showFullDeck: function(){
+    addStageCardInCalculation: (id) => {
+      const cards = ItemCtrl.getCardsOnTable();
+      const cardsInCalculation = ItemCtrl.getCardsInCalculation();
+
+      cards.forEach(card => {
+        if (`card-${card.ID}` === id) {
+          cardsInCalculation.push(card);
+        }
+      })
+    },
+    removeStageCardInCalculation: (id) => {
+      const cards = ItemCtrl.getCardsOnTable();
+      const cardsInCalculation = ItemCtrl.getCardsInCalculation();
+
+      cards.forEach(card => {
+        if (`card-${card.ID}` === id) {
+          cardsInCalculation.pop(card);
+        }
+      })
+    },
+    getPlayerInHandCards: () => {
+      return data.playerInHandCards[0];
+    },
+    getCompInHandCards: () => {
+      return data.compInHandCards[0];
+    },
+    getCardsOnTable: () => {
+      return data.cardsOnTable[0];
+    },
+    getCardsToDeal: () => {
+      return data.cardsToDeal[0];
+    },
+    getPlayerCollectedCards: () => {
+      return data.playerCollectedCards[0];
+    },
+    getCompCollectedCards: () => {
+      return data.compCollectedCards[0]
+    },
+    getCardsInCalculation: () => {
+      return data.cardsInCalculation;
+    },
+    showFullDeck: () => {
       console.log(data.fullDeck[0]);
     },
     logData: function () {
@@ -135,33 +172,221 @@ const ItemCtrl = (function () {
 
 
 
-           // ///////// >>>>>>> UI Controller <<<<<<< //////// //
+// ///////// >>>>>>> UI Controller <<<<<<< //////// //
 const UICtrl = (function () {
+  const UISelectors = {
+    // Comp cards
+    compCards: "#compCards",
+
+    // Player cards
+    playerCards: "#playerCards",
+
+
+    // Stage cards
+    stageCards: "#stageCards",
+
+    // Class from selected card in stage
+    selectedCard: ".selectedCard",
+
+    // Deck of cards on the table
+    deckOfCards: ".deck",
+
+    // Result board
+
+    // Overall Info
+    compOverallScore: "#compOverallScore",
+    playerOverallScore: "#playerOverallScore",
+    GameNr: "#numberOfPlayedGames",
+    totalGameNr: "#numberOfScheduledGames",
+
+    // Current Game Info
+    compPoints: "#compPoints",
+    compTablaPoints: "#compTablaPoints",
+    playerPoints: "#playerPoints",
+    playerTablaPoints: "#playerTablaPoints",
+    dealNr: "#dealNr",
+  };
+
 
   // Public methods
-  return {};
+  return {
+    populateCompCards: comp => {
+      let html = "";
+      console.log(comp);
+      comp.forEach(card => {
+
+        html += `<div class="card back" id="card-${card.ID}"></div>`
+
+      });
+
+      // Insert list items
+      document.querySelector(UISelectors.compCards).innerHTML = html;
+
+    },
+
+    populatePlayerCards: player => {
+      let html = "";
+
+      player.forEach(card => {
+        html += `<li class=" center card rank-${card.Rank} ${card.Suit}" id="card-${card.ID}">
+            <span class="rank">${card.Rank.toUpperCase()}</span>
+            <span class="suit">&${card.Suit};</span>
+        </li>`;
+
+      });
+      console.log(player);
+      // Insert list items
+      document.querySelector(UISelectors.playerCards).innerHTML = html;
+
+    },
+
+    populateTableCards: table => {
+      let html = "";
+
+      table.forEach(card => {
+        html += `<li class=" center card rank-${card.Rank} ${card.Suit}" id="card-${card.ID}">
+            <span class="rank">${card.Rank.toUpperCase()}</span>
+            <span class="suit">&${card.Suit};</span>
+        </li>`;
+
+      });
+      console.log(table);
+      // Insert list items
+      document.querySelector(UISelectors.stageCards).innerHTML = html;
+
+    },
+
+    populateDealDeck: deck => {
+      let html = "";
+
+      deck.forEach(card => {
+        html += `<li class="card back" id="card-${card.ID}"></li>`
+      });
+      console.log(deck);
+      // Insert list items
+      document.querySelector(UISelectors.deckOfCards).innerHTML = html;
+    },
+
+    addSelectedStageCardStyle: function (id) {
+      const selectedCard = document.querySelector(`#${id}`);
+      console.log(selectedCard);
+      const styledCard = selectedCard.classList.add('selectedCard');
+      return styledCard;
+    },
+
+    removeSelectedStageCardStyle: function (id) {
+      let selectedCard = document.querySelector(`#${id}`);
+      console.log(selectedCard);
+      const styledCard = selectedCard.classList.remove('selectedCard');
+      return styledCard;
+    },
+
+    getSelectors: () => {
+      return UISelectors;
+    }
+  };
 })();
 
 
 
 
 
-            // //////// >>>>>> App Controller <<<<<<< //////// //
+// //////// >>>>>> App Controller <<<<<<< //////// //
 const App = (function (ItemCtrl, UICtrl) {
+
+  // Load event listeners
+  const loadEventListeners = () => {
+    // Get UI Selectors
+    const UISelectors = UICtrl.getSelectors();
+
+
+    // Stage card selecton
+    document.querySelector(UISelectors.stageCards).addEventListener('click', selectDeselectStageCard);
+
+    // Player card selection
+    document.querySelector(UISelectors.playerCards).addEventListener('click', selectPlayerCard);
+  }
+
+
+  // Select card on Stage - function
+  const selectDeselectStageCard = e => {
+    const classList = e.target.classList;
+
+    if (classList.contains('card') ||
+      classList.contains('rank') ||
+      classList.contains('suit')) {
+      if (e.target.parentNode.id === "stageCards") {
+        grabId = e.target.id;
+      } else {
+        grabId = e.target.parentNode.id;
+      }
+
+      if (classList.contains('selectedCard') || e.target.parentNode.classList.contains('selectedCard')) {
+        UICtrl.removeSelectedStageCardStyle(grabId);
+        ItemCtrl.removeStageCardInCalculation(grabId);        
+      } else {
+        UICtrl.addSelectedStageCardStyle(grabId);
+        ItemCtrl.addStageCardInCalculation(grabId);
+      }
+
+      console.log(grabId);
+    }
+    console.log(ItemCtrl.logData());
+
+    e.preventDefault();
+  }
+
+  const selectPlayerCard = e => {
+    const classList = e.target.classList;
+
+    if (classList.contains('card') ||
+      classList.contains('rank') ||
+      classList.contains('suit')) {
+      if (e.target.parentNode.id === "playerCards") {
+        grabId = e.target.id;
+      } else {
+        grabId = e.target.parentNode.id;
+      }
+
+      if (classList.contains('selectedCard') || e.target.parentNode.classList.contains('selectedCard')) {
+        UICtrl.removeSelectedStageCardStyle(grabId);
+      } else {
+        UICtrl.addSelectedStageCardStyle(grabId);
+      }
+
+      console.log(grabId);
+    }
+    console.log(ItemCtrl.logData());
+
+    e.preventDefault();
+  }
 
   // Public methods
   return {
-    
-    init: function () {
-      // console.log(ItemCtrl.createDeck());
 
-      // Fetch items from data structure... i need items for stage, comp and player cards
-      // const items = ItemCtrl.getItems();
-      // ItemCtrl.createDeck();
-      // ItemCtrl.deckSchuffle();
-      // ItemCtrl.showFullDeck();
+    init: function () {
+      // 1st Round of Game
       ItemCtrl.firstDeal();
+
+      const playerInHandCards = ItemCtrl.getPlayerInHandCards();
+      const compInHandCards = ItemCtrl.getCompInHandCards();
+      const cardsOnTable = ItemCtrl.getCardsOnTable();
+      const cardsToDeal = ItemCtrl.getCardsToDeal();
+      // const playerCollectedCards = ItemCtrl.getPlayerCollectedCards();
+      // const compCollectedCards = ItemCtrl.getCompCollectedCards();
+
+
+      // Populate cards comp, player & table
+      UICtrl.populateCompCards(compInHandCards);
+      UICtrl.populatePlayerCards(playerInHandCards);
+      UICtrl.populateTableCards(cardsOnTable);
+      UICtrl.populateDealDeck(cardsToDeal);
+
       console.log(ItemCtrl.logData())
+      // console.log(compInHandCards);
+
+      // Load event listeners
+      loadEventListeners();
     }
   };
 })(ItemCtrl, UICtrl);
