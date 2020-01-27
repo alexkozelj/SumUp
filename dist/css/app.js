@@ -159,6 +159,25 @@ const ItemCtrl = (function () {
         }
       })
     },
+    getRank: (arrayOfCards) => {
+      let arrayOfRank = [];
+      let rank = "";
+      arrayOfCards.forEach((card) => {
+        if (card.Rank === "j"){
+          rank = 12;
+        } else if (card.Rank === "q"){
+          rank = 13;
+        } else if (card.Rank === "k"){
+          rank = 14;
+        } else {
+          rank = parseFloat(card.Rank);
+        }
+        
+        arrayOfRank.push(rank);
+      });
+
+      return arrayOfRank;
+    },
     getPlayerInHandCards: () => {
       return data.playerInHandCards[0];
     },
@@ -343,7 +362,7 @@ const App = (function (ItemCtrl, UICtrl) {
 
       if (classList.contains('selectedCard') || e.target.parentNode.classList.contains('selectedCard')) {
         UICtrl.removeSelectedStageCardStyle(grabId);
-        ItemCtrl.removeStageCardInCalculation(grabId);        
+        ItemCtrl.removeStageCardInCalculation(grabId);
       } else {
         UICtrl.addSelectedStageCardStyle(grabId);
         ItemCtrl.addStageCardInCalculation(grabId);
@@ -351,6 +370,7 @@ const App = (function (ItemCtrl, UICtrl) {
 
       console.log(grabId);
     }
+
     console.log(ItemCtrl.logData());
 
     e.preventDefault();
@@ -369,14 +389,16 @@ const App = (function (ItemCtrl, UICtrl) {
       }
       const cardsInCalculation = ItemCtrl.getCardsInCalculation();
       const playerCards = ItemCtrl.getPlayerInHandCards();
-  
-      playerCards.forEach(card => {
-        if (`card-${card.ID}` === grabId) {
-          // calculate from calculation array
-        } else {
-          cardsInCalculation.pop(card);
-        }
-      })
+
+      // playerCards.forEach(card => {
+      //   if (`card-${card.ID}` === grabId) {
+      //     // calculate from calculation array
+      //   } else {
+      //     cardsInCalculation.pop(card);
+      //   }
+      // })
+      const rank = ItemCtrl.getRank(cardsInCalculation);
+      console.log(rank);
     }
     console.log(grabId);
 
