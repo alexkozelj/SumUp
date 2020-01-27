@@ -191,12 +191,12 @@ const ItemCtrl = (function () {
       const playerCards = this.getPlayerInHandCards();
       let arr = [];
       playerCards.forEach(card => {
-        if(card.ID === id){
+        if(`card-${card.ID}` === id){
           arr.push(card);
           console.log(card)
         }
       })
-      this.getRank(arr);
+      return arr;
     },
     getPlayerInHandCards: () => {
       return data.playerInHandCards[0];
@@ -410,6 +410,7 @@ const App = (function (ItemCtrl, UICtrl) {
 
       // const playerCards = ItemCtrl.getPlayerInHandCards();
       const playerCardValue = ItemCtrl.getPlayerCardRank(grabId);
+    
       console.log(playerCardValue);
       
       const cardsInCalculation = ItemCtrl.getCardsInCalculation();
