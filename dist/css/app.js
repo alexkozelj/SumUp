@@ -187,6 +187,17 @@ const ItemCtrl = (function () {
         aceArray
       ]
     },
+    getPlayerCardRank: function (id) {
+      const playerCards = this.getPlayerInHandCards();
+      let arr = [];
+      playerCards.forEach(card => {
+        if(card.ID === id){
+          arr.push(card);
+          console.log(card)
+        }
+      })
+      this.getRank(arr);
+    },
     getPlayerInHandCards: () => {
       return data.playerInHandCards[0];
     },
@@ -396,17 +407,14 @@ const App = (function (ItemCtrl, UICtrl) {
       } else {
         grabId = e.target.parentNode.id;
       }
-      const cardsInCalculation = ItemCtrl.getCardsInCalculation();
-      const playerCards = ItemCtrl.getPlayerInHandCards();
 
-      // playerCards.forEach(card => {
-      //   if (`card-${card.ID}` === grabId) {
-      //     // calculate from calculation array
-      //   } else {
-      //     cardsInCalculation.pop(card);
-      //   }
-      // })
+      // const playerCards = ItemCtrl.getPlayerInHandCards();
+      const playerCardValue = ItemCtrl.getPlayerCardRank(grabId);
+      console.log(playerCardValue);
+      
+      const cardsInCalculation = ItemCtrl.getCardsInCalculation();
       const rank = ItemCtrl.getRank(cardsInCalculation);
+
       console.log(rank);
     }
     console.log(grabId);
