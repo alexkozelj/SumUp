@@ -161,22 +161,31 @@ const ItemCtrl = (function () {
     },
     getRank: (arrayOfCards) => {
       let arrayOfRank = [];
+      let aceArray = [];
       let rank = "";
+      let ace11;
       arrayOfCards.forEach((card) => {
-        if (card.Rank === "j"){
+        if (card.Rank === "a") {
+          rank = 1;
+          ace11 = 11;
+          aceArray.push(ace11);
+        } else if (card.Rank === "j") {
           rank = 12;
-        } else if (card.Rank === "q"){
+        } else if (card.Rank === "q") {
           rank = 13;
-        } else if (card.Rank === "k"){
+        } else if (card.Rank === "k") {
           rank = 14;
         } else {
           rank = parseFloat(card.Rank);
         }
-        
+
         arrayOfRank.push(rank);
       });
-
-      return arrayOfRank;
+      
+      return [
+        arrayOfRank,
+        aceArray
+      ]
     },
     getPlayerInHandCards: () => {
       return data.playerInHandCards[0];
