@@ -198,6 +198,14 @@ const ItemCtrl = (function () {
       let getRank = this.getRank(rank);
       return getRank;
     },
+    sumUp: function (cards) {
+      const sum = cards[0];
+      function getSum(total, num) {
+        return total + num;
+      }
+      const sumedUp = sum.reduce(getSum, 0);
+      return sumedUp;
+    },
     getPlayerInHandCards: () => {
       return data.playerInHandCards[0];
     },
@@ -409,14 +417,16 @@ const App = (function (ItemCtrl, UICtrl) {
       }
 
       // const playerCards = ItemCtrl.getPlayerInHandCards();
-      const playerCardValue = ItemCtrl.getPlayerCardRank(grabId);
+      const playerRankCalc = ItemCtrl.getPlayerCardRank(grabId);
     
-      console.log(playerCardValue);
+      console.log(playerRankCalc);
       
       const cardsInCalculation = ItemCtrl.getCardsInCalculation();
-      const rank = ItemCtrl.getRank(cardsInCalculation);
-
-      console.log(rank);
+      const stageRankCalc = ItemCtrl.getRank(cardsInCalculation);
+      sumStageCards = ItemCtrl.sumUp(stageRankCalc);
+      console.log(stageRankCalc);
+      console.log(sumStageCards);
+      
     }
     console.log(grabId);
 
