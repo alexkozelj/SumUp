@@ -189,14 +189,14 @@ const ItemCtrl = (function () {
     },
     getPlayerCardRank: function (id) {
       const playerCards = this.getPlayerInHandCards();
-      let arr = [];
+      let rank
       playerCards.forEach(card => {
         if(`card-${card.ID}` === id){
-          arr.push(card);
-          console.log(card)
+          rank = [card];
         }
       })
-      return arr;
+      let getRank = this.getRank(rank);
+      return getRank;
     },
     getPlayerInHandCards: () => {
       return data.playerInHandCards[0];
