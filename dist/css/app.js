@@ -139,6 +139,73 @@ const ItemCtrl = (function () {
         }
       })
     },
+    addPlayerCardInCalculation: (id) => {
+      const cards = ItemCtrl.getPlayerInHandCards();
+      const cardsInCalculation = ItemCtrl.getCardsInCalculation();
+
+      cards.forEach(card => {
+        if (`card-${card.ID}` === id) {
+          cardsInCalculation.push(card);
+        }
+      })
+    },
+    removePlayerCardInCalculation: (id) => {
+      const cards = ItemCtrl.getPlayerInHandCards();
+      const cardsInCalculation = ItemCtrl.getCardsInCalculation();
+
+      cards.forEach(card => {
+        if (`card-${card.ID}` === id) {
+          cardsInCalculation.pop(card);
+        }
+      })
+    },
+    getRank: (arrayOfCards) => {
+      let arrayOfRank = [];
+      let aceArray = [];
+      let rank = "";
+      let ace11;
+      arrayOfCards.forEach((card) => {
+        if (card.Rank === "a") {
+          rank = 1;
+          ace11 = 11;
+          aceArray.push(ace11);
+        } else if (card.Rank === "j") {
+          rank = 12;
+        } else if (card.Rank === "q") {
+          rank = 13;
+        } else if (card.Rank === "k") {
+          rank = 14;
+        } else {
+          rank = parseFloat(card.Rank);
+        }
+
+        arrayOfRank.push(rank);
+      });
+      
+      return [
+        arrayOfRank,
+        aceArray
+      ]
+    },
+    getPlayerCardRank: function (id) {
+      const playerCards = this.getPlayerInHandCards();
+      let rank
+      playerCards.forEach(card => {
+        if(`card-${card.ID}` === id){
+          rank = [card];
+        }
+      })
+      let getRank = this.getRank(rank);
+      return getRank;
+    },
+    sumUp: function (cards) {
+      const sum = cards[0];
+      function getSum(total, num) {
+        return total + num;
+      }
+      const sumedUp = sum.reduce(getSum, 0);
+      return sumedUp;
+    },
     getPlayerInHandCards: () => {
       return data.playerInHandCards[0];
     },
@@ -323,7 +390,7 @@ const App = (function (ItemCtrl, UICtrl) {
 
       if (classList.contains('selectedCard') || e.target.parentNode.classList.contains('selectedCard')) {
         UICtrl.removeSelectedStageCardStyle(grabId);
-        ItemCtrl.removeStageCardInCalculation(grabId);        
+        ItemCtrl.removeStageCardInCalculation(grabId);
       } else {
         UICtrl.addSelectedStageCardStyle(grabId);
         ItemCtrl.addStageCardInCalculation(grabId);
@@ -331,6 +398,7 @@ const App = (function (ItemCtrl, UICtrl) {
 
       console.log(grabId);
     }
+
     console.log(ItemCtrl.logData());
 
     e.preventDefault();
@@ -348,14 +416,21 @@ const App = (function (ItemCtrl, UICtrl) {
         grabId = e.target.parentNode.id;
       }
 
-      if (classList.contains('selectedCard') || e.target.parentNode.classList.contains('selectedCard')) {
-        UICtrl.removeSelectedStageCardStyle(grabId);
-      } else {
-        UICtrl.addSelectedStageCardStyle(grabId);
-      }
-
-      console.log(grabId);
+      // const playerCards = ItemCtrl.getPlayerInHandCards();
+      const playerRankCalc = ItemCtrl.getPlayerCardRank(grabId);
+    
+      console.log(playerRankCalc);
+      
+      const cardsInCalculation = ItemCtrl.getCardsInCalculation();
+      const stageRankCalc = ItemCtrl.getRank(cardsInCalculation);
+      sumStageCards = ItemCtrl.sumUp(stageRankCalc);
+      console.log(stageRankCalc);
+      console.log(sumStageCards);
+      
     }
+    console.log(grabId);
+
+
     console.log(ItemCtrl.logData());
 
     e.preventDefault();
