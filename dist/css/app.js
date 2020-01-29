@@ -161,14 +161,14 @@ const ItemCtrl = (function () {
     },
     getRank: (arrayOfCards) => {
       let arrayOfRank = [];
-      let aceArray = [];
+      // let aceArray = [];
       let rank = "";
-      let ace11;
+      // let ace1;
       arrayOfCards.forEach((card) => {
         if (card.Rank === "a") {
-          rank = 1;
-          ace11 = 11;
-          aceArray.push(ace11);
+          rank = 11;
+          // ace1 = 1;
+          // aceArray.push(ace1);
         } else if (card.Rank === "j") {
           rank = 12;
         } else if (card.Rank === "q") {
@@ -184,7 +184,7 @@ const ItemCtrl = (function () {
       
       return [
         arrayOfRank,
-        aceArray
+        // aceArray
       ]
     },
     getPlayerCardRank: function (id) {
