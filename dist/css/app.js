@@ -4,14 +4,7 @@
 
 // //////// >>>>>> Item Controller <<<<<< //////// //
 const ItemCtrl = (function () {
-  // Card Selection Constructor
-  const SelectedCard = function (id, rank, suit, value) {
-    this.id = id;
-    this.rank = rank;
-    this.suit = suit;
-    this.value = value;
-  };
-
+  
   // Data Structure / State
   const data = {
     suits: ["spades", "diams", "clubs", "hearts"],
@@ -198,13 +191,29 @@ const ItemCtrl = (function () {
       let getRank = this.getRank(rank);
       return getRank;
     },
-    sumUp: function (cards) {
-      const sum = cards[0];
+    sumUp: function (stageCards) {
+      const sum = stageCards[0];
       function getSum(total, num) {
         return total + num;
       }
       const sumedUp = sum.reduce(getSum, 0);
       return sumedUp;
+    },
+    checkNumEqual: function (stage, player) {
+      if(stage === player) {
+        console.log('sipy tuki')
+      } 
+    },
+    checkIfSame: () => {
+
+    },
+    takeHighestCard: () => {
+
+    },
+    stageRankCalc: function () {
+      const cardsInCalculation = this.getCardsInCalculation();
+      const stageRankCalc = this.getRank(cardsInCalculation);
+      return stageRankCalc;
     },
     getPlayerInHandCards: () => {
       return data.playerInHandCards[0];
@@ -415,15 +424,16 @@ const App = (function (ItemCtrl, UICtrl) {
       } else {
         grabId = e.target.parentNode.id;
       }
-
+      
       // const playerCards = ItemCtrl.getPlayerInHandCards();
       const playerRankCalc = ItemCtrl.getPlayerCardRank(grabId);
-    
-      console.log(playerRankCalc);
+      const playerCardNum = playerRankCalc[0][0];
       
-      const cardsInCalculation = ItemCtrl.getCardsInCalculation();
-      const stageRankCalc = ItemCtrl.getRank(cardsInCalculation);
+      console.log(playerCardNum);
+      
+      stageRankCalc = ItemCtrl.stageRankCalc();
       sumStageCards = ItemCtrl.sumUp(stageRankCalc);
+      ItemCtrl.checkNumEqual(sumStageCards, playerCardNum);
       console.log(stageRankCalc);
       console.log(sumStageCards);
       
