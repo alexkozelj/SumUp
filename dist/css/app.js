@@ -207,8 +207,23 @@ const ItemCtrl = (function () {
     checkIfSame: () => {
 
     },
-    takeHighestCard: () => {
+    takeHighestCard: function (id) {
+      // const sumStageCards = this.sumUp(stageRankCalc);
+      const playerRankCalc = this.getPlayerCardRank(id);
+      const playerCardNum = playerRankCalc[0][0];
 
+      const stageRankCalc = this.stageRankCalc();
+      const equalToPlayerCard = [stageRankCalc[0].filter(checkIfEqual)];
+      const sumStageCardsWithoutPlayerCard = this.sumUp(equalToPlayerCard); 
+
+      function checkIfEqual(value){
+        return value !== playerCardNum
+      }
+
+      
+      return sumStageCardsWithoutPlayerCard
+      // console.log(equalToPlayerCard);
+      
     },
     stageRankCalc: function () {
       const cardsInCalculation = this.getCardsInCalculation();
@@ -436,6 +451,8 @@ const App = (function (ItemCtrl, UICtrl) {
       ItemCtrl.checkNumEqual(sumStageCards, playerCardNum);
       console.log(stageRankCalc);
       console.log(sumStageCards);
+      const sumStageCardsWithoutPlayerCard = ItemCtrl.takeHighestCard(grabId);
+      console.log(sumStageCardsWithoutPlayerCard);
       
     }
     console.log(grabId);
