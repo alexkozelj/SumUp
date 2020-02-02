@@ -38,6 +38,16 @@ const ItemCtrl = (function () {
 
   // Public methods
   return {
+    calculus: function (playerId) {
+      
+      const cardsInCalc = this.getCardsInCalculation();
+      const playerCard = this.getPlayerCardRank(playerId);
+
+      
+      for(let i = 0; i < cardsInCalc.length; i++){
+        // for(){}
+      }
+    },
     createDeck: () => {
       let deck = [];
       let id = 0;
@@ -199,8 +209,9 @@ const ItemCtrl = (function () {
       const sumedUp = sum.reduce(getSum, 0);
       return sumedUp;
     },
+    
     // checkNumEqual: function (playerId) {
-    //   stageRankCalc = this.stageCardNumDoubleArray();
+    //   stageRankCalc = this.stageCardsRankDoubleArray();
     //   sumStageCards = this.sumUp(stageRankCalc);
     //   playerCardRank = this.getPlayerCardRank(playerId);
     //   playerCardNum = playerCardRank[0][0];
@@ -231,7 +242,7 @@ const ItemCtrl = (function () {
     //   }
       
     // },
-    stageCardNumDoubleArray: function () {
+    stageCardsRankDoubleArray: function () {
       const cardsInCalculation = this.getCardsInCalculation();
       const stageRankCalc = this.getRank(cardsInCalculation);
       return stageRankCalc;
@@ -437,6 +448,7 @@ const App = (function (ItemCtrl, UICtrl) {
   const selectPlayerCard = e => {
     const classList = e.target.classList;
 
+
     if (classList.contains('card') ||
       classList.contains('rank') ||
       classList.contains('suit')) {
@@ -446,8 +458,10 @@ const App = (function (ItemCtrl, UICtrl) {
         grabId = e.target.parentNode.id;
       }
       
+      console.log(playerId);
+      
       // const playerCards = ItemCtrl.getPlayerInHandCards();
-      // const playerRankCalc = ItemCtrl.getPlayerCardRank(grabId);
+      const playerRankCalc = ItemCtrl.getPlayerCardRank(grabId);
       // const playerCardNum = playerRankCalc[0][0];
       
       // console.log(playerCardNum);
@@ -461,8 +475,8 @@ const App = (function (ItemCtrl, UICtrl) {
       // console.log(sumStageCardsWithoutPlayerCard);
       
     }
-    console.log(grabId);
-
+    // console.log(grabId);
+    
 
     console.log(ItemCtrl.logData());
 
@@ -471,7 +485,7 @@ const App = (function (ItemCtrl, UICtrl) {
 
   // Public methods
   return {
-
+    
     init: function () {
       // 1st Round of Game
       ItemCtrl.firstDeal();
