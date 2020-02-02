@@ -199,10 +199,16 @@ const ItemCtrl = (function () {
       const sumedUp = sum.reduce(getSum, 0);
       return sumedUp;
     },
-    checkNumEqual: function (stage, player) {
-      if(stage === player) {
-        console.log('sipy tuki')
-      } 
+    checkNumEqual: function (playerId) {
+      stageRankCalc = this.stageCardNumDoubleArray();
+      sumStageCards = this.sumUp(stageRankCalc);
+      playerCardRank = this.getPlayerCardRank(playerId);
+      playerCardNum = playerCardRank[0][0];
+      if(sumStageCards === playerCardNum) {
+        console.log('checkNumEqual is true')
+      } else {
+        console.log('checkNumEqual is not true')
+      }
     },
     checkIfSame: () => {
 
@@ -212,7 +218,7 @@ const ItemCtrl = (function () {
       const playerRankCalc = this.getPlayerCardRank(id);
       const playerCardNum = playerRankCalc[0][0];
 
-      const stageRankCalc = this.stageRankCalc();
+      const stageRankCalc = this.stageCardNumDoubleArray();
       const equalToPlayerCard = [stageRankCalc[0].filter(checkIfEqual)];
       const sumStageCardsWithoutPlayerCard = this.sumUp(equalToPlayerCard); 
 
@@ -220,12 +226,12 @@ const ItemCtrl = (function () {
         return value !== playerCardNum
       }
 
-      
-      return sumStageCardsWithoutPlayerCard
-      // console.log(equalToPlayerCard);
+      if (sumStageCardsWithoutPlayerCard === playerCardNum){
+        return true
+      }
       
     },
-    stageRankCalc: function () {
+    stageCardNumDoubleArray: function () {
       const cardsInCalculation = this.getCardsInCalculation();
       const stageRankCalc = this.getRank(cardsInCalculation);
       return stageRankCalc;
@@ -441,18 +447,18 @@ const App = (function (ItemCtrl, UICtrl) {
       }
       
       // const playerCards = ItemCtrl.getPlayerInHandCards();
-      const playerRankCalc = ItemCtrl.getPlayerCardRank(grabId);
-      const playerCardNum = playerRankCalc[0][0];
+      // const playerRankCalc = ItemCtrl.getPlayerCardRank(grabId);
+      // const playerCardNum = playerRankCalc[0][0];
       
-      console.log(playerCardNum);
+      // console.log(playerCardNum);
       
-      stageRankCalc = ItemCtrl.stageRankCalc();
-      sumStageCards = ItemCtrl.sumUp(stageRankCalc);
-      ItemCtrl.checkNumEqual(sumStageCards, playerCardNum);
-      console.log(stageRankCalc);
-      console.log(sumStageCards);
-      const sumStageCardsWithoutPlayerCard = ItemCtrl.takeHighestCard(grabId);
-      console.log(sumStageCardsWithoutPlayerCard);
+      
+      ItemCtrl.checkNumEqual(grabId);
+      // console.log(stageRankCalc);
+      // console.log(sumStageCards);
+
+      ItemCtrl.takeHighestCard(grabId);
+      // console.log(sumStageCardsWithoutPlayerCard);
       
     }
     console.log(grabId);
