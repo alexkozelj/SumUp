@@ -43,16 +43,25 @@ const ItemCtrl = (function () {
       const cardsInCalc = this.getCardsInCalculation();
       // i get selected player card - example - [5]
       const playerCard = this.getPlayerCardRank(playerId)[0];
+      // get selected stage cards num in array
       const rankedCards = this.getRank(cardsInCalc)[0];
+
       // console.log(rankedCards);
       // console.log(playerCard)
+
+      // 1.Checking first sum of all selected stage cards
       let sumOfCards = 0;
+      // 2.Checking for same cards as selected player card, pushing them, leaving rest cards to check for sum
       let sameAsPlayerCard = [];
+      // 2.1. If there is no same card and sum of rest cards is 0 (no card is selected from stage area) returning false
       let sameAsPlayerCardIsThere = false;
+      // 3.Rest cards are ready for sum, if sum !== playerCard, spliting to check pairs for sum
       let restCards = [];
       let sumOfRestCards = 0;
       
+      // If any is === playerCard, calculus is true
       let calculation = false; 
+
 
       // fill up let variables
       for (let i = 0; i < rankedCards.length; i++) {
@@ -60,7 +69,7 @@ const ItemCtrl = (function () {
         if (playerCard[0] === rankedCards[i]) {
           let sameCard = rankedCards[i];
           sameAsPlayerCard.push(sameCard);
-          sameAsPlayerCardIsThere = false;
+          sameAsPlayerCardIsThere = true;
         } else {
           let restCard = rankedCards[i];
           sumOfRestCards += restCard;
@@ -69,10 +78,17 @@ const ItemCtrl = (function () {
         sumOfCards += rankedCards[i];
       }
 
+      // checking if calculus is true
       if (sumOfCards === playerCard[0]) {
         calculation = true;
-      } else if (sumOfRestCards === playerCard[0] || sameAsPlayerCardIsThere === true) {
+      } else if (sumOfRestCards === playerCard[0]) {
         calculation = true;
+      } 
+      // example> playerCard = J(12), selectedCard = J & J & 4(or whatever), returning false or if there is an 8 too, then true
+      else if (sameAsPlayerCardIsThere === true && (sumOfRestCards === playerCard[0] || sumOfRestCards === 0)) {
+        calculation = true;
+      } else {
+        calculation = false;
       }
 
       // sameAsPlayerCard.forEach(function(){
