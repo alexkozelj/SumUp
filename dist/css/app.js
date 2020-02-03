@@ -4,7 +4,7 @@
 
 // //////// >>>>>> Item Controller <<<<<< //////// //
 const ItemCtrl = (function () {
-  
+
   // Data Structure / State
   const data = {
     suits: ["spades", "diams", "clubs", "hearts"],
@@ -39,14 +39,53 @@ const ItemCtrl = (function () {
   // Public methods
   return {
     calculus: function (playerId) {
-      
-      const cardsInCalc = this.getCardsInCalculation();
-      const playerCard = this.getPlayerCardRank(playerId);
 
+      const cardsInCalc = this.getCardsInCalculation();
+      // i get selected player card - example - [5]
+      const playerCard = this.getPlayerCardRank(playerId)[0];
+      const rankedCards = this.getRank(cardsInCalc)[0];
+      // console.log(rankedCards);
+      // console.log(playerCard)
+      let sumOfCards = 0;
+      let sameAsPlayerCard = [];
+      let sameAsPlayerCardIsThere = false;
+      let restCards = [];
+      let sumOfRestCards = 0;
       
-      for(let i = 0; i < cardsInCalc.length; i++){
-        // for(){}
+      let calculation = false; 
+
+      // fill up let variables
+      for (let i = 0; i < rankedCards.length; i++) {
+        
+        if (playerCard[0] === rankedCards[i]) {
+          let sameCard = rankedCards[i];
+          sameAsPlayerCard.push(sameCard);
+          sameAsPlayerCardIsThere = false;
+        } else {
+          let restCard = rankedCards[i];
+          sumOfRestCards += restCard;
+          restCards.push(restCard);
+        }
+        sumOfCards += rankedCards[i];
       }
+
+      if (sumOfCards === playerCard[0]) {
+        calculation = true;
+      } else if (sumOfRestCards === playerCard[0] || sameAsPlayerCardIsThere === true) {
+        calculation = true;
+      }
+
+      // sameAsPlayerCard.forEach(function(){
+
+      // })
+      return [
+        sumOfCards,
+        sameAsPlayerCard,
+        restCards,
+        sumOfRestCards,
+        rankedCards,
+        calculation
+      ]
     },
     createDeck: () => {
       let deck = [];
@@ -184,7 +223,7 @@ const ItemCtrl = (function () {
 
         arrayOfRank.push(rank);
       });
-      
+
       return [
         arrayOfRank,
         // aceArray
@@ -194,7 +233,7 @@ const ItemCtrl = (function () {
       const playerCards = this.getPlayerInHandCards();
       let rank
       playerCards.forEach(card => {
-        if(`card-${card.ID}` === id){
+        if (`card-${card.ID}` === id) {
           rank = [card];
         }
       })
@@ -209,7 +248,7 @@ const ItemCtrl = (function () {
       const sumedUp = sum.reduce(getSum, 0);
       return sumedUp;
     },
-    
+
     // checkNumEqual: function (playerId) {
     //   stageRankCalc = this.stageCardsRankDoubleArray();
     //   sumStageCards = this.sumUp(stageRankCalc);
@@ -240,7 +279,7 @@ const ItemCtrl = (function () {
     //   if (sumStageCardsWithoutPlayerCard === playerCardNum){
     //     return true
     //   }
-      
+
     // },
     stageCardsRankDoubleArray: function () {
       const cardsInCalculation = this.getCardsInCalculation();
@@ -457,26 +496,29 @@ const App = (function (ItemCtrl, UICtrl) {
       } else {
         grabId = e.target.parentNode.id;
       }
-      
-      console.log(playerId);
-      
+
+
       // const playerCards = ItemCtrl.getPlayerInHandCards();
-      const playerRankCalc = ItemCtrl.getPlayerCardRank(grabId);
+      const playerRankCalc = ItemCtrl.getPlayerCardRank(grabId)[0];
+      console.log(playerRankCalc);
+
+      const calculate = ItemCtrl.calculus(grabId);
+      console.log(calculate);
       // const playerCardNum = playerRankCalc[0][0];
-      
+
       // console.log(playerCardNum);
-      
-      
+
+
       // ItemCtrl.checkNumEqual(grabId);
       // console.log(stageRankCalc);
       // console.log(sumStageCards);
 
       // ItemCtrl.takeHighestCard(grabId);
       // console.log(sumStageCardsWithoutPlayerCard);
-      
+
     }
     // console.log(grabId);
-    
+
 
     console.log(ItemCtrl.logData());
 
@@ -485,7 +527,7 @@ const App = (function (ItemCtrl, UICtrl) {
 
   // Public methods
   return {
-    
+
     init: function () {
       // 1st Round of Game
       ItemCtrl.firstDeal();
