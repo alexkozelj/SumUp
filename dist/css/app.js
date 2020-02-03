@@ -78,16 +78,42 @@ const ItemCtrl = (function () {
         sumOfCards += rankedCards[i];
       }
 
-      // checking if calculus is true
+      //// Checking conditions for successful sum /////
+
+      // 1. Checking if sum of selected cards is true
       if (sumOfCards === playerCard[0]) {
         calculation = true;
-      } else if (sumOfRestCards === playerCard[0]) {
+      }
+      // 2. If rest cards match up player card, calcuclus is true 
+      else if (sumOfRestCards === playerCard[0]) {
         calculation = true;
       } 
-      // example> playerCard = J(12), selectedCard = J & J & 4(or whatever), returning false or if there is an 8 too, then true
+      // 3. example> playerCard = J(12), selectedCard = J & J & 4(or whatever), returning false or if there is an 8 too, then true
       else if (sameAsPlayerCardIsThere === true && (sumOfRestCards === playerCard[0] || sumOfRestCards === 0)) {
         calculation = true;
-      } else {
+      } 
+      else if(sumOfRestCards !== playerCard[0]) {
+        let firstPair = 0;
+        let secondPair = 0;
+        for(let y = 0; y < restCards.length; y++) {
+          if(firstPair !== playerCard[0]){
+            firstPair += restCards[y];
+          } else {
+            let whereItStoped = y;
+            for(let x = whereItStoped; x < restCards.length; x++){
+              if(secondPair !== playerCard[0]){
+                secondPair += restCards[x]
+
+              } else {
+                calculation = true;
+              }
+
+            }
+            
+          }
+        }
+      } 
+      else {
         calculation = false;
       }
 
