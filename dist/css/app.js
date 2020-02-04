@@ -38,6 +38,10 @@ const ItemCtrl = (function () {
 
   // Public methods
   return {
+    isAceThere: function (array) {
+      let isAceThere = array.includes(11);
+      return isAceThere
+    },
     calculus: function (playerId) {
 
       const cardsInCalc = this.getCardsInCalculation();
@@ -58,10 +62,16 @@ const ItemCtrl = (function () {
       // 3.Rest cards are ready for sum, if sum !== playerCard, spliting to check pairs for sum
       let restCards = [];
       let sumOfRestCards = 0;
+
+      // 4. Containing ace > 11 or 1
+      let everythingIsFalse = true;
+      // let isAceThereSameAsPlayerCard = sameAsPlayerCard.includes(11);
       
       // If any is === playerCard, calculus is true
       let calculation = false; 
 
+      // let aceIsThereSameCard = false;
+      // let aceIsThereRestCards = false;
 
       // fill up let variables
       for (let i = 0; i < rankedCards.length; i++) {
@@ -70,10 +80,12 @@ const ItemCtrl = (function () {
           let sameCard = rankedCards[i];
           sameAsPlayerCard.push(sameCard);
           sameAsPlayerCardIsThere = true;
+          // aceIsThereSameCard = checkIfIncludes(sameAsPlayerCard);
         } else {
           let restCard = rankedCards[i];
           sumOfRestCards += restCard;
           restCards.push(restCard);
+          // aceIsThereRestCards = checkIfIncludes(restCards);
         }
         sumOfCards += rankedCards[i];
       }
@@ -92,6 +104,7 @@ const ItemCtrl = (function () {
       else if (sameAsPlayerCardIsThere === true && (sumOfRestCards === playerCard[0] || sumOfRestCards === 0)) {
         calculation = true;
       } 
+      // example> playerCard = 11, selectedCards are 5+6 & 3+11 || 2+4+5 etc. === 11
       else if(sumOfRestCards !== playerCard[0]) {
         let firstPair = 0;
         let secondPair = 0;
@@ -99,15 +112,15 @@ const ItemCtrl = (function () {
           if(firstPair !== playerCard[0]){
             firstPair += restCards[y];
           } else {
-            let whereItStoped = y;
-            for(let x = whereItStoped; x < restCards.length; x++){
+            let whereItStopped = y;
+            for(let x = whereItStopped; x < restCards.length; x++){
               if(secondPair !== playerCard[0]){
                 secondPair += restCards[x]
 
               } else {
                 calculation = true;
               }
-
+              
             }
             
           }
@@ -116,17 +129,30 @@ const ItemCtrl = (function () {
       else {
         calculation = false;
       }
+      
+      
+      // // ace if 11 or 1
+      if(everythingIsFalse === true) {
+        // calculation = true;
+        let aceIsThereRestCards = this.isAceThere(restCards);
+        let aceIsThereSameCard = this.isAceThere(sameAsPlayerCard);
+        if(aceIsThereRestCards === true) {
+          calculation = true;
+        } else if(aceIsThereSameCard === true) {
+          calculation = true;
+        } else {
+          calculation = false;
+        }
+      }
 
-      // sameAsPlayerCard.forEach(function(){
-
-      // })
       return [
         sumOfCards,
         sameAsPlayerCard,
         restCards,
         sumOfRestCards,
         rankedCards,
-        calculation
+        calculation,
+        // aceIsThereRestCards
       ]
     },
     createDeck: () => {
