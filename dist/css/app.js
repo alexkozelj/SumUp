@@ -40,7 +40,15 @@ const ItemCtrl = (function () {
   return {
     isAceThere: function (array) {
       let isAceThere = array.includes(11);
-      return isAceThere
+      let count = 0;
+      if(isAceThere === true){
+        for(let i = 0; i < array.length; ++i){
+            if(array[i] == 11){
+              count += 1;
+            }
+        }
+      }
+      return count
     },
     calculus: function (playerId) {
 
@@ -64,15 +72,14 @@ const ItemCtrl = (function () {
       let sumOfRestCards = 0;
 
       // 4. Containing ace > 11 or 1
-      let everythingIsFalse = true;
+      // let everythingIsFalse = true;
       // let isAceThereSameAsPlayerCard = sameAsPlayerCard.includes(11);
       
       // If any is === playerCard, calculus is true
       let calculation = false; 
 
-      // let aceIsThereSameCard = false;
-      // let aceIsThereRestCards = false;
-
+      let aceIsThereSameCard = 0;
+      let aceIsThereRestCards = 0;
       // fill up let variables
       for (let i = 0; i < rankedCards.length; i++) {
         
@@ -80,16 +87,16 @@ const ItemCtrl = (function () {
           let sameCard = rankedCards[i];
           sameAsPlayerCard.push(sameCard);
           sameAsPlayerCardIsThere = true;
-          // aceIsThereSameCard = checkIfIncludes(sameAsPlayerCard);
+          aceIsThereSameCard = this.isAceThere(sameAsPlayerCard);
         } else {
           let restCard = rankedCards[i];
           sumOfRestCards += restCard;
           restCards.push(restCard);
-          // aceIsThereRestCards = checkIfIncludes(restCards);
+          aceIsThereRestCards = this.isAceThere(restCards);
         }
         sumOfCards += rankedCards[i];
       }
-
+      
       //// Checking conditions for successful sum /////
 
       // 1. Checking if sum of selected cards is true
@@ -104,10 +111,14 @@ const ItemCtrl = (function () {
       else if (sameAsPlayerCardIsThere === true && (sumOfRestCards === playerCard[0] || sumOfRestCards === 0)) {
         calculation = true;
       } 
-      // example> playerCard = 11, selectedCards are 5+6 & 3+11 || 2+4+5 etc. === 11
+      else if(aceIsThereRestCards !== 0 || aceIsThereSameCard !==0){
+        calculation = true;
+      }
+      // 4. example> playerCard = 11, selectedCards are 5+6 & 3+11 || 2+4+5 etc. === 11
       else if(sumOfRestCards !== playerCard[0]) {
         let firstPair = 0;
         let secondPair = 0;
+        // sum up until hits the players card, then proceeds to second pair
         for(let y = 0; y < restCards.length; y++) {
           if(firstPair !== playerCard[0]){
             firstPair += restCards[y];
@@ -118,32 +129,45 @@ const ItemCtrl = (function () {
                 secondPair += restCards[x]
 
               } else {
-                calculation = true;
+                // check if there is no more rest cards = the last card has summed up to value of second pair
+                if(x === restCards.length){
+                  calculation = true;
+                } else {
+                  calculation = false;
+                }
               }
-              
             }
-            
           }
         }
       } 
+      
       else {
         calculation = false;
       }
+      console.log(aceIsThereSameCard);
+      console.log(aceIsThereRestCards);
       
-      
-      // // ace if 11 or 1
-      if(everythingIsFalse === true) {
-        // calculation = true;
-        let aceIsThereRestCards = this.isAceThere(restCards);
-        let aceIsThereSameCard = this.isAceThere(sameAsPlayerCard);
-        if(aceIsThereRestCards === true) {
-          calculation = true;
-        } else if(aceIsThereSameCard === true) {
-          calculation = true;
-        } else {
-          calculation = false;
-        }
-      }
+      // // 5. check calculation if ace is 11 or 1
+      // if(everythingIsFalse === true) {
+      //   // calculation = true;
+      //   changeAceValue();
+      // }
+      // function changeAceValue() {
+      //   let aceIsThereRestCards = this.isAceThere(restCards);
+      //   let aceIsThereSameCard = this.isAceThere(sameAsPlayerCard);
+      //   if(aceIsThereRestCards === true) {
+      //     for(let i = 0; i < restCards.length; i++){
+      //       if(restCards[i] === 11){
+      //         restCards[i] = 1;
+      //       }
+      //     }
+      //     calculation = true;
+      //   } else if(aceIsThereSameCard === true) {
+      //     calculation = true;
+      //   } else {
+      //     calculation = false;
+      //   }
+      // }
 
       return [
         sumOfCards,
@@ -152,7 +176,8 @@ const ItemCtrl = (function () {
         sumOfRestCards,
         rankedCards,
         calculation,
-        // aceIsThereRestCards
+        aceIsThereSameCard,
+        aceIsThereRestCards
       ]
     },
     createDeck: () => {
