@@ -83,7 +83,7 @@ const ItemCtrl = (function () {
       // fill up let variables
       for (let i = 0; i < rankedCards.length; i++) {
         
-        if (playerCard[0] === rankedCards[i]) {
+        if (rankedCards[i] === playerCard[0]) {
           let sameCard = rankedCards[i];
           sameAsPlayerCard.push(sameCard);
           sameAsPlayerCardIsThere = true;
@@ -103,7 +103,7 @@ const ItemCtrl = (function () {
       if (sumOfCards === playerCard[0]) {
         calculation = true;
       }
-      // 2. If rest cards match up player card, calcuclus is true 
+      // 2. If rest cards match up player card, calculus is true 
       else if (sumOfRestCards === playerCard[0]) {
         calculation = true;
       } 
@@ -111,8 +111,12 @@ const ItemCtrl = (function () {
       else if (sameAsPlayerCardIsThere === true && (sumOfRestCards === playerCard[0] || sumOfRestCards === 0)) {
         calculation = true;
       } 
+      // 4. check if Ace is there. When is, then try sum the Ace with value of one. If there is more then one Ace, make combination of mixed values
       else if(aceIsThereRestCards !== 0 || aceIsThereSameCard !==0){
-        calculation = true;
+        let sumAce1 = aceIsThereSameCard + sumOfRestCards + (aceIsThereRestCards*(-10))
+        if(sumAce1 === playerCard[0]){
+          calculation = true;
+        }
       }
       // 4. example> playerCard = 11, selectedCards are 5+6 & 3+11 || 2+4+5 etc. === 11
       else if(sumOfRestCards !== playerCard[0]) {
