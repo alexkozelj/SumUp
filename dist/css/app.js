@@ -58,8 +58,6 @@ const ItemCtrl = (function () {
       // get selected stage cards num in array
       const rankedCards = this.getRank(cardsInCalc)[0];
 
-      // console.log(rankedCards);
-      // console.log(playerCard)
 
       // 1.Checking first sum of all selected stage cards
       let sumOfCards = 0;
@@ -67,22 +65,22 @@ const ItemCtrl = (function () {
       let sameAsPlayerCard = [];
       // 2.1. If there is no same card and sum of rest cards is 0 (no card is selected from stage area) returning false
       let sameAsPlayerCardIsThere = false;
-      // 3.Rest cards are ready for sum, if sum !== playerCard, spliting to check pairs for sum
+      // 3.Rest cards are ready for sum, if sum !== playerCard, splitting to check pairs for sum
       let restCards = [];
       let sumOfRestCards = 0;
 
-      // 4. Containing ace > 11 or 1
-      // let everythingIsFalse = true;
-      // let isAceThereSameAsPlayerCard = sameAsPlayerCard.includes(11);
       
-      // If any is === playerCard, calculus is true
+      // If any condition is === playerCard, calculus is true
       let calculation = false; 
 
+      // If Ace card is there, it will show in variables. It can be putted in same card, when player card is Ace. Other situation is in rest cards, when player is taking with other then Ace
       let aceIsThereSameCard = 0;
       let aceIsThereRestCards = 0;
-      // fill up let variables
+
+      // Takeing all the cards in calc and converting to nums or array elements to fill up let variables
       for (let i = 0; i < rankedCards.length; i++) {
         
+        // If player card is same as card in calculation / not same
         if (rankedCards[i] === playerCard[0]) {
           let sameCard = rankedCards[i];
           sameAsPlayerCard.push(sameCard);
@@ -97,7 +95,7 @@ const ItemCtrl = (function () {
         sumOfCards += rankedCards[i];
       }
       
-      //// Checking conditions for successful sum /////
+      /////// Checking conditions for successful sum and calculation/////
 
       // 1. Checking if sum of selected cards is true
       if (sumOfCards === playerCard[0]) {
@@ -111,14 +109,14 @@ const ItemCtrl = (function () {
       else if (sameAsPlayerCardIsThere === true && (sumOfRestCards === playerCard[0] || sumOfRestCards === 0)) {
         calculation = true;
       } 
-      // 4. check if Ace is there. When is, then try sum the Ace with value of one. If there is more then one Ace, make combination of mixed values
+      // 4. Check if Ace is there. When is, then try sum the Ace with value of one. If there is more then one Ace, make combination of mixed values
       else if(aceIsThereRestCards !== 0 || aceIsThereSameCard !==0){
         let sumAce1 = aceIsThereSameCard + sumOfRestCards + (aceIsThereRestCards*(-10))
         if(sumAce1 === playerCard[0]){
           calculation = true;
         }
       }
-      // 4. example> playerCard = 11, selectedCards are 5+6 & 3+11 || 2+4+5 etc. === 11
+      // 5. example> playerCard = 11, selectedCards are 5+6 & 3+11 || 2+4+5 etc. === 11
       else if(sumOfRestCards !== playerCard[0]) {
         let firstPair = 0;
         let secondPair = 0;
@@ -148,30 +146,6 @@ const ItemCtrl = (function () {
       else {
         calculation = false;
       }
-      console.log(aceIsThereSameCard);
-      console.log(aceIsThereRestCards);
-      
-      // // 5. check calculation if ace is 11 or 1
-      // if(everythingIsFalse === true) {
-      //   // calculation = true;
-      //   changeAceValue();
-      // }
-      // function changeAceValue() {
-      //   let aceIsThereRestCards = this.isAceThere(restCards);
-      //   let aceIsThereSameCard = this.isAceThere(sameAsPlayerCard);
-      //   if(aceIsThereRestCards === true) {
-      //     for(let i = 0; i < restCards.length; i++){
-      //       if(restCards[i] === 11){
-      //         restCards[i] = 1;
-      //       }
-      //     }
-      //     calculation = true;
-      //   } else if(aceIsThereSameCard === true) {
-      //     calculation = true;
-      //   } else {
-      //     calculation = false;
-      //   }
-      // }
 
       return [
         sumOfCards,
