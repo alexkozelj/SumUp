@@ -435,23 +435,23 @@ const UICtrl = (function () {
     },
 
     throwCardOnTable: function (cardId, inHandCards) {
-      // const selectedCardId = ItemCtrl.getPlayerCardRank(cardId);
       let cardsOnTable = ItemCtrl.getCardsOnTable();
 
       inHandCards.forEach(function(card) {
         if(`card-${card.ID}` === cardId){
-          console.log('bas odlican si');
-          
+          // Adding card from cardsInPlayerHand array to table cards
           cardsOnTable.push(card);
-          console.log(cardsOnTable)
+          // Finding the player card that is selected 
+          let index = inHandCards.indexOf(card)
+          // Removing the selected player card after the card is being pushed
+          inHandCards.splice(index, 1);
+
         }
       })
 
       this.populateTableCards(cardsOnTable);
-      // console.log(ItemCtrl.getCardsOnTable())
-      console.log(cardId);
-      // console.log(selectedCardId);
-      console.log(inHandCards);
+      this.populatePlayerCards(inHandCards);
+      
     },
 
     addSelectedStageCardStyle: function (id) {
