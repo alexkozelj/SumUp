@@ -93,11 +93,6 @@ p {
   margin-bottom: 0em;
   margin-top: 0.5em; }
 
-.stage-up, .stage-down {
-  width: 100%;
-  display: flex;
-  flex-wrap: nowrap; }
-
 .comp-cards-section {
   height: 23%; }
 
@@ -110,6 +105,11 @@ p {
 .stage {
   flex-direction: column;
   height: 47%; }
+  .stage ul {
+    width: 70%; }
+
+#stageCards {
+  flex-wrap: wrap; }
 
 .deck-container {
   display: flex;

@@ -132,14 +132,21 @@ p {
   flex-direction: column;
   height: 47%;
   
-
-  &-up {
-    @extend %stage-shared;
+  ul {
+    width: 70%;
+    // flex-basis: 20%;
   }
+  // &-up {
+  //   @extend %stage-shared;
+  // }
 
-  &-down {
-    @extend %stage-shared;
-  }
+  // &-down {
+  //   @extend %stage-shared;
+  // }
+}
+#stageCards {
+  flex-wrap: wrap;
+
 }
 
 .deck-container {
