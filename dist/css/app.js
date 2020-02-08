@@ -148,6 +148,7 @@ const ItemCtrl = (function () {
       ////// if no card on stage is selected, put the player card on stage /////
       if(sameAsPlayerCardIsThere === false && sumOfCards === 0) {
         UICtrl.throwCardOnTable(cardId, inHandCards)
+        UICtrl.populatePlayerCards(inHandCards);
       }
 
       return [
@@ -450,7 +451,7 @@ const UICtrl = (function () {
       })
 
       this.populateTableCards(cardsOnTable);
-      this.populatePlayerCards(inHandCards);
+      // this.populatePlayerCards(inHandCards);
       
     },
 
@@ -538,6 +539,7 @@ const App = (function (ItemCtrl, UICtrl) {
       
       const playerInHandCards = ItemCtrl.getPlayerInHandCards();
       const compInHandCards = ItemCtrl.getCompInHandCards();
+      // const populatePlayerCards = UICtrl.populatePlayerCards(playerInHandCards);
 
 
       const playerRankCalc = ItemCtrl.getPlayerCardRank(grabId)[0];
