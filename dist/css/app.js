@@ -436,23 +436,26 @@ const UICtrl = (function () {
     },
 
     throwCardOnTable: function (cardId, inHandCards) {
+      // Grab cards from the table
       let cardsOnTable = ItemCtrl.getCardsOnTable();
+      // Add selected player card to table cards, and remove it from inHand
+      this.moveCardFromArrayToArray(cardId, inHandCards, cardsOnTable);
+      // UI populate array table cards
+      this.populateTableCards(cardsOnTable);
+      
+    },
 
-      inHandCards.forEach(function(card) {
+    moveCardFromArrayToArray: function (cardId, fromArray, toArray) {
+      fromArray.forEach(function(card) {
         if(`card-${card.ID}` === cardId){
           // Adding card from cardsInPlayerHand array to table cards
-          cardsOnTable.push(card);
+          toArray.push(card);
           // Finding the player card that is selected 
-          let index = inHandCards.indexOf(card)
+          let index = fromArray.indexOf(card)
           // Removing the selected player card after the card is being pushed
-          inHandCards.splice(index, 1);
-
+          fromArray.splice(index, 1);
         }
       })
-
-      this.populateTableCards(cardsOnTable);
-      // this.populatePlayerCards(inHandCards);
-      
     },
 
     addSelectedStageCardStyle: function (id) {

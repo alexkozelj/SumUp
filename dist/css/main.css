@@ -106,7 +106,7 @@ p {
   flex-direction: column;
   height: 47%; }
   .stage ul {
-    width: 70%; }
+    width: 27rem; }
 
 #stageCards {
   flex-wrap: wrap; }
