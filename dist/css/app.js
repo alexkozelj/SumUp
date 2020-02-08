@@ -32,8 +32,6 @@ const ItemCtrl = (function () {
 
     cardsInCalculation: [],
 
-    currentItem: null,
-    totalValue: 0
   };
 
   // Public methods
@@ -50,11 +48,11 @@ const ItemCtrl = (function () {
       }
       return count
     },
-    calculus: function (playerId) {
+    calculus: function (cardId, inHandCards) {
 
       const cardsInCalc = this.getCardsInCalculation();
       // i get selected player card - example - [5]
-      const playerCard = this.getPlayerCardRank(playerId)[0];
+      const playerCard = this.getPlayerCardRank(cardId)[0];
       // get selected stage cards num in array
       const rankedCards = this.getRank(cardsInCalc)[0];
 
@@ -147,6 +145,11 @@ const ItemCtrl = (function () {
         calculation = false;
       }
 
+      ////// if no card on stage is selected, put the player card on stage /////
+      if(sameAsPlayerCardIsThere === false && sumOfCards === 0) {
+        UICtrl.throwCardOnTable(cardId, inHandCards)
+      }
+
       return [
         sumOfCards,
         sameAsPlayerCard,
@@ -216,7 +219,6 @@ const ItemCtrl = (function () {
       if (data.playerInHandCards.length === 0) {
         data.playerInHandCards.push(data.fullDeck[0].splice(0, 6));
       };
-      // console.log(data.fullDeck[0])
     },
     dealCardsToTable: () => {
       data.cardsOnTable.push(data.fullDeck[0].splice(0, 4));
@@ -252,26 +254,6 @@ const ItemCtrl = (function () {
         }
       })
     },
-    // addPlayerCardInCalculation: (id) => {
-    //   const cards = ItemCtrl.getPlayerInHandCards();
-    //   const cardsInCalculation = ItemCtrl.getCardsInCalculation();
-
-    //   cards.forEach(card => {
-    //     if (`card-${card.ID}` === id) {
-    //       cardsInCalculation.push(card);
-    //     }
-    //   })
-    // },
-    // removePlayerCardInCalculation: (id) => {
-    //   const cards = ItemCtrl.getPlayerInHandCards();
-    //   const cardsInCalculation = ItemCtrl.getCardsInCalculation();
-
-    //   cards.forEach(card => {
-    //     if (`card-${card.ID}` === id) {
-    //       cardsInCalculation.pop(card);
-    //     }
-    //   })
-    // },
     getRank: (arrayOfCards) => {
       let arrayOfRank = [];
       // let aceArray = [];
@@ -319,39 +301,6 @@ const ItemCtrl = (function () {
       const sumedUp = sum.reduce(getSum, 0);
       return sumedUp;
     },
-
-    // checkNumEqual: function (playerId) {
-    //   stageRankCalc = this.stageCardsRankDoubleArray();
-    //   sumStageCards = this.sumUp(stageRankCalc);
-    //   playerCardRank = this.getPlayerCardRank(playerId);
-    //   playerCardNum = playerCardRank[0][0];
-    //   if(sumStageCards === playerCardNum) {
-    //     console.log('checkNumEqual is true')
-    //   } else {
-    //     console.log('checkNumEqual is not true')
-    //   }
-    // },
-    // checkIfSame: () => {
-
-    // },
-    // takeHighestCard: function (id) {
-    //   // const sumStageCards = this.sumUp(stageRankCalc);
-    //   const playerRankCalc = this.getPlayerCardRank(id);
-    //   const playerCardNum = playerRankCalc[0][0];
-
-    //   const stageRankCalc = this.stageCardNumDoubleArray();
-    //   const equalToPlayerCard = [stageRankCalc[0].filter(checkIfEqual)];
-    //   const sumStageCardsWithoutPlayerCard = this.sumUp(equalToPlayerCard); 
-
-    //   function checkIfEqual(value){
-    //     return value !== playerCardNum
-    //   }
-
-    //   if (sumStageCardsWithoutPlayerCard === playerCardNum){
-    //     return true
-    //   }
-
-    // },
     stageCardsRankDoubleArray: function () {
       const cardsInCalculation = this.getCardsInCalculation();
       const stageRankCalc = this.getRank(cardsInCalculation);
@@ -485,6 +434,26 @@ const UICtrl = (function () {
       document.querySelector(UISelectors.deckOfCards).innerHTML = html;
     },
 
+    throwCardOnTable: function (cardId, inHandCards) {
+      // const selectedCardId = ItemCtrl.getPlayerCardRank(cardId);
+      let cardsOnTable = ItemCtrl.getCardsOnTable();
+
+      inHandCards.forEach(function(card) {
+        if(`card-${card.ID}` === cardId){
+          console.log('bas odlican si');
+          
+          cardsOnTable.push(card);
+          console.log(cardsOnTable)
+        }
+      })
+
+      this.populateTableCards(cardsOnTable);
+      // console.log(ItemCtrl.getCardsOnTable())
+      console.log(cardId);
+      // console.log(selectedCardId);
+      console.log(inHandCards);
+    },
+
     addSelectedStageCardStyle: function (id) {
       const selectedCard = document.querySelector(`#${id}`);
       console.log(selectedCard);
@@ -558,7 +527,6 @@ const App = (function (ItemCtrl, UICtrl) {
   const selectPlayerCard = e => {
     const classList = e.target.classList;
 
-
     if (classList.contains('card') ||
       classList.contains('rank') ||
       classList.contains('suit')) {
@@ -567,25 +535,16 @@ const App = (function (ItemCtrl, UICtrl) {
       } else {
         grabId = e.target.parentNode.id;
       }
+      
+      const playerInHandCards = ItemCtrl.getPlayerInHandCards();
+      const compInHandCards = ItemCtrl.getCompInHandCards();
 
 
-      // const playerCards = ItemCtrl.getPlayerInHandCards();
       const playerRankCalc = ItemCtrl.getPlayerCardRank(grabId)[0];
       console.log(playerRankCalc);
 
-      const calculate = ItemCtrl.calculus(grabId);
+      const calculate = ItemCtrl.calculus(grabId, playerInHandCards);
       console.log(calculate);
-      // const playerCardNum = playerRankCalc[0][0];
-
-      // console.log(playerCardNum);
-
-
-      // ItemCtrl.checkNumEqual(grabId);
-      // console.log(stageRankCalc);
-      // console.log(sumStageCards);
-
-      // ItemCtrl.takeHighestCard(grabId);
-      // console.log(sumStageCardsWithoutPlayerCard);
 
     }
     // console.log(grabId);
