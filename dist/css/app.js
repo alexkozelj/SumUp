@@ -396,6 +396,13 @@ const ItemCtrl = (function () {
     //   const stageRankCalc = this.getRank(cardsInCalculation);
     //   return stageRankCalc;
     // },
+    moveAllFromArrayToArray: (fromArr, toArr) => {
+      const numOfItems = fromArr.length;
+      fromArr.forEach(card =>{
+        toArr.push(card);
+      });
+      fromArr.splice(0, numOfItems);
+    },
     getPlayerInHandCards: () => {
       return data.playerInHandCards[0];
     },
@@ -633,6 +640,7 @@ const App = (function (ItemCtrl, UICtrl) {
       const compInHandCards = ItemCtrl.getCompInHandCards();
       const playerCollectedCards = ItemCtrl.getPlayerCollectedCards();
       const compCollectedCards = ItemCtrl.getCompCollectedCards();
+      const cardsInCalculation = ItemCtrl.getCardsInCalculation();
       // const populatePlayerCards = UICtrl.populatePlayerCards(playerInHandCards);
 
 
@@ -646,6 +654,7 @@ const App = (function (ItemCtrl, UICtrl) {
       console.log(calculate);
       if(calculate[0] === true){
         UICtrl.moveCardFromArrayToArray(grabId, playerInHandCards, playerCollectedCards);
+        ItemCtrl.moveAllFromArrayToArray(cardsInCalculation, playerCollectedCards);
       }
 
     }
