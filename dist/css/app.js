@@ -108,37 +108,149 @@ const ItemCtrl = (function () {
         calculation = true;
       } 
       // 4. Check if Ace is there. When is, then try sum the Ace with value of one. If there is more then one Ace, make combination of mixed values
-      else if(aceIsThereRestCards !== 0 || aceIsThereSameCard !==0){
-        let sumAce1 = aceIsThereSameCard + sumOfRestCards + (aceIsThereRestCards*(-10))
-        if(sumAce1 === playerCard[0]){
-          calculation = true;
-        }
-      }
+      // else if(aceIsThereRestCards !== 0 || aceIsThereSameCard !==0){
+      //   let sumAce1 = aceIsThereSameCard + sumOfRestCards + (aceIsThereRestCards*(-10));
+      //   // let sumAce11 = aceIsThereSameCard + sumOfRestCards;
+      //   // if(aceIsThereRestCards === 2){
+      //   //   let mix2 =  
+      //   // }
+      //   // let sumAce11 = sumOfRestCards + aceIsThereRestCards
+      //   if(sumAce1 === playerCard[0]){
+      //     calculation = true;
+      //   } 
+      //   // else if (sumAce1 / 2 === playerCard[0] || sumOfRestCards / 2 === playerCard[0]){
+      //   //   calculation = true;
+      //   // }
+      // }
       // 5. example> playerCard = 11, selectedCards are 5+6 & 3+11 || 2+4+5 etc. === 11
       else if(sumOfRestCards !== playerCard[0]) {
-        let firstPair = 0;
-        let secondPair = 0;
-        // sum up until hits the players card, then proceeds to second pair
-        for(let y = 0; y < restCards.length; y++) {
-          if(firstPair !== playerCard[0]){
-            firstPair += restCards[y];
-          } else {
-            let whereItStopped = y;
-            for(let x = whereItStopped; x < restCards.length; x++){
-              if(secondPair !== playerCard[0]){
-                secondPair += restCards[x]
-
+        // try to sum all the selected cards, check if the sum can be divided by player card
+        // if(sumOfCards / playerCard[0] === 2){
+        let cardsThatPassTest = [];
+        let cardsNotPassTest = [];
+        let sumOfRanked = 0;
+        let checkIfOneInstead = 0;
+        // let sumOfRankedWithAce = 0;
+        for (let i = 0; i < rankedCards.length; i++) {
+          if(rankedCards[i] < playerCard[0] && sumOfRanked < playerCard[0]){
+            if(sumOfRanked + rankedCards[i] > playerCard[0] && rankedCards[i] === 11 || aceIsThereSameCard !== 0){
+              if(rankedCards[i] === 10 && checkIfOneInstead === 1){
+                sumOfRanked = 11;
               } else {
-                // check if there is no more rest cards = the last card has summed up to value of second pair
-                if(x === restCards.length){
-                  calculation = true;
-                } else {
-                  calculation = false;
-                }
+                let convertAce = 1;
+                sumOfRanked += convertAce;
+                cardsThatPassTest.push(convertAce);
+                console.log(rankedCards[i]);
+
               }
+
+            } // example => 10 + 1 = 11, ace
+            // else if(sumOfRanked = 11 && rankedCards[i] === 10 + aceIsThereSameCard === playerCard[0]){
+            //   sumOfRanked = 0;
+            //   aceIsThereSameCard = 0;
+            //   cardsThatPassTest.push(rankedCards[i]);
+            //   console.log(rankedCards[i]);
+            // } 
+            else {
+              
+              sumOfRanked += rankedCards[i];
+              cardsThatPassTest.push(rankedCards[i]);
+              console.log(rankedCards[i]);
             }
           }
+          
+          if(rankedCards[i] === playerCard[0]){
+            if(rankedCards[i] === 11){
+               checkIfOneInstead = 1
+            }
+            sumOfRanked += rankedCards[i];
+            cardsThatPassTest.push(rankedCards[i]);
+            console.log(rankedCards[i]);
+          }
+
+          if(sumOfRanked === playerCard[0]){
+            sumOfRanked = 0;
+            cardsThatPassTest.push(rankedCards[i]);
+            console.log(rankedCards[i]);
+            // sumOfRanked = 0;
+          }
+
+          if(sumOfRanked > playerCard[0]){
+            cardsNotPassTest.push(rankedCards[i]);
+            console.log(rankedCards[i]);
+
+            // if(rankedCards[i] === 11){
+            //   let convertAce = rankedCards[i] - 10;
+            //   sumOfRanked += convertAce;
+            // }
+            // if(aceIsThereRestCards !== 0 || aceIsThereSameCard !== 0){
+            //   switch(aceIsThereRestCards){
+            //     case 2:
+            //       sumOfRanked += -10;
+            //       if(sumOfRanked !== 0){
+            //         sumOfRanked += -10;
+            //       }
+            //       break;
+            //     case 3:
+            //       sumOfRanked += -20;
+            //       if(sumOfRanked !== 0){
+            //         sumOfRanked += -10;
+            //       }
+            //       break;
+            //     case 4:
+            //       sumOfRanked += -30;
+            //       if(sumOfRanked !== 0){
+            //         sumOfRanked += -10;
+            //       }
+            //       break;
+            //   }
+            //   // switch(aceIsThereSameCard) 
+            // }
+          }
         }
+        // }
+        // const withAce = sumOfRestCards - (aceIsThereRestCards*(-10));
+        // const kolko = sumOfCards / playerCard[0];
+        
+        console.log('joj joj');
+        console.log(cardsThatPassTest);
+        console.log(cardsNotPassTest);
+        console.log(sumOfRanked);
+        
+        if(sumOfRanked === 0){
+          calculation = true;
+        } else {
+          
+        console.log('joj joj');
+        console.log(cardsThatPassTest);
+        console.log(cardsNotPassTest);
+        console.log(sumOfRanked);
+        
+        }
+        
+        // let firstPair = 0;
+        // let secondPair = 0;
+        // // sum up until hits the players card, then proceeds to second pair
+        // for(let y = 0; y < restCards.length; y++) {
+        //   if(firstPair !== playerCard[0]){
+        //     firstPair += restCards[y];
+        //   } else {
+        //     let whereItStopped = y;
+        //     for(let x = whereItStopped; x < restCards.length; x++){
+        //       if(secondPair !== playerCard[0]){
+        //         secondPair += restCards[x]
+
+        //       } else {
+        //         // check if there is no more rest cards = the last card has summed up to value of second pair
+        //         if(x === restCards.length){
+        //           calculation = true;
+        //         } else {
+        //           calculation = false;
+        //         }
+        //       }
+        //     }
+        //   }
+        // }
       } 
       
       else {
@@ -302,11 +414,11 @@ const ItemCtrl = (function () {
       const sumedUp = sum.reduce(getSum, 0);
       return sumedUp;
     },
-    stageCardsRankDoubleArray: function () {
-      const cardsInCalculation = this.getCardsInCalculation();
-      const stageRankCalc = this.getRank(cardsInCalculation);
-      return stageRankCalc;
-    },
+    // stageCardsRankDoubleArray: function () {
+    //   const cardsInCalculation = this.getCardsInCalculation();
+    //   const stageRankCalc = this.getRank(cardsInCalculation);
+    //   return stageRankCalc;
+    // },
     getPlayerInHandCards: () => {
       return data.playerInHandCards[0];
     },
