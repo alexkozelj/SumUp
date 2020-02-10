@@ -239,12 +239,12 @@ const ItemCtrl = (function () {
       }
 
       return [
+        calculation,
         sumOfCards,
         sameAsPlayerCard,
         restCards,
         sumOfRestCards,
         rankedCards,
-        calculation,
         aceIsThereSameCard,
         aceIsThereRestCards
       ]
@@ -409,10 +409,10 @@ const ItemCtrl = (function () {
       return data.cardsToDeal[0];
     },
     getPlayerCollectedCards: () => {
-      return data.playerCollectedCards[0];
+      return data.playerCollectedCards;
     },
     getCompCollectedCards: () => {
-      return data.compCollectedCards[0]
+      return data.compCollectedCards;
     },
     getCardsInCalculation: () => {
       return data.cardsInCalculation;
@@ -631,14 +631,22 @@ const App = (function (ItemCtrl, UICtrl) {
       
       const playerInHandCards = ItemCtrl.getPlayerInHandCards();
       const compInHandCards = ItemCtrl.getCompInHandCards();
+      const playerCollectedCards = ItemCtrl.getPlayerCollectedCards();
+      const compCollectedCards = ItemCtrl.getCompCollectedCards();
       // const populatePlayerCards = UICtrl.populatePlayerCards(playerInHandCards);
 
 
       const playerRankCalc = ItemCtrl.getPlayerCardRank(grabId)[0];
       console.log(playerRankCalc);
+      console.log(grabId);
+      console.log(playerInHandCards);
+      console.log(playerCollectedCards);
 
       const calculate = ItemCtrl.calculus(grabId, playerInHandCards);
       console.log(calculate);
+      if(calculate[0] === true){
+        UICtrl.moveCardFromArrayToArray(grabId, playerInHandCards, playerCollectedCards);
+      }
 
     }
     // console.log(grabId);
