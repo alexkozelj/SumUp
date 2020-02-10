@@ -358,12 +358,14 @@ const ItemCtrl = (function () {
       })
     },
     removeStageCardInCalculation: (id) => {
-      const cards = ItemCtrl.getCardsOnTable();
       const cardsInCalculation = ItemCtrl.getCardsInCalculation();
 
-      cards.forEach(card => {
+      cardsInCalculation.forEach(card => {
         if (`card-${card.ID}` === id) {
-          cardsInCalculation.pop(card);
+          const index = cardsInCalculation.indexOf(card);
+          if(index > -1) {
+            cardsInCalculation.splice(index, 1);
+          }
         }
       })
     },
