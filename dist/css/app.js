@@ -11,10 +11,10 @@ const ItemCtrl = (function () {
 
     ranks: ["a", "2", "3", "4", "5", "6", "7", "8", "9", "10", "j", "q", "k"],
 
-    items: [{ ID: 1, Rank: "a", Suit: "spades", Value: 1 },
-    { ID: 2, Rank: "2", Suit: "spades", Value: 0 },
-    { ID: 10, Rank: "10", Suit: "spades", Value: 1 }
-    ],
+    // items: [{ ID: 1, Rank: "a", Suit: "spades", Value: 1 },
+    // { ID: 2, Rank: "2", Suit: "spades", Value: 0 },
+    // { ID: 10, Rank: "10", Suit: "spades", Value: 1 }
+    // ],
 
     fullDeck: [],
 
@@ -391,76 +391,72 @@ const ItemCtrl = (function () {
       const sumedUp = sum.reduce(getSum, 0);
       return sumedUp;
     },
-    // stageCardsRankDoubleArray: function () {
-    //   const cardsInCalculation = this.getCardsInCalculation();
-    //   const stageRankCalc = this.getRank(cardsInCalculation);
-    //   return stageRankCalc;
-    // },
-    // moveAllFromArrayToArray: (fromArr, toArr) => {
-    //   const numOfItems = fromArr.length;
-    //   fromArr.forEach(card =>{
-    //     toArr.push(card);
-    //   });
-    //   fromArr.splice(0, numOfItems);
-    // },
-    // getIdsFromArray: () => {
+    removeCollectedCardsFromTable: function () {
+      const cardsInCalc = this.getCardsInCalculation();
+      const cardsOnTable = this.getCardsOnTable();
+      let Id = 0;
 
-    // },
-    moveCardFromArrayToArray: function (fromArray, toArray, cardId) {
+      cardsInCalc.forEach(function(cardCalc){
+        cardsOnTable.forEach(function(cardTable){
+          if(cardTable === cardCalc){
+            let index = cardsOnTable.indexOf(cardTable);
+            cardsOnTable.splice(index, 1);
+          }
+        })
+      })
+    },
+    moveCardFromArrayToArray:  (fromArray, toArray, cardId) => {
+
       // if there is no cardId, move all elements fromArray to toArray
       if (cardId === undefined) {
-        // fromArray.forEach(card => {
-        //   toArray.push(card);
-        //   let index = fromArray.indexOf(card);
-        //   fromArray.splice(index,1);
         const numOfItems = fromArray.length;
         fromArray.forEach(card => {
           toArray.push(card);
         });
         fromArray.splice(0, numOfItems);
       }
-    
+
       // if there is cardId
       fromArray.forEach(card => {
-      if (`card-${card.ID}` === cardId) {
-        // Adding card from cardsInPlayerHand array to table cards
-        toArray.push(card);
-        // Finding the player card that is selected 
-        let index = fromArray.indexOf(card)
-        // Removing the selected player card after the card is being pushed
-        fromArray.splice(index, 1);
-      }
-    })
-  },
+        if (`card-${card.ID}` === cardId) {
+          // Adding card from cardsInPlayerHand array to table cards
+          toArray.push(card);
+          // Finding the player card that is selected 
+          let index = fromArray.indexOf(card)
+          // Removing the selected player card after the card is being pushed
+          fromArray.splice(index, 1);
+        }
+      })
+    },
     getPlayerInHandCards: () => {
       return data.playerInHandCards[0];
     },
-      getCompInHandCards: () => {
-        return data.compInHandCards[0];
-      },
-        getCardsOnTable: () => {
-          return data.cardsOnTable[0];
-        },
-          getCardsToDeal: () => {
-            return data.cardsToDeal[0];
-          },
-            getPlayerCollectedCards: () => {
-              return data.playerCollectedCards;
-            },
-              getCompCollectedCards: () => {
-                return data.compCollectedCards;
-              },
-                getCardsInCalculation: () => {
-                  return data.cardsInCalculation;
-                },
-                  showFullDeck: () => {
-                    console.log(data.fullDeck[0]);
-                  },
-                    logData: function () {
-                      return data;
-                    }
-};
-}) ();
+    getCompInHandCards: () => {
+      return data.compInHandCards[0];
+    },
+    getCardsOnTable: () => {
+      return data.cardsOnTable[0];
+    },
+    getCardsToDeal: () => {
+      return data.cardsToDeal[0];
+    },
+    getPlayerCollectedCards: () => {
+      return data.playerCollectedCards;
+    },
+    getCompCollectedCards: () => {
+      return data.compCollectedCards;
+    },
+    getCardsInCalculation: () => {
+      return data.cardsInCalculation;
+    },
+    showFullDeck: () => {
+      console.log(data.fullDeck[0]);
+    },
+    logData: function () {
+      return data;
+    }
+  };
+})();
 
 
 
@@ -671,8 +667,11 @@ const App = (function (ItemCtrl, UICtrl) {
       console.log(calculate);
       if (calculate[0] === true) {
         ItemCtrl.moveCardFromArrayToArray(playerInHandCards, playerCollectedCards, grabId);
-        // UICtrl.moveCardFromArrayToArray(cardsOnTable, playerCollectedCards);
+        ItemCtrl.removeCollectedCardsFromTable();
         ItemCtrl.moveCardFromArrayToArray(cardsInCalculation, playerCollectedCards);
+        // UICtrl.moveCardFromArrayToArray(cardsOnTable, playerCollectedCards);
+        UICtrl.populatePlayerCards(playerInHandCards);
+        UICtrl.populateTableCards(cardsOnTable);
 
       }
 
