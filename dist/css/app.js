@@ -236,6 +236,7 @@ const ItemCtrl = (function () {
       if (sameAsPlayerCardIsThere === false && sumOfCards === 0) {
         UICtrl.throwCardOnTable(cardId, inHandCards)
         UICtrl.populatePlayerCards(inHandCards);
+        // here I need to put computer move
       }
 
       return [
@@ -577,13 +578,26 @@ const UICtrl = (function () {
       document.querySelector(UISelectors.playerTablaPoints).innerHTML = "";
       document.querySelector(UISelectors.dealNr).innerHTML = "1";
     },
+
     updateCurrentScoreboard: (value, playerOrComp) => {
       if(playerOrComp === "player"){
-        currentPlayerPointsString = document.querySelector(UISelectors.playerPoints).innerHTML;
-        currentPlayerPointsInt = parseInt(currentPlayerPointsString);
-        updatedPlayerPointsInt = currentPlayerPointsInt + value;
-        updatedPlayerPointsString = updatedPlayerPointsInt.toString();
+        const currentPlayerPointsString = document.querySelector(UISelectors.playerPoints).innerHTML;
+        const currentPlayerPointsInt = parseInt(currentPlayerPointsString);
+        const updatedPlayerPointsInt = currentPlayerPointsInt + value;
+        const updatedPlayerPointsString = updatedPlayerPointsInt.toString();
         document.querySelector(UISelectors.playerPoints).innerHTML = updatedPlayerPointsString;
+      }
+    },
+
+    addEmptyTablePoint: (playerOrComp) => {
+      if(playerOrComp === "player"){
+        const currentPlayerPointsString = document.querySelector(UISelectors.playerPoints).innerHTML;
+        const currentPlayerPointsInt = parseInt(currentPlayerPointsString);
+        const updatedPlayerPointsInt = currentPlayerPointsInt + 1;
+        const updatedPlayerPointsString = updatedPlayerPointsInt.toString();
+        document.querySelector(UISelectors.playerPoints).innerHTML = updatedPlayerPointsString;
+        const currentPlayerTablaPointsString = document.querySelector(UISelectors.playerTablaPoints).innerHTML;
+        document.querySelector(UISelectors.playerTablaPoints).innerHTML = currentPlayerTablaPointsString + "|";
       }
     },
 
@@ -697,19 +711,35 @@ const App = (function (ItemCtrl, UICtrl) {
       const calculate = ItemCtrl.calculus(grabId, playerInHandCards);
       console.log(calculate);
       if (calculate[0] === true) {
+        
+        // move player card to calculation array
         ItemCtrl.moveCardFromArrayToArray(playerInHandCards, cardsInCalculation, grabId);
+        // count all value cards
         const playerValueOfCollected = ItemCtrl.countCardValues(cardsInCalculation);
         console.log(playerValueOfCollected);
+        
+        // player is needed for update current scoreboard function (comp or player update)
         const playerParameter = "player";
+        // Update current scoreboard with sum of collected value cards
         UICtrl.updateCurrentScoreboard(playerValueOfCollected, playerParameter);
+        // remove cards that are collected from table
         ItemCtrl.removeCollectedCardsFromTable();
+        // move all cards from calculation to collected cards
         ItemCtrl.moveCardFromArrayToArray(cardsInCalculation, playerCollectedCards);
+        // If table has no cards after calc, add point 
+        console.log(cardsOnTable);
+        // const isItEmpty = ItemCtrl.getCardsOnTable();
+        if(cardsOnTable.length === 0){
+          UICtrl.addEmptyTablePoint(playerParameter);
+        }
+        
         // UICtrl.moveCardFromArrayToArray(cardsOnTable, playerCollectedCards);
         UICtrl.populatePlayerCards(playerInHandCards);
         UICtrl.populateTableCards(cardsOnTable);
-
+        
+        // here I need to add computer move
       }
-
+      
     }
 
     console.log(ItemCtrl.logData());
