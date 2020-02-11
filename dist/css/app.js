@@ -563,7 +563,7 @@ const UICtrl = (function () {
       document.querySelector(UISelectors.deckOfCards).innerHTML = html;
     },
 
-    defaultScoreboard: function () {
+    defaultScoreboard: () => {
       // Default overall game scoreboard values
       document.querySelector(UISelectors.compOverallScore).innerHTML = "0";
       document.querySelector(UISelectors.playerOverallScore).innerHTML = "0";
@@ -576,6 +576,15 @@ const UICtrl = (function () {
       document.querySelector(UISelectors.playerPoints).innerHTML = "0";
       document.querySelector(UISelectors.playerTablaPoints).innerHTML = "";
       document.querySelector(UISelectors.dealNr).innerHTML = "1";
+    },
+    updateCurrentScoreboard: (value, playerOrComp) => {
+      if(playerOrComp === "player"){
+        currentPlayerPointsString = document.querySelector(UISelectors.playerPoints).innerHTML;
+        currentPlayerPointsInt = parseInt(currentPlayerPointsString);
+        updatedPlayerPointsInt = currentPlayerPointsInt + value;
+        updatedPlayerPointsString = updatedPlayerPointsInt.toString();
+        document.querySelector(UISelectors.playerPoints).innerHTML = updatedPlayerPointsString;
+      }
     },
 
     throwCardOnTable: function (cardId, inHandCards) {
@@ -691,6 +700,8 @@ const App = (function (ItemCtrl, UICtrl) {
         ItemCtrl.moveCardFromArrayToArray(playerInHandCards, cardsInCalculation, grabId);
         const playerValueOfCollected = ItemCtrl.countCardValues(cardsInCalculation);
         console.log(playerValueOfCollected);
+        const playerParameter = "player";
+        UICtrl.updateCurrentScoreboard(playerValueOfCollected, playerParameter);
         ItemCtrl.removeCollectedCardsFromTable();
         ItemCtrl.moveCardFromArrayToArray(cardsInCalculation, playerCollectedCards);
         // UICtrl.moveCardFromArrayToArray(cardsOnTable, playerCollectedCards);
