@@ -428,6 +428,13 @@ const ItemCtrl = (function () {
         }
       })
     },
+    countCardValues: function (array) {
+      let valueCount = 0;
+      array.forEach(card => {
+        valueCount += card.Value;
+      })
+      return valueCount;
+    },
     getPlayerInHandCards: () => {
       return data.playerInHandCards[0];
     },
@@ -681,7 +688,9 @@ const App = (function (ItemCtrl, UICtrl) {
       const calculate = ItemCtrl.calculus(grabId, playerInHandCards);
       console.log(calculate);
       if (calculate[0] === true) {
-        ItemCtrl.moveCardFromArrayToArray(playerInHandCards, playerCollectedCards, grabId);
+        ItemCtrl.moveCardFromArrayToArray(playerInHandCards, cardsInCalculation, grabId);
+        const playerValueOfCollected = ItemCtrl.countCardValues(cardsInCalculation);
+        console.log(playerValueOfCollected);
         ItemCtrl.removeCollectedCardsFromTable();
         ItemCtrl.moveCardFromArrayToArray(cardsInCalculation, playerCollectedCards);
         // UICtrl.moveCardFromArrayToArray(cardsOnTable, playerCollectedCards);
