@@ -39,11 +39,11 @@ const ItemCtrl = (function () {
     isAceThere: function (array) {
       let isAceThere = array.includes(11);
       let count = 0;
-      if(isAceThere === true){
-        for(let i = 0; i < array.length; ++i){
-            if(array[i] == 11){
-              count += 1;
-            }
+      if (isAceThere === true) {
+        for (let i = 0; i < array.length; ++i) {
+          if (array[i] == 11) {
+            count += 1;
+          }
         }
       }
       return count
@@ -201,7 +201,7 @@ const ItemCtrl = (function () {
                 //   sumOfRanked += - 10;
                 //   console.log(sumOfRanked);
                 // }
-              } 
+              }
 
               // checking if it adds up & reset to 0
               if (sumOfRanked === playerCard[0]) {
@@ -233,7 +233,7 @@ const ItemCtrl = (function () {
       }
 
       ////// if no card on stage is selected, put the player card on stage /////
-      if(sameAsPlayerCardIsThere === false && sumOfCards === 0) {
+      if (sameAsPlayerCardIsThere === false && sumOfCards === 0) {
         UICtrl.throwCardOnTable(cardId, inHandCards)
         UICtrl.populatePlayerCards(inHandCards);
       }
@@ -338,7 +338,7 @@ const ItemCtrl = (function () {
       cardsInCalculation.forEach(card => {
         if (`card-${card.ID}` === id) {
           const index = cardsInCalculation.indexOf(card);
-          if(index > -1) {
+          if (index > -1) {
             cardsInCalculation.splice(index, 1);
           }
         }
@@ -396,42 +396,71 @@ const ItemCtrl = (function () {
     //   const stageRankCalc = this.getRank(cardsInCalculation);
     //   return stageRankCalc;
     // },
-    moveAllFromArrayToArray: (fromArr, toArr) => {
-      const numOfItems = fromArr.length;
-      fromArr.forEach(card =>{
-        toArr.push(card);
-      });
-      fromArr.splice(0, numOfItems);
-    },
+    // moveAllFromArrayToArray: (fromArr, toArr) => {
+    //   const numOfItems = fromArr.length;
+    //   fromArr.forEach(card =>{
+    //     toArr.push(card);
+    //   });
+    //   fromArr.splice(0, numOfItems);
+    // },
+    // getIdsFromArray: () => {
+
+    // },
+    moveCardFromArrayToArray: function (fromArray, toArray, cardId) {
+      // if there is no cardId, move all elements fromArray to toArray
+      if (cardId === undefined) {
+        // fromArray.forEach(card => {
+        //   toArray.push(card);
+        //   let index = fromArray.indexOf(card);
+        //   fromArray.splice(index,1);
+        const numOfItems = fromArray.length;
+        fromArray.forEach(card => {
+          toArray.push(card);
+        });
+        fromArray.splice(0, numOfItems);
+      }
+    
+      // if there is cardId
+      fromArray.forEach(card => {
+      if (`card-${card.ID}` === cardId) {
+        // Adding card from cardsInPlayerHand array to table cards
+        toArray.push(card);
+        // Finding the player card that is selected 
+        let index = fromArray.indexOf(card)
+        // Removing the selected player card after the card is being pushed
+        fromArray.splice(index, 1);
+      }
+    })
+  },
     getPlayerInHandCards: () => {
       return data.playerInHandCards[0];
     },
-    getCompInHandCards: () => {
-      return data.compInHandCards[0];
-    },
-    getCardsOnTable: () => {
-      return data.cardsOnTable[0];
-    },
-    getCardsToDeal: () => {
-      return data.cardsToDeal[0];
-    },
-    getPlayerCollectedCards: () => {
-      return data.playerCollectedCards;
-    },
-    getCompCollectedCards: () => {
-      return data.compCollectedCards;
-    },
-    getCardsInCalculation: () => {
-      return data.cardsInCalculation;
-    },
-    showFullDeck: () => {
-      console.log(data.fullDeck[0]);
-    },
-    logData: function () {
-      return data;
-    }
-  };
-})();
+      getCompInHandCards: () => {
+        return data.compInHandCards[0];
+      },
+        getCardsOnTable: () => {
+          return data.cardsOnTable[0];
+        },
+          getCardsToDeal: () => {
+            return data.cardsToDeal[0];
+          },
+            getPlayerCollectedCards: () => {
+              return data.playerCollectedCards;
+            },
+              getCompCollectedCards: () => {
+                return data.compCollectedCards;
+              },
+                getCardsInCalculation: () => {
+                  return data.cardsInCalculation;
+                },
+                  showFullDeck: () => {
+                    console.log(data.fullDeck[0]);
+                  },
+                    logData: function () {
+                      return data;
+                    }
+};
+}) ();
 
 
 
@@ -535,23 +564,10 @@ const UICtrl = (function () {
       // Grab cards from the table
       let cardsOnTable = ItemCtrl.getCardsOnTable();
       // Add selected player card to table cards, and remove it from inHand
-      this.moveCardFromArrayToArray(cardId, inHandCards, cardsOnTable);
+      ItemCtrl.moveCardFromArrayToArray(inHandCards, cardsOnTable, cardId);
       // UI populate array table cards
       this.populateTableCards(cardsOnTable);
-      
-    },
 
-    moveCardFromArrayToArray: function (cardId, fromArray, toArray) {
-      fromArray.forEach(function(card) {
-        if(`card-${card.ID}` === cardId){
-          // Adding card from cardsInPlayerHand array to table cards
-          toArray.push(card);
-          // Finding the player card that is selected 
-          let index = fromArray.indexOf(card)
-          // Removing the selected player card after the card is being pushed
-          fromArray.splice(index, 1);
-        }
-      })
     },
 
     addSelectedStageCardStyle: function (id) {
@@ -635,12 +651,13 @@ const App = (function (ItemCtrl, UICtrl) {
       } else {
         grabId = e.target.parentNode.id;
       }
-      
+
       const playerInHandCards = ItemCtrl.getPlayerInHandCards();
       const compInHandCards = ItemCtrl.getCompInHandCards();
       const playerCollectedCards = ItemCtrl.getPlayerCollectedCards();
       const compCollectedCards = ItemCtrl.getCompCollectedCards();
       const cardsInCalculation = ItemCtrl.getCardsInCalculation();
+      const cardsOnTable = ItemCtrl.getCardsOnTable();
       // const populatePlayerCards = UICtrl.populatePlayerCards(playerInHandCards);
 
 
@@ -652,14 +669,14 @@ const App = (function (ItemCtrl, UICtrl) {
 
       const calculate = ItemCtrl.calculus(grabId, playerInHandCards);
       console.log(calculate);
-      if(calculate[0] === true){
-        UICtrl.moveCardFromArrayToArray(grabId, playerInHandCards, playerCollectedCards);
-        ItemCtrl.moveAllFromArrayToArray(cardsInCalculation, playerCollectedCards);
+      if (calculate[0] === true) {
+        ItemCtrl.moveCardFromArrayToArray(playerInHandCards, playerCollectedCards, grabId);
+        // UICtrl.moveCardFromArrayToArray(cardsOnTable, playerCollectedCards);
+        ItemCtrl.moveCardFromArrayToArray(cardsInCalculation, playerCollectedCards);
+
       }
 
     }
-    // console.log(grabId);
-
 
     console.log(ItemCtrl.logData());
 
