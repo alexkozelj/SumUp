@@ -480,12 +480,12 @@ const UICtrl = (function () {
     // Deck of cards on the table
     deckOfCards: ".deck",
 
-    // Result board
+    //////// Result board ///////
 
     // Overall Info
     compOverallScore: "#compOverallScore",
     playerOverallScore: "#playerOverallScore",
-    GameNr: "#numberOfPlayedGames",
+    gameNr: "#numberOfPlayedGames",
     totalGameNr: "#numberOfScheduledGames",
 
     // Current Game Info
@@ -554,6 +554,21 @@ const UICtrl = (function () {
       console.log(deck);
       // Insert list items
       document.querySelector(UISelectors.deckOfCards).innerHTML = html;
+    },
+
+    defaultScoreboard: function () {
+      // Default overall game scoreboard values
+      document.querySelector(UISelectors.compOverallScore).innerHTML = "0";
+      document.querySelector(UISelectors.playerOverallScore).innerHTML = "0";
+      document.querySelector(UISelectors.gameNr).innerHTML = "1";
+      document.querySelector(UISelectors.totalGameNr).innerHTML = "5";
+
+      // Default current game scoreboard values
+      document.querySelector(UISelectors.compPoints).innerHTML = "0";
+      document.querySelector(UISelectors.compTablaPoints).innerHTML = "";
+      document.querySelector(UISelectors.playerPoints).innerHTML = "0";
+      document.querySelector(UISelectors.playerTablaPoints).innerHTML = "";
+      document.querySelector(UISelectors.dealNr).innerHTML = "1";
     },
 
     throwCardOnTable: function (cardId, inHandCards) {
@@ -688,6 +703,7 @@ const App = (function (ItemCtrl, UICtrl) {
     init: function () {
       // 1st Round of Game
       ItemCtrl.firstDeal();
+      UICtrl.defaultScoreboard();
 
       const playerInHandCards = ItemCtrl.getPlayerInHandCards();
       const compInHandCards = ItemCtrl.getCompInHandCards();
