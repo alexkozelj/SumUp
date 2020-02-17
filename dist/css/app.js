@@ -289,6 +289,10 @@ const ItemCtrl = (function () {
               if(tableCards[x] === tableCards[y]){
                 continue;
               }
+              // if there is a Ace
+              if(compCardRank < tableCardY && tableCardY === 11){
+                tableCardY = 1;
+              }
               // if current comp card (that has a rank sibling on a table) is greater then 2nd card i = x & Y + z
               if(compCardRank > tableCardY){
                 // when comp card is greater, look for next one 
@@ -299,9 +303,13 @@ const ItemCtrl = (function () {
                   if(tableCards[x] === tableCards[z] || tableCards[y] === tableCards[z]){
                     continue;
                   }
+                  // if there is a Ace
+                  if(compCardRank - tableCardY !== tableCardZ && tableCardZ === 11){
+                    tableCardZ = 1;
+                  }
                   // check if third card passes
                   if(compCardRank - tableCardY === tableCardZ){
-               
+                    // if there is already same combination
                     for(let w = 0; w < combinations.takeAway3.length; w++){
 
                       if(combinations.takeAway3[w].card3 === tableCards[z] || 
