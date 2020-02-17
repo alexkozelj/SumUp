@@ -48,13 +48,13 @@ const ItemCtrl = (function () {
       }
       return count
     },
-    calculus: function (cardId, inHandCards) {
+    calculus: function (cardId, cardsForCalc, inHandCards) {
 
-      const cardsInCalc = this.getCardsInCalculation();
+      // const cardsInCalc = this.getCardsInCalculation();
       // i get selected player card - example - [5]
       const playerCard = this.getPlayerCardRank(cardId)[0];
       // get selected stage cards num in array
-      const rankedCards = this.getRank(cardsInCalc)[0];
+      const rankedCards = this.getRank(cardsForCalc)[0];
 
 
       // 1.Checking first sum of all selected stage cards
@@ -78,7 +78,7 @@ const ItemCtrl = (function () {
       // Takeing all the cards in calc and converting to nums or array elements to fill up let variables
       for (let i = 0; i < rankedCards.length; i++) {
 
-        // If player card is same as card in calculation / not same
+        // If player card is same as card in calculation / else part is for not a same card
         if (rankedCards[i] === playerCard[0]) {
           let sameCard = rankedCards[i];
           sameAsPlayerCard.push(sameCard);
@@ -109,7 +109,7 @@ const ItemCtrl = (function () {
         let sumOfRanked = 0;
 
         // 2.1.
-        // >>>>>>>>>>>>> If there is ACE in calculation <<<<<<<<<<<<<<<<<< //
+        // >>>>>>>>>>>>> If there is ACE calculation <<<<<<<<<<<<<<<<<< //
         if (aceIsThereSameCard !== 0 || aceIsThereRestCards !== 0) {
           for (let i = 0; i < rankedCards.length; i++) {
 
@@ -124,13 +124,14 @@ const ItemCtrl = (function () {
               // Unit test for sum and check if sum of cards equals the player card////////
               if (sumOfRanked !== playerCard[0]) {
                 sumOfRanked += rankedCards[i];
-                cardsThatPassTest.push(rankedCards[i]);
+                // cardsThatPassTest.push(rankedCards[i]);
                 console.log(rankedCards[i]);
                 console.log(sumOfRanked);
 
                 // If current card sum up more then Player card => -10
                 if (sumOfRanked > playerCard[0]) {
                   sumOfRanked += - 10;
+                  cardsThatPassTest.push(rankedCards[i]);
                   console.log(sumOfRanked);
                 }
               }
@@ -138,16 +139,18 @@ const ItemCtrl = (function () {
               // checking if it adds up & reset to 0
               if (sumOfRanked === playerCard[0]) {
                 sumOfRanked = 0;
+                cardsThatPassTest.push(rankedCards[i]);
                 console.log(sumOfRanked);
                 console.log(rankedCards[i]);
               }
             }
 
-
+            // it proceeds to next part of code down, while even with -10, it doesn't add up to sumOfRanked
             // Case when first Card in Calc is example> 5, then comes Ace=11 and player card is 8; 
-            // 11 > 8, and passes first IF; 
+            // 11+5 > 8, and passes first IF; 
             // 11 is being converted to 1 and added to sumOfRanked;
             // when it hits the player card, then calculus is true
+            // if not, then proceeds to down part of code
             else {
               let indexOfAce = rankedCards.indexOf(11);
               if (indexOfAce !== -1) {
@@ -172,18 +175,15 @@ const ItemCtrl = (function () {
                 console.log(sumOfRanked);
               }
             }
+            cardsNotPassTest.push(rankedCards[i]);
           }
         }
 
 
         // 2.2
-        // >>>>>> Other calculation <<<<<<
+        //// >>>>>> For other cards calculation <<<<<< ////
         else {
           for (let i = 0; i < rankedCards.length; i++) {
-
-            // using -10 because of Ace, if with 11 goes over player card => -10
-            // let sumOfRankMinus10 = 0;
-            // sumOfRankMinus10 += sumOfRanked - 10;
 
 
             if (rankedCards[i] <= playerCard[0] && sumOfRanked <= playerCard[0]) {
@@ -196,11 +196,6 @@ const ItemCtrl = (function () {
                 console.log(rankedCards[i]);
                 console.log(sumOfRanked);
 
-                // If current card sum up more then Player card => -10
-                // if (sumOfRanked > playerCard[0]) {
-                //   sumOfRanked += - 10;
-                //   console.log(sumOfRanked);
-                // }
               }
 
               // checking if it adds up & reset to 0
@@ -212,6 +207,7 @@ const ItemCtrl = (function () {
             } else {
               // if rankedCard[i] > playerCard, there's no need to calculate, it will always be false  
               sumOfRanked += rankedCards[i];
+              cardsNotPassTest.push(rankedCards[i]);
             }
           }
         }
@@ -220,6 +216,10 @@ const ItemCtrl = (function () {
         // CONDITION CONTROLLER
         if (sumOfRanked === 0) {
           calculation = true;
+          console.log('joj joj');
+          console.log(cardsThatPassTest);
+          console.log(cardsNotPassTest);
+          console.log(sumOfRanked);
         }
         else {
 
@@ -247,8 +247,63 @@ const ItemCtrl = (function () {
         sumOfRestCards,
         rankedCards,
         aceIsThereSameCard,
-        aceIsThereRestCards
+        aceIsThereRestCards,
       ]
+    },
+    compMove: function () {
+      const compCards = this.getCompInHandCards();
+      const tableCards = this.getCardsOnTable();
+      let sum = 0;
+      const arrayOfCompCardRanks = this.getRank(compCards);
+      let cardsInCalc = [];
+      let sameAsCompCard = [];
+      const combinations = {
+        sameCards: [],
+        takeAway: [],
+        
+      };
+
+      for(let i = 0; i < compCards.length; i++){
+        let compCardId = `card-${compCards[i].ID}`;
+        let arrayOfCompCard = [compCards[i]];
+        let compCardRank = this.getRank(arrayOfCompCard)[0][0];
+        console.log(compCardRank);
+
+        for(let x = 0; x < tableCards.length; x++){
+          let arrayOfTableCard = [tableCards[x]];
+          let tableCard = this.getRank(arrayOfTableCard)[0][0];
+          console.log(tableCard);
+          if(tableCard === compCardRank){
+            combinations.sameCards.push(tableCards[x]);
+           
+            for(let y = 0; y < tableCards.length; y++){
+              let arrayOfTableCardY = [tableCards[y]];
+              let tableCardY = this.getRank(arrayOfTableCardY)[0][0];
+              if(tableCards[x] === tableCards[y]){
+                continue;
+              }
+              if(compCardRank > tableCardY){
+                for(let z = 0; z < tableCards.length; z++){
+                  let arrayOfTableCardZ = [tableCards[z]];
+                  let tableCardZ = this.getRank(arrayOfTableCardZ)[0][0];
+                  if(tableCards[x] === tableCards[z] || tableCards[y] === tableCards[z]){
+                    continue;
+                  }
+                  if(compCardRank - tableCardY === tableCardZ){
+                    let allThreeCards = {valueOfcompCardRank:[tableCards[x], tableCards[y], tableCards[z]]};
+                    combinations.takeAway.push(allThreeCards);
+                  }
+                }
+              }
+            }
+            console.log("sta cuva deda Raca");
+          } 
+          // calculus: function (cardId, cardsForCalc, inHandCards) ;
+          
+        
+        }
+      }
+      console.log("comp is alive")
     },
     createDeck: () => {
       let deck = [];
@@ -406,7 +461,7 @@ const ItemCtrl = (function () {
         })
       })
     },
-    moveCardFromArrayToArray:  (fromArray, toArray, cardId) => {
+    moveCardFromArrayToArray: (fromArray, toArray, cardId) => {
 
       // if there is no cardId, move all elements fromArray to toArray
       if (cardId === undefined) {
@@ -429,7 +484,7 @@ const ItemCtrl = (function () {
         }
       })
     },
-    countCardValues: function (array) {
+    countCardValues: (array) => {
       let valueCount = 0;
       array.forEach(card => {
         valueCount += card.Value;
@@ -707,8 +762,8 @@ const App = (function (ItemCtrl, UICtrl) {
       console.log(grabId);
       console.log(playerInHandCards);
       console.log(playerCollectedCards);
-
-      const calculate = ItemCtrl.calculus(grabId, playerInHandCards);
+      
+      const calculate = ItemCtrl.calculus(grabId, cardsInCalculation, playerInHandCards);
       console.log(calculate);
       if (calculate[0] === true) {
         
@@ -738,6 +793,7 @@ const App = (function (ItemCtrl, UICtrl) {
         UICtrl.populateTableCards(cardsOnTable);
         
         // here I need to add computer move
+        ItemCtrl.compMove();
       }
       
     }
