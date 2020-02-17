@@ -253,45 +253,71 @@ const ItemCtrl = (function () {
     compMove: function () {
       const compCards = this.getCompInHandCards();
       const tableCards = this.getCardsOnTable();
-      let sum = 0;
-      const arrayOfCompCardRanks = this.getRank(compCards);
-      let cardsInCalc = [];
-      let sameAsCompCard = [];
+      // let sum = 0;
+      // const arrayOfCompCardRanks = this.getRank(compCards);
+      // let cardsInCalc = [];
+      // let sameAsCompCard = [];
+
+      // Storing potential combinations that can be taken from a computer player
       const combinations = {
         sameCards: [],
-        takeAway: [],
+        takeAway3: [],
         
       };
 
+      // loop through comp cards to compare them with table cards
       for(let i = 0; i < compCards.length; i++){
-        let compCardId = `card-${compCards[i].ID}`;
+        // convert current card to a [{}]
         let arrayOfCompCard = [compCards[i]];
+        // convert current card to a number
         let compCardRank = this.getRank(arrayOfCompCard)[0][0];
         console.log(compCardRank);
 
+        // loop through first potential table card to be taken - check if there is same cards as comp card 
         for(let x = 0; x < tableCards.length; x++){
           let arrayOfTableCard = [tableCards[x]];
           let tableCard = this.getRank(arrayOfTableCard)[0][0];
           console.log(tableCard);
+          // same card is found
           if(tableCard === compCardRank){
             combinations.sameCards.push(tableCards[x]);
-           
+            // checking if there is situation: i = x & y + z
             for(let y = 0; y < tableCards.length; y++){
               let arrayOfTableCardY = [tableCards[y]];
               let tableCardY = this.getRank(arrayOfTableCardY)[0][0];
+              // avoiding takeing same card in a loop
               if(tableCards[x] === tableCards[y]){
                 continue;
               }
+              // if current comp card (that has a rank sibling on a table) is greater then 2nd card i = x & Y + z
               if(compCardRank > tableCardY){
+                // when comp card is greater, look for next one 
                 for(let z = 0; z < tableCards.length; z++){
                   let arrayOfTableCardZ = [tableCards[z]];
                   let tableCardZ = this.getRank(arrayOfTableCardZ)[0][0];
+                  // avoiding takeing same card in a loop
                   if(tableCards[x] === tableCards[z] || tableCards[y] === tableCards[z]){
                     continue;
                   }
+                  // check if third card passes
                   if(compCardRank - tableCardY === tableCardZ){
-                    let allThreeCards = {valueOfcompCardRank:[tableCards[x], tableCards[y], tableCards[z]]};
-                    combinations.takeAway.push(allThreeCards);
+               
+                    for(let w = 0; w < combinations.takeAway3.length; w++){
+
+                      if(combinations.takeAway3[w].card3 === tableCards[z] || 
+                        combinations.takeAway3[w].card2 === tableCards[z])
+                      {
+                        break;
+                      }
+
+                    }
+
+                      
+                    // })
+                   
+                    let allThreeCards = {card1:tableCards[x], card2: tableCards[y], card3: tableCards[z]};
+                    combinations.takeAway3.push(allThreeCards);
+                    
                   }
                 }
               }
@@ -300,10 +326,10 @@ const ItemCtrl = (function () {
           } 
           // calculus: function (cardId, cardsForCalc, inHandCards) ;
           
-        
         }
       }
-      console.log("comp is alive")
+      console.log(combinations);
+      console.log("comp is alive");
     },
     createDeck: () => {
       let deck = [];
