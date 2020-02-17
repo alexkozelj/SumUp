@@ -278,8 +278,9 @@ const ItemCtrl = (function () {
           let arrayOfTableCard = [tableCards[x]];
           let tableCard = this.getRank(arrayOfTableCard)[0][0];
           console.log(tableCard);
+
           // same card is found
-          if(tableCard === compCardRank){
+          if(compCardRank === tableCard){
             combinations.sameCards.push(tableCards[x]);
             // checking if there is situation: i = x & y + z
             for(let y = 0; y < tableCards.length; y++){
@@ -320,9 +321,7 @@ const ItemCtrl = (function () {
 
                     }
 
-                      
-                    // })
-                   
+ 
                     let allThreeCards = {card1:tableCards[x], card2: tableCards[y], card3: tableCards[z]};
                     combinations.takeAway3.push(allThreeCards);
                     
@@ -332,8 +331,39 @@ const ItemCtrl = (function () {
             }
             console.log("sta cuva deda Raca");
           } 
-          // calculus: function (cardId, cardsForCalc, inHandCards) ;
-          
+          // Situation when it is not a same card and check if there is a pair that sums to comp card
+          if(compCardRank !== tableCard && tableCard < compCardRank){
+            for(let y = 0; y < tableCards.length; y++){
+                let arrayOfTableCardY = [tableCards[y]];
+                let tableCardY = this.getRank(arrayOfTableCardY)[0][0];
+                // avoiding takeing same card in a loop
+              if(tableCards[x] === tableCards[y]){
+                continue;
+              }
+              // if there is Ace
+              if(compCardRank - tableCard !== tableCardY && tableCardY === 11){
+                tableCardY = 1;
+              }
+              if(compCardRank - tableCard === tableCardY){
+                // if there is already same combination
+                for(let w = 0; w < combinations.takeAway3.length; w++){
+
+                  if(combinations.takeAway3[w].card1 === tableCards[y] || 
+                    combinations.takeAway3[w].card2 === tableCards[y])
+                  {
+                    break;
+                  }
+
+                }
+
+
+                let allTwoCards = {card1:tableCards[x], card2: tableCards[y]};
+                combinations.takeAway3.push(allTwoCards);
+                
+              }
+            }
+        
+          }
         }
       }
       console.log(combinations);
