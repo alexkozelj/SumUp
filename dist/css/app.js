@@ -346,15 +346,15 @@ const ItemCtrl = (function () {
               }
               if(compCardRank - tableCard === tableCardY){
                 // if there is already same combination
-                for(let w = 0; w < combinations.takeAway3.length; w++){
+                // for(let w = 0; w < combinations.takeAway3.length; w++){
 
-                  if(combinations.takeAway3[w].card1 === tableCards[y] || 
-                    combinations.takeAway3[w].card2 === tableCards[y])
-                  {
-                    break;
-                  }
+                //   if(combinations.takeAway3[w].card1 === combinations.takeAway3[w].card2 || 
+                //     combinations.takeAway3[w].card2 === combinations.takeAway3[w].card1)
+                //   {
+                //     break;
+                //   }
 
-                }
+                // }
 
 
                 let allTwoCards = {card1:tableCards[x], card2: tableCards[y]};
