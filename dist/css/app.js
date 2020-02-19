@@ -265,6 +265,8 @@ const ItemCtrl = (function () {
         
       };
 
+      let takeCombinations = [];
+
       // loop through comp cards to compare them with table cards
       for(let i = 0; i < compCards.length; i++){
         // convert current card to a [{}]
@@ -281,7 +283,7 @@ const ItemCtrl = (function () {
 
           // same card is found
           if(compCardRank === tableCard){
-            combinations.sameCards.push(tableCards[x]);
+            takeCombinations.push(tableCards[x]);
             // checking if there is situation: i = x & y + z
             for(let y = 0; y < tableCards.length; y++){
               let arrayOfTableCardY = [tableCards[y]];
@@ -311,19 +313,19 @@ const ItemCtrl = (function () {
                   // check if third card passes
                   if(compCardRank - tableCardY === tableCardZ){
                     // if there is already same combination
-                    for(let w = 0; w < combinations.takeAway3.length; w++){
+                    // for(let w = 0; w < combinations.takeAway3.length; w++){
 
-                      if(combinations.takeAway3[w].card3 === tableCards[z] || 
-                        combinations.takeAway3[w].card2 === tableCards[z])
-                      {
-                        break;
-                      }
+                    //   if(combinations.takeAway3[w].card3 === tableCards[z] || 
+                    //     combinations.takeAway3[w].card2 === tableCards[z])
+                    //   {
+                    //     break;
+                    //   }
 
-                    }
+                    // }
 
  
                     let allThreeCards = {card1:tableCards[x], card2: tableCards[y], card3: tableCards[z]};
-                    combinations.takeAway3.push(allThreeCards);
+                    takeCombinations.push(allThreeCards);
                     
                   }
                 }
@@ -345,20 +347,10 @@ const ItemCtrl = (function () {
                 tableCardY = 1;
               }
               if(compCardRank - tableCard === tableCardY){
-                // if there is already same combination
-                // for(let w = 0; w < combinations.takeAway3.length; w++){
-
-                //   if(combinations.takeAway3[w].card1 === combinations.takeAway3[w].card2 || 
-                //     combinations.takeAway3[w].card2 === combinations.takeAway3[w].card1)
-                //   {
-                //     break;
-                //   }
-
-                // }
-
+              
 
                 let allTwoCards = {card1:tableCards[x], card2: tableCards[y]};
-                combinations.takeAway3.push(allTwoCards);
+                takeCombinations.push(allTwoCards);
                 
               }
             }
@@ -366,7 +358,7 @@ const ItemCtrl = (function () {
           }
         }
       }
-      console.log(combinations);
+      console.log(takeCombinations);
       console.log("comp is alive");
     },
     createDeck: () => {
