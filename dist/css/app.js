@@ -278,12 +278,12 @@ const ItemCtrl = (function () {
         // loop through first potential table card to be taken - check if there is same cards as comp card 
         for(let x = 0; x < tableCards.length; x++){
           let arrayOfTableCard = [tableCards[x]];
-          let tableCard = this.getRank(arrayOfTableCard)[0][0];
-          console.log(tableCard);
+          let tableCardX = this.getRank(arrayOfTableCard)[0][0];
+          console.log(tableCardX);
 
           // same card is found
-          if(compCardRank === tableCard){
-            takeCombinations.push(tableCards[x]);
+          if(compCardRank === tableCardX){
+            takeCombinations.push([compCards[i], tableCards[x]]);
             
             // checking if there is situation: i = x & y + z
             for(let y = 0; y < tableCards.length; y++){
@@ -336,7 +336,7 @@ const ItemCtrl = (function () {
             console.log("sta cuva deda Raca");
           } 
           // Situation when it is not a same card and check if there is a pair that sums to comp card
-          if(compCardRank !== tableCard && tableCard < compCardRank){
+          if(compCardRank !== tableCardX && tableCardX < compCardRank){
             for(let y = 0; y < tableCards.length; y++){
                 let arrayOfTableCardY = [tableCards[y]];
                 let tableCardY = this.getRank(arrayOfTableCardY)[0][0];
@@ -345,10 +345,10 @@ const ItemCtrl = (function () {
                 continue;
               }
               // if there is Ace
-              if(compCardRank - tableCard !== tableCardY && tableCardY === 11){
+              if(compCardRank - tableCardX !== tableCardY && tableCardY === 11){
                 tableCardY = 1;
               }
-              if(compCardRank - tableCard === tableCardY){
+              if(compCardRank - tableCardX === tableCardY){
               
 
                 let allTwoCards = [compCards[i], tableCards[x], tableCards[y]];
