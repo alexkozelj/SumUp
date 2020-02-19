@@ -284,6 +284,7 @@ const ItemCtrl = (function () {
           // same card is found
           if(compCardRank === tableCard){
             takeCombinations.push(tableCards[x]);
+            
             // checking if there is situation: i = x & y + z
             for(let y = 0; y < tableCards.length; y++){
               let arrayOfTableCardY = [tableCards[y]];
@@ -324,7 +325,8 @@ const ItemCtrl = (function () {
                     // }
 
  
-                    let allThreeCards = {card1:tableCards[x], card2: tableCards[y], card3: tableCards[z]};
+                    let allThreeCards = [compCards[i], tableCards[x], tableCards[y], tableCards[z]];
+                    // {card1:tableCards[x], card2: tableCards[y], card3: tableCards[z]};
                     takeCombinations.push(allThreeCards);
                     
                   }
@@ -349,7 +351,8 @@ const ItemCtrl = (function () {
               if(compCardRank - tableCard === tableCardY){
               
 
-                let allTwoCards = {card1:tableCards[x], card2: tableCards[y]};
+                let allTwoCards = [compCards[i], tableCards[x], tableCards[y]];
+                // {card1:tableCards[x], card2: tableCards[y]};
                 takeCombinations.push(allTwoCards);
                 
               }
