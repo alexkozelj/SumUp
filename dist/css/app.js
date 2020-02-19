@@ -253,21 +253,11 @@ const ItemCtrl = (function () {
     compMove: function () {
       const compCards = this.getCompInHandCards();
       const tableCards = this.getCardsOnTable();
-      // let sum = 0;
-      // const arrayOfCompCardRanks = this.getRank(compCards);
-      // let cardsInCalc = [];
-      // let sameAsCompCard = [];
 
       // Storing potential combinations that can be taken from a computer player
-      const combinations = {
-        sameCards: [],
-        takeAway3: [],
-        
-      };
-
       let takeCombinations = [];
 
-      // loop through comp cards to compare them with table cards
+      // loop through COMPUTER CARDS to compare them with table cards
       for(let i = 0; i < compCards.length; i++){
         // convert current card to a [{}]
         let arrayOfCompCard = [compCards[i]];
@@ -275,13 +265,13 @@ const ItemCtrl = (function () {
         let compCardRank = this.getRank(arrayOfCompCard)[0][0];
         console.log(compCardRank);
 
-        // loop through first potential table card to be taken - check if there is same cards as comp card 
+        // loop through FIRST potential table card to be taken - check if there is same cards as comp card 
         for(let x = 0; x < tableCards.length; x++){
           let arrayOfTableCard = [tableCards[x]];
           let tableCardX = this.getRank(arrayOfTableCard)[0][0];
           console.log(tableCardX);
 
-          // same card is found
+          // SAME CARD is found and pushed
           if(compCardRank === tableCardX){
             takeCombinations.push([compCards[i], tableCards[x]]);
             
@@ -293,7 +283,7 @@ const ItemCtrl = (function () {
               if(tableCards[x] === tableCards[y]){
                 continue;
               }
-              // if there is a Ace
+              // if there is a ACE
               if(compCardRank < tableCardY && tableCardY === 11){
                 tableCardY = 1;
               }
@@ -307,26 +297,15 @@ const ItemCtrl = (function () {
                   if(tableCards[x] === tableCards[z] || tableCards[y] === tableCards[z]){
                     continue;
                   }
-                  // if there is a Ace
+                  // if there is a ACE
                   if(compCardRank - tableCardY !== tableCardZ && tableCardZ === 11){
                     tableCardZ = 1;
                   }
-                  // check if third card passes
+                  // check if THIRD card passes
                   if(compCardRank - tableCardY === tableCardZ){
-                    // if there is already same combination
-                    // for(let w = 0; w < combinations.takeAway3.length; w++){
-
-                    //   if(combinations.takeAway3[w].card3 === tableCards[z] || 
-                    //     combinations.takeAway3[w].card2 === tableCards[z])
-                    //   {
-                    //     break;
-                    //   }
-
-                    // }
-
- 
+                    
+                    // push the i = x & y + z situation cards
                     let allThreeCards = [compCards[i], tableCards[x], tableCards[y], tableCards[z]];
-                    // {card1:tableCards[x], card2: tableCards[y], card3: tableCards[z]};
                     takeCombinations.push(allThreeCards);
                     
                   }
@@ -335,24 +314,26 @@ const ItemCtrl = (function () {
             }
             console.log("sta cuva deda Raca");
           } 
-          // Situation when it is not a same card and check if there is a pair that sums to comp card
+          // Situation when it is not a same card and check if there is a PAIR that sums to comp card
           if(compCardRank !== tableCardX && tableCardX < compCardRank){
             for(let y = 0; y < tableCards.length; y++){
-                let arrayOfTableCardY = [tableCards[y]];
-                let tableCardY = this.getRank(arrayOfTableCardY)[0][0];
-                // avoiding takeing same card in a loop
+              let arrayOfTableCardY = [tableCards[y]];
+              let tableCardY = this.getRank(arrayOfTableCardY)[0][0];
+              
+              // avoiding takeing same card in a loop
               if(tableCards[x] === tableCards[y]){
                 continue;
               }
-              // if there is Ace
+
+              // if there is ACE
               if(compCardRank - tableCardX !== tableCardY && tableCardY === 11){
                 tableCardY = 1;
               }
+
+              // found a PAIR and pushed
               if(compCardRank - tableCardX === tableCardY){
               
-
                 let allTwoCards = [compCards[i], tableCards[x], tableCards[y]];
-                // {card1:tableCards[x], card2: tableCards[y]};
                 takeCombinations.push(allTwoCards);
                 
               }
