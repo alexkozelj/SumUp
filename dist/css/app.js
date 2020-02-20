@@ -371,19 +371,7 @@ const ItemCtrl = (function () {
       // for(let q = 0; q < takeCombinations.length; q++){
       //   // comb += `let combi${q} = ${takeCombinations[q]}`
         
-      //   let value = 0;
-      //   let count = 0;
-      //   takeCombinations[q].forEach(function(card){
-      //     value += card.Value;
-      //     count += 1
-      //   })
-
-      // }
-      // takeCombinations.forEach(function(combi){
-      //   combi.forEach(function(card){
-      //     console.log(card.Value);
-      //   })
-      // })
+     
 
     },
     createDeck: () => {
