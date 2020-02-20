@@ -273,7 +273,8 @@ const ItemCtrl = (function () {
 
           // SAME CARD is found and pushed
           if(compCardRank === tableCardX){
-            takeCombinations.push([compCards[i], tableCards[x]]);
+            let valueOfCombi = compCards[i].Value + tableCards[x].Value;
+            takeCombinations.push([valueOfCombi, compCards[i], tableCards[x]]);
             
             // checking if there is situation: i = x & y + z
             for(let y = 0; y < tableCards.length; y++){
@@ -305,9 +306,12 @@ const ItemCtrl = (function () {
                   if(compCardRank - tableCardY === tableCardZ){
                     
                     // push the i = x & y + z situation cards
-                    let allThreeCards = [compCards[i], tableCards[x], tableCards[y], tableCards[z]];
-                    takeCombinations.push(allThreeCards);
+                    // let allThreeCards = [compCards[i], tableCards[x], tableCards[y], tableCards[z]];
                     
+                    let valueOfCombi = compCards[i].Value + tableCards[x].Value + tableCards[y].Value + tableCards[z].Value;
+                    let allThreeCards = [valueOfCombi, compCards[i], tableCards[x], tableCards[y], tableCards[z]];
+                    
+                    takeCombinations.push(allThreeCards);
                   }
                 }
               }
@@ -333,7 +337,8 @@ const ItemCtrl = (function () {
               // found a PAIR and pushed
               if(compCardRank - tableCardX === tableCardY){
               
-                let allTwoCards = [compCards[i], tableCards[x], tableCards[y]];
+                let valueOfCombi = compCards[i].Value + tableCards[x].Value + tableCards[y].Value;
+                let allTwoCards = [valueOfCombi, compCards[i], tableCards[x], tableCards[y]];
                 takeCombinations.push(allTwoCards);
                 
               }
@@ -342,8 +347,44 @@ const ItemCtrl = (function () {
           }
         }
       }
+      
+      // dic.sort(function(a, b){
+        //   return a[0].id.localeCompare(b[0].id);
+        // });
+        
+      // takeCombinations.sort(function(a, b){
+      //   return a[0].Value.localeCompare(b[0].Value);
+      // });
+      // cars.sort(function(a, b){return a.year - b.year});
+      // displayCars();
+      // const sorted = takeCombinations.sort(function(a, b){
+      //   return a.Value - b.Value
+      // });
+      
+      
+      // console.log(sorted);
       console.log(takeCombinations);
       console.log("comp is alive");
+
+      let comb = [];
+      
+      // for(let q = 0; q < takeCombinations.length; q++){
+      //   // comb += `let combi${q} = ${takeCombinations[q]}`
+        
+      //   let value = 0;
+      //   let count = 0;
+      //   takeCombinations[q].forEach(function(card){
+      //     value += card.Value;
+      //     count += 1
+      //   })
+
+      // }
+      // takeCombinations.forEach(function(combi){
+      //   combi.forEach(function(card){
+      //     console.log(card.Value);
+      //   })
+      // })
+
     },
     createDeck: () => {
       let deck = [];
