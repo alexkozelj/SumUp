@@ -357,9 +357,10 @@ const ItemCtrl = (function () {
       // });
       // cars.sort(function(a, b){return a.year - b.year});
       // displayCars();
-      // const sorted = takeCombinations.sort(function(a, b){
-      //   return a.Value - b.Value
-      // });
+      takeCombinations.sort(function(a, b){
+        return a[0] - b[0]
+      });
+      
       
       
       // console.log(sorted);
