@@ -258,7 +258,7 @@ const ItemCtrl = (function () {
       let takeCombinations = [];
 
       // loop through COMPUTER CARDS to compare them with table cards
-      for(let i = 0; i < compCards.length; i++){
+      for (let i = 0; i < compCards.length; i++) {
         // convert current card to a [{}]
         let arrayOfCompCard = [compCards[i]];
         // convert current card to a number
@@ -266,113 +266,131 @@ const ItemCtrl = (function () {
         console.log(compCardRank);
 
         // loop through FIRST potential table card to be taken - check if there is same cards as comp card 
-        for(let x = 0; x < tableCards.length; x++){
+        for (let x = 0; x < tableCards.length; x++) {
           let arrayOfTableCard = [tableCards[x]];
           let tableCardX = this.getRank(arrayOfTableCard)[0][0];
           console.log(tableCardX);
 
           // SAME CARD is found and pushed
-          if(compCardRank === tableCardX){
+          if (compCardRank === tableCardX) {
             let valueOfCombi = compCards[i].Value + tableCards[x].Value;
             takeCombinations.push([valueOfCombi, compCards[i], tableCards[x]]);
-            
+
             // checking if there is situation: i = x & y + z
-            for(let y = 0; y < tableCards.length; y++){
+            for (let y = 0; y < tableCards.length; y++) {
               let arrayOfTableCardY = [tableCards[y]];
               let tableCardY = this.getRank(arrayOfTableCardY)[0][0];
               // avoiding takeing same card in a loop
-              if(tableCards[x] === tableCards[y]){
+              if (tableCards[x] === tableCards[y]) {
                 continue;
               }
               // if there is a ACE
-              if(compCardRank < tableCardY && tableCardY === 11){
+              if (compCardRank < tableCardY && tableCardY === 11) {
                 tableCardY = 1;
               }
               // if current comp card (that has a rank sibling on a table) is greater then 2nd card i = x & Y + z
-              if(compCardRank > tableCardY){
+              if (compCardRank > tableCardY) {
                 // when comp card is greater, look for next one 
-                for(let z = 0; z < tableCards.length; z++){
+                for (let z = 0; z < tableCards.length; z++) {
                   let arrayOfTableCardZ = [tableCards[z]];
                   let tableCardZ = this.getRank(arrayOfTableCardZ)[0][0];
                   // avoiding takeing same card in a loop
-                  if(tableCards[x] === tableCards[z] || tableCards[y] === tableCards[z]){
+                  if (tableCards[x] === tableCards[z] || tableCards[y] === tableCards[z]) {
                     continue;
                   }
                   // if there is a ACE
-                  if(compCardRank - tableCardY !== tableCardZ && tableCardZ === 11){
+                  if (compCardRank - tableCardY !== tableCardZ && tableCardZ === 11) {
                     tableCardZ = 1;
                   }
                   // check if THIRD card passes
-                  if(compCardRank - tableCardY === tableCardZ){
-                    
+                  if (compCardRank - tableCardY === tableCardZ) {
+
                     // push the i = x & y + z situation cards
                     // let allThreeCards = [compCards[i], tableCards[x], tableCards[y], tableCards[z]];
-                    
+
                     let valueOfCombi = compCards[i].Value + tableCards[x].Value + tableCards[y].Value + tableCards[z].Value;
                     let allThreeCards = [valueOfCombi, compCards[i], tableCards[x], tableCards[y], tableCards[z]];
-                    
+
                     takeCombinations.push(allThreeCards);
                   }
                 }
               }
             }
             console.log("sta cuva deda Raca");
-          } 
+          }
           // Situation when it is not a same card and check if there is a PAIR that sums to comp card
-          if(compCardRank !== tableCardX && tableCardX < compCardRank){
-            for(let y = 0; y < tableCards.length; y++){
+          if (compCardRank !== tableCardX && tableCardX < compCardRank) {
+            for (let y = 0; y < tableCards.length; y++) {
               let arrayOfTableCardY = [tableCards[y]];
               let tableCardY = this.getRank(arrayOfTableCardY)[0][0];
-              
+
               // avoiding takeing same card in a loop
-              if(tableCards[x] === tableCards[y]){
+              if (tableCards[x] === tableCards[y]) {
                 continue;
               }
 
               // if there is ACE
-              if(compCardRank - tableCardX !== tableCardY && tableCardY === 11){
+              if (compCardRank - tableCardX !== tableCardY && tableCardY === 11) {
                 tableCardY = 1;
               }
 
               // found a PAIR and pushed
-              if(compCardRank - tableCardX === tableCardY){
-              
+              if (compCardRank - tableCardX === tableCardY) {
+
                 let valueOfCombi = compCards[i].Value + tableCards[x].Value + tableCards[y].Value;
                 let allTwoCards = [valueOfCombi, compCards[i], tableCards[x], tableCards[y]];
                 takeCombinations.push(allTwoCards);
-                
+
               }
             }
-        
+
           }
         }
       }
-      
+
       // dic.sort(function(a, b){
-        //   return a[0].id.localeCompare(b[0].id);
-        // });
-        
+      //   return a[0].id.localeCompare(b[0].id);
+      // });
+
       // takeCombinations.sort(function(a, b){
       //   return a[0].Value.localeCompare(b[0].Value);
       // });
       // cars.sort(function(a, b){return a.year - b.year});
       // displayCars();
-      takeCombinations.sort(function(a, b){
-        return a[0] - b[0]
+      takeCombinations.sort(function (a, b) {
+        return a[0] - b[0];
       });
-      
-      
-      
+
+      // moveCardFromArrayToArray: (fromArray, toArray, cardId)
+      let bestCombination = takeCombinations[takeCombinations.length - 1];
+      let compCardBestCombi = [bestCombination[1]];
+      let compCardId = `card-${bestCombination[1].ID}`
+      let tableCardsBestCombi = bestCombination.slice(2, bestCombination.length);
+      // let tableCardID = "";
+      console.log(bestCombination);
+      console.log(compCardId);
+      console.log(tableCardsBestCombi);
+
+      this.moveCardFromArrayToArray(data.compInHandCards[0], data.compCollectedCards, compCardId);
+
+      //  let tableCardID = `card-${card.ID}`;
+      // ItemCtrl.addStageCardInCalculation(card.ID);
+      tableCardsBestCombi.forEach(function (card) {
+        //
+        ItemCtrl.moveCardFromArrayToArray(data.cardsOnTable[0], data.compCollectedCards, `card-${card.ID}`);
+        // this.moveCardFromArrayToArray(tableCardsBestCombi, data.comp);
+      })
+
+      console.log(data.compCollectedCards);
+      // this.removeCollectedCardsFromTable();
+
+
       // console.log(sorted);
       console.log(takeCombinations);
       console.log("comp is alive");
 
-      let comb = [];
-      
-      // for(let q = 0; q < takeCombinations.length; q++){
-      //   // comb += `let combi${q} = ${takeCombinations[q]}`
-        
-     
+
+
 
     },
     createDeck: () => {
@@ -522,9 +540,9 @@ const ItemCtrl = (function () {
       const cardsOnTable = this.getCardsOnTable();
       let Id = 0;
 
-      cardsInCalc.forEach(function(cardCalc){
-        cardsOnTable.forEach(function(cardTable){
-          if(cardTable === cardCalc){
+      cardsInCalc.forEach(function (cardCalc) {
+        cardsOnTable.forEach(function (cardTable) {
+          if (cardTable === cardCalc) {
             let index = cardsOnTable.indexOf(cardTable);
             cardsOnTable.splice(index, 1);
           }
@@ -544,7 +562,7 @@ const ItemCtrl = (function () {
 
       // if there is cardId
       fromArray.forEach(card => {
-        if (`card-${card.ID}` === cardId) {
+        if (`card-${card.ID}` === cardId || card.ID === cardId) {
           // Adding card from cardsInPlayerHand array to table cards
           toArray.push(card);
           // Finding the player card that is selected 
@@ -705,7 +723,7 @@ const UICtrl = (function () {
     },
 
     updateCurrentScoreboard: (value, playerOrComp) => {
-      if(playerOrComp === "player"){
+      if (playerOrComp === "player") {
         const currentPlayerPointsString = document.querySelector(UISelectors.playerPoints).innerHTML;
         const currentPlayerPointsInt = parseInt(currentPlayerPointsString);
         const updatedPlayerPointsInt = currentPlayerPointsInt + value;
@@ -715,7 +733,7 @@ const UICtrl = (function () {
     },
 
     addEmptyTablePoint: (playerOrComp) => {
-      if(playerOrComp === "player"){
+      if (playerOrComp === "player") {
         const currentPlayerPointsString = document.querySelector(UISelectors.playerPoints).innerHTML;
         const currentPlayerPointsInt = parseInt(currentPlayerPointsString);
         const updatedPlayerPointsInt = currentPlayerPointsInt + 1;
@@ -832,17 +850,17 @@ const App = (function (ItemCtrl, UICtrl) {
       console.log(grabId);
       console.log(playerInHandCards);
       console.log(playerCollectedCards);
-      
+
       const calculate = ItemCtrl.calculus(grabId, cardsInCalculation, playerInHandCards);
       console.log(calculate);
       if (calculate[0] === true) {
-        
+
         // move player card to calculation array
         ItemCtrl.moveCardFromArrayToArray(playerInHandCards, cardsInCalculation, grabId);
         // count all value cards
         const playerValueOfCollected = ItemCtrl.countCardValues(cardsInCalculation);
         console.log(playerValueOfCollected);
-        
+
         // player is needed for update current scoreboard function (comp or player update)
         const playerParameter = "player";
         // Update current scoreboard with sum of collected value cards
@@ -854,18 +872,18 @@ const App = (function (ItemCtrl, UICtrl) {
         // If table has no cards after calc, add point 
         console.log(cardsOnTable);
         // const isItEmpty = ItemCtrl.getCardsOnTable();
-        if(cardsOnTable.length === 0){
+        if (cardsOnTable.length === 0) {
           UICtrl.addEmptyTablePoint(playerParameter);
         }
-        
+
         // UICtrl.moveCardFromArrayToArray(cardsOnTable, playerCollectedCards);
         UICtrl.populatePlayerCards(playerInHandCards);
         UICtrl.populateTableCards(cardsOnTable);
-        
+
         // here I need to add computer move
         ItemCtrl.compMove();
       }
-      
+
     }
 
     console.log(ItemCtrl.logData());
