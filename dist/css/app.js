@@ -363,29 +363,40 @@ const ItemCtrl = (function () {
 
       // moveCardFromArrayToArray: (fromArray, toArray, cardId)
       let bestCombination = takeCombinations[takeCombinations.length - 1];
-      let compCardBestCombi = [bestCombination[1]];
       let compCardId = `card-${bestCombination[1].ID}`
       let tableCardsBestCombi = bestCombination.slice(2, bestCombination.length);
-      // let tableCardID = "";
       console.log(bestCombination);
       console.log(compCardId);
       console.log(tableCardsBestCombi);
 
       this.moveCardFromArrayToArray(data.compInHandCards[0], data.compCollectedCards, compCardId);
 
-      //  let tableCardID = `card-${card.ID}`;
-      // ItemCtrl.addStageCardInCalculation(card.ID);
       tableCardsBestCombi.forEach(function (card) {
-        //
         ItemCtrl.moveCardFromArrayToArray(data.cardsOnTable[0], data.compCollectedCards, `card-${card.ID}`);
-        // this.moveCardFromArrayToArray(tableCardsBestCombi, data.comp);
       })
 
+      let compValueOfCollected = bestCombination[0];
+      // console.log(playerValueOfCollected);
+
+      // player is needed for update current scoreboard function (comp or player update)
+      const compParameter = "computer";
+      // Update current scoreboard with sum of collected value cards
+      UICtrl.updateCurrentScoreboard(compValueOfCollected, compParameter);
+   
+      let cardsOnTable = data.cardsOnTable[0];
+      let compInHandCards = data.compInHandCards[0];
+      // If table has no cards after calc, add point 
+      if (cardsOnTable.length === 0) {
+        UICtrl.addEmptyTablePoint(compParameter);
+      }
+
+      // UICtrl.moveCardFromArrayToArray(cardsOnTable, playerCollectedCards);
+      UICtrl.populateCompCards(compInHandCards);
+      UICtrl.populateTableCards(cardsOnTable);
+
       console.log(data.compCollectedCards);
-      // this.removeCollectedCardsFromTable();
 
 
-      // console.log(sorted);
       console.log(takeCombinations);
       console.log("comp is alive");
 
@@ -730,6 +741,14 @@ const UICtrl = (function () {
         const updatedPlayerPointsString = updatedPlayerPointsInt.toString();
         document.querySelector(UISelectors.playerPoints).innerHTML = updatedPlayerPointsString;
       }
+
+      if (playerOrComp === "computer") {
+        const currentCompPointsString = document.querySelector(UISelectors.compPoints).innerHTML;
+        const currentCompPointsInt = parseInt(currentCompPointsString);
+        const updatedCompPointsInt = currentCompPointsInt + value;
+        const updatedCompPointsString = updatedCompPointsInt.toString();
+        document.querySelector(UISelectors.compPoints).innerHTML = updatedCompPointsString;
+      }
     },
 
     addEmptyTablePoint: (playerOrComp) => {
@@ -741,6 +760,15 @@ const UICtrl = (function () {
         document.querySelector(UISelectors.playerPoints).innerHTML = updatedPlayerPointsString;
         const currentPlayerTablaPointsString = document.querySelector(UISelectors.playerTablaPoints).innerHTML;
         document.querySelector(UISelectors.playerTablaPoints).innerHTML = currentPlayerTablaPointsString + "|";
+      }
+      if (playerOrComp === "computer") {
+        const currentCompPointsString = document.querySelector(UISelectors.compPoints).innerHTML;
+        const currentCompPointsInt = parseInt(currentCompPointsString);
+        const updatedCompPointsInt = currentCompPointsInt + 1;
+        const updatedCompPointsString = updatedCompPointsInt.toString();
+        document.querySelector(UISelectors.compPoints).innerHTML = updatedCompPointsString;
+        const currentCompTablaPointsString = document.querySelector(UISelectors.compTablaPoints).innerHTML;
+        document.querySelector(UISelectors.compTablaPoints).innerHTML = currentCompTablaPointsString + "|";
       }
     },
 
