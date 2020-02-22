@@ -257,6 +257,10 @@ const ItemCtrl = (function () {
       // Storing potential combinations that can be taken from a computer player
       let takeCombinations = [];
 
+      // Comp in hand cards
+      let compInHandCards = data.compInHandCards[0];
+
+
       // loop through COMPUTER CARDS to compare them with table cards
       for (let i = 0; i < compCards.length; i++) {
         // convert current card to a [{}]
@@ -318,6 +322,7 @@ const ItemCtrl = (function () {
             }
             console.log("sta cuva deda Raca");
           }
+
           // Situation when it is not a same card and check if there is a PAIR that sums to comp card
           if (compCardRank !== tableCardX && tableCardX < compCardRank) {
             for (let y = 0; y < tableCards.length; y++) {
@@ -343,62 +348,80 @@ const ItemCtrl = (function () {
 
               }
             }
-
           }
+
         }
       }
 
-      // dic.sort(function(a, b){
-      //   return a[0].id.localeCompare(b[0].id);
-      // });
+      // throwCardOnTable: function (cardId, inHandCards)
 
-      // takeCombinations.sort(function(a, b){
-      //   return a[0].Value.localeCompare(b[0].Value);
-      // });
-      // cars.sort(function(a, b){return a.year - b.year});
-      // displayCars();
-      takeCombinations.sort(function (a, b) {
-        return a[0] - b[0];
-      });
+      // if there are no combinations to take, throw a smallest card
+      if (takeCombinations.length === 0) {
+        // sort comp cards to throw the smallest card by rank
+        compInHandCards.sort(function (a, b) {
+          return a.Rank - b.Rank;
+        })
 
-      // moveCardFromArrayToArray: (fromArray, toArray, cardId)
-      let bestCombination = takeCombinations[takeCombinations.length - 1];
-      let compCardId = `card-${bestCombination[1].ID}`
-      let tableCardsBestCombi = bestCombination.slice(2, bestCombination.length);
-      console.log(bestCombination);
-      console.log(compCardId);
-      console.log(tableCardsBestCombi);
+        let smallestCardId = `card-${compInHandCards[0].ID}`
+        let cardsOnTable = data.cardsOnTable[0];
+        UICtrl.throwCardOnTable(smallestCardId, compInHandCards);
 
-      this.moveCardFromArrayToArray(data.compInHandCards[0], data.compCollectedCards, compCardId);
-
-      tableCardsBestCombi.forEach(function (card) {
-        ItemCtrl.moveCardFromArrayToArray(data.cardsOnTable[0], data.compCollectedCards, `card-${card.ID}`);
-      })
-
-      let compValueOfCollected = bestCombination[0];
-      // console.log(playerValueOfCollected);
-
-      // player is needed for update current scoreboard function (comp or player update)
-      const compParameter = "computer";
-      // Update current scoreboard with sum of collected value cards
-      UICtrl.updateCurrentScoreboard(compValueOfCollected, compParameter);
-   
-      let cardsOnTable = data.cardsOnTable[0];
-      let compInHandCards = data.compInHandCards[0];
-      // If table has no cards after calc, add point 
-      if (cardsOnTable.length === 0) {
-        UICtrl.addEmptyTablePoint(compParameter);
+        // UICtrl.moveCardFromArrayToArray(cardsOnTable, playerCollectedCards);
+        UICtrl.populateCompCards(compInHandCards);
+        UICtrl.populateTableCards(cardsOnTable);
       }
 
-      // UICtrl.moveCardFromArrayToArray(cardsOnTable, playerCollectedCards);
-      UICtrl.populateCompCards(compInHandCards);
-      UICtrl.populateTableCards(cardsOnTable);
 
-      console.log(data.compCollectedCards);
+      if (takeCombinations.length !== 0) {
+        takeCombinations.sort(function (a, b) {
+          return a[0] - b[0];
+        });
 
 
-      console.log(takeCombinations);
-      console.log("comp is alive");
+
+
+        // moveCardFromArrayToArray: (fromArray, toArray, cardId)
+        let bestCombination = takeCombinations[takeCombinations.length - 1];
+        let compCardId = `card-${bestCombination[1].ID}`
+        let tableCardsBestCombi = bestCombination.slice(2, bestCombination.length);
+        console.log(bestCombination);
+        console.log(compCardId);
+        console.log(tableCardsBestCombi);
+
+        this.moveCardFromArrayToArray(data.compInHandCards[0], data.compCollectedCards, compCardId);
+
+        tableCardsBestCombi.forEach(function (card) {
+          ItemCtrl.moveCardFromArrayToArray(data.cardsOnTable[0], data.compCollectedCards, `card-${card.ID}`);
+        })
+
+        let compValueOfCollected = bestCombination[0];
+        // console.log(playerValueOfCollected);
+
+        // player is needed for update current scoreboard function (comp or player update)
+        const compParameter = "computer";
+        // Update current scoreboard with sum of collected value cards
+        UICtrl.updateCurrentScoreboard(compValueOfCollected, compParameter);
+
+        let cardsOnTable = data.cardsOnTable[0];
+        // If table has no cards after calc, add point 
+        if (cardsOnTable.length === 0) {
+          UICtrl.addEmptyTablePoint(compParameter);
+        }
+
+
+
+        console.log(compInHandCards);
+        // UICtrl.moveCardFromArrayToArray(cardsOnTable, playerCollectedCards);
+        UICtrl.populateCompCards(compInHandCards);
+        UICtrl.populateTableCards(cardsOnTable);
+
+        console.log(data.compCollectedCards);
+
+
+        console.log(takeCombinations);
+        console.log("comp is alive");
+      }
+
 
 
 
@@ -908,8 +931,14 @@ const App = (function (ItemCtrl, UICtrl) {
         UICtrl.populatePlayerCards(playerInHandCards);
         UICtrl.populateTableCards(cardsOnTable);
 
-        // here I need to add computer move
-        ItemCtrl.compMove();
+
+        setTimeout(function () {
+          // here I need to add computer move
+          ItemCtrl.compMove();
+        }, 1250);
+
+
+
       }
 
     }
