@@ -382,38 +382,81 @@ const ItemCtrl = (function () {
 
         // moveCardFromArrayToArray: (fromArray, toArray, cardId)
         let bestCombination = takeCombinations[takeCombinations.length - 1];
-        let compCardId = `card-${bestCombination[1].ID}`
+        let compCardIndex = 0;
+        let compCard = bestCombination[1];
+        let compCardId = `card-${bestCombination[1].ID}`;
+        // take table cards from the array
         let tableCardsBestCombi = bestCombination.slice(2, bestCombination.length);
         console.log(bestCombination);
         console.log(compCardId);
         console.log(tableCardsBestCombi);
 
-        this.moveCardFromArrayToArray(data.compInHandCards[0], data.compCollectedCards, compCardId);
-
-        tableCardsBestCombi.forEach(function (card) {
-          ItemCtrl.moveCardFromArrayToArray(data.cardsOnTable[0], data.compCollectedCards, `card-${card.ID}`);
-        })
-
-        let compValueOfCollected = bestCombination[0];
-        // console.log(playerValueOfCollected);
-
-        // player is needed for update current scoreboard function (comp or player update)
-        const compParameter = "computer";
-        // Update current scoreboard with sum of collected value cards
-        UICtrl.updateCurrentScoreboard(compValueOfCollected, compParameter);
-
-        let cardsOnTable = data.cardsOnTable[0];
-        // If table has no cards after calc, add point 
-        if (cardsOnTable.length === 0) {
-          UICtrl.addEmptyTablePoint(compParameter);
+        for (let k = 0; k < compInHandCards.length; k++) {
+          if (compInHandCards[k] === compCard) {
+            compCardIndex = k;
+          }
         }
+        // UICtrl.addSelectedStageCardStyle(compCardId);
+        UICtrl.showCard(compInHandCards, compCard, compCardIndex);
+        // opulatePlayerCards: player => {
+        //   let html = "";
+
+        //   player.forEach(card => {
+        //     html += `<li class=" center card rank-${card.Rank} ${card.Suit}" id="card-${card.ID}">
+        //         <span class="rank">${card.Rank.toUpperCase()}</span>
+        //         <span class="suit">&${card.Suit};</span>
+        //     </li>`;
+
+        //   });
+        //   console.log(player);
+        //   // Insert list items
+        //   document.querySelector(UISelectors.playerCards).innerHTML = html;
+
+        // },
+        // UICtrl.populatePlayerCards(compCard);
+
+
+        // tableCardsBestCombi.forEach(function (card) {
+        //   let id = `card-${card.ID}`;
+        //   UICtrl.addSelectedStageCardStyle(id)
+        // })
 
 
 
-        console.log(compInHandCards);
-        // UICtrl.moveCardFromArrayToArray(cardsOnTable, playerCollectedCards);
-        UICtrl.populateCompCards(compInHandCards);
-        UICtrl.populateTableCards(cardsOnTable);
+
+        function myFunc() {
+          ItemCtrl.moveCardFromArrayToArray(data.compInHandCards[0], data.compCollectedCards, compCardId);
+
+          tableCardsBestCombi.forEach(function (card) {
+            ItemCtrl.moveCardFromArrayToArray(data.cardsOnTable[0], data.compCollectedCards, `card-${card.ID}`);
+          })
+
+          let compValueOfCollected = bestCombination[0];
+          // console.log(playerValueOfCollected);
+
+          // player is needed for update current scoreboard function (comp or player update)
+          const compParameter = "computer";
+          // Update current scoreboard with sum of collected value cards
+          UICtrl.updateCurrentScoreboard(compValueOfCollected, compParameter);
+
+          let cardsOnTable = data.cardsOnTable[0];
+          // If table has no cards after calc, add point 
+          if (cardsOnTable.length === 0) {
+            UICtrl.addEmptyTablePoint(compParameter);
+          }
+
+
+          console.log(compInHandCards);
+          // UICtrl.moveCardFromArrayToArray(cardsOnTable, playerCollectedCards);
+          UICtrl.populateCompCards(compInHandCards);
+          UICtrl.populateTableCards(cardsOnTable);
+
+        };
+
+        // addSelectedStageCardStyle: function (id)
+        setTimeout(function () {
+          myFunc()
+        }, 1000);
 
         console.log(data.compCollectedCards);
 
@@ -713,6 +756,52 @@ const UICtrl = (function () {
       document.querySelector(UISelectors.playerCards).innerHTML = html;
 
     },
+    // item.replaceChild(elmnt, item.childNodes[0]);
+    showCard: function (compInHandCards, compCard, compCardIndex) {
+      // let newLi = document.createElement("li");
+      // let id = `"card-${compCard.ID}"`
+      // var list = document.getElementById("myList");   // Get the <ul> element with id="myList"
+      // list.removeChild(list.childNodes[0]); 
+
+      // console.log(id);
+      let parentNode = document.querySelector(UISelectors.compCards);
+      parentNode.removeChild(parentNode.childNodes[compCardIndex])
+      // let childNode = document.querySelector(id);
+      // parentNode.removeChild(childNode);
+      // var elmnt = document.getElementById("p1");
+      // elmnt.remove();
+
+      // let cardUi = document.getElementById(id);
+      // console.log(cardUi);
+      // cardUi.remove();
+
+
+      // let newElement
+      let html = "";
+
+      compInHandCards.forEach(card => {
+
+        if (card === compCard) {
+          html += `<li class=" center card rank-${card.Rank} ${card.Suit}"     id="card-${card.ID}">
+              <span class="rank">${card.Rank.toUpperCase()}</span>
+              <span class="suit">&${card.Suit};</span>
+          </li>`;
+
+        } else {
+          html += `<div class="card back" id="card-${card.ID}"></div>`;
+        }
+
+      });
+
+      // console.log(card);
+      // Insert list items
+      document.querySelector(UISelectors.compCards).innerHTML = html;
+      // let node = document.getElementById("compCards").childNodes[index];
+
+      // node.replaceChild(html, node.childNodes[index]);
+      console.log(html);
+    },
+
 
     populateTableCards: table => {
       let html = "";
@@ -804,6 +893,8 @@ const UICtrl = (function () {
       this.populateTableCards(cardsOnTable);
 
     },
+
+
 
     addSelectedStageCardStyle: function (id) {
       const selectedCard = document.querySelector(`#${id}`);
@@ -931,12 +1022,11 @@ const App = (function (ItemCtrl, UICtrl) {
         UICtrl.populatePlayerCards(playerInHandCards);
         UICtrl.populateTableCards(cardsOnTable);
 
-
+        // to slow down compMove
         setTimeout(function () {
           // here I need to add computer move
           ItemCtrl.compMove();
         }, 1250);
-
 
 
       }
