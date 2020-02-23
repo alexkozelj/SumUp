@@ -274,11 +274,26 @@ const ItemCtrl = (function () {
           let arrayOfTableCard = [tableCards[x]];
           let tableCardX = this.getRank(arrayOfTableCard)[0][0];
           console.log(tableCardX);
-
+          
           // SAME CARD is found and pushed
           if (compCardRank === tableCardX) {
             let valueOfCombi = compCards[i].Value + tableCards[x].Value;
             takeCombinations.push([valueOfCombi, compCards[i], tableCards[x]]);
+            
+            // If there is ANOTHER SAME CARD
+            for (let same = 0; same < tableCards.length; same++) {
+              let arrayOfTableCardsSame = [tableCards[same]];
+              let tableCardXSame = this.getRank(arrayOfTableCardsSame)[0][0];
+              console.log(tableCardX);
+              if(tableCards[x] === tableCards[same]){
+                continue;
+              }
+              if (compCardRank === tableCardXSame) {
+                let valueOfCombi = compCards[i].Value + tableCards[x].Value + tableCards[same].Value;
+                takeCombinations.push([valueOfCombi, compCards[i], tableCards[x], tableCards[same]]);
+              }
+            }
+            
 
             // checking if there is situation: i = x & y + z
             for (let y = 0; y < tableCards.length; y++) {
