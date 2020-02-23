@@ -396,49 +396,27 @@ const ItemCtrl = (function () {
             compCardIndex = k;
           }
         }
-        // UICtrl.addSelectedStageCardStyle(compCardId);
+
+        // shows compCard that takes a combination on the table
         UICtrl.showCard(compInHandCards, compCard, compCardIndex);
-        // opulatePlayerCards: player => {
-        //   let html = "";
-
-        //   player.forEach(card => {
-        //     html += `<li class=" center card rank-${card.Rank} ${card.Suit}" id="card-${card.ID}">
-        //         <span class="rank">${card.Rank.toUpperCase()}</span>
-        //         <span class="suit">&${card.Suit};</span>
-        //     </li>`;
-
-        //   });
-        //   console.log(player);
-        //   // Insert list items
-        //   document.querySelector(UISelectors.playerCards).innerHTML = html;
-
-        // },
-        // UICtrl.populatePlayerCards(compCard);
-
-
-        // tableCardsBestCombi.forEach(function (card) {
-        //   let id = `card-${card.ID}`;
-        //   UICtrl.addSelectedStageCardStyle(id)
-        // })
-
-
-
-
+       
+        // function to be passed on to setTimeout
         function myFunc() {
+          // moves compCard that takes combi to collected cards array
           ItemCtrl.moveCardFromArrayToArray(data.compInHandCards[0], data.compCollectedCards, compCardId);
-
+          // moves best combination cards from table to collected cards
           tableCardsBestCombi.forEach(function (card) {
             ItemCtrl.moveCardFromArrayToArray(data.cardsOnTable[0], data.compCollectedCards, `card-${card.ID}`);
           })
-
+          // sum of values of taken comp and table cards
           let compValueOfCollected = bestCombination[0];
-          // console.log(playerValueOfCollected);
 
           // player is needed for update current scoreboard function (comp or player update)
           const compParameter = "computer";
           // Update current scoreboard with sum of collected value cards
           UICtrl.updateCurrentScoreboard(compValueOfCollected, compParameter);
 
+          // var for checking if any card left on table to score a point for empty table
           let cardsOnTable = data.cardsOnTable[0];
           // If table has no cards after calc, add point 
           if (cardsOnTable.length === 0) {
@@ -446,28 +424,24 @@ const ItemCtrl = (function () {
           }
 
 
-          console.log(compInHandCards);
-          // UICtrl.moveCardFromArrayToArray(cardsOnTable, playerCollectedCards);
+          // console.log(compInHandCards);
+          // Update current status of cards on table and computer
           UICtrl.populateCompCards(compInHandCards);
           UICtrl.populateTableCards(cardsOnTable);
 
         };
 
-        // addSelectedStageCardStyle: function (id)
+        // slow down of takeing cards from computer
         setTimeout(function () {
           myFunc()
         }, 1000);
 
-        console.log(data.compCollectedCards);
+        // console.log(data.compCollectedCards);
 
 
-        console.log(takeCombinations);
-        console.log("comp is alive");
+        // console.log(takeCombinations);
+        // console.log("comp is alive");
       }
-
-
-
-
 
     },
     createDeck: () => {
@@ -756,27 +730,12 @@ const UICtrl = (function () {
       document.querySelector(UISelectors.playerCards).innerHTML = html;
 
     },
-    // item.replaceChild(elmnt, item.childNodes[0]);
-    showCard: function (compInHandCards, compCard, compCardIndex) {
-      // let newLi = document.createElement("li");
-      // let id = `"card-${compCard.ID}"`
-      // var list = document.getElementById("myList");   // Get the <ul> element with id="myList"
-      // list.removeChild(list.childNodes[0]); 
 
-      // console.log(id);
+    showCard: function (compInHandCards, compCard, compCardIndex) {
+      
       let parentNode = document.querySelector(UISelectors.compCards);
       parentNode.removeChild(parentNode.childNodes[compCardIndex])
-      // let childNode = document.querySelector(id);
-      // parentNode.removeChild(childNode);
-      // var elmnt = document.getElementById("p1");
-      // elmnt.remove();
-
-      // let cardUi = document.getElementById(id);
-      // console.log(cardUi);
-      // cardUi.remove();
-
-
-      // let newElement
+      
       let html = "";
 
       compInHandCards.forEach(card => {
@@ -793,13 +752,8 @@ const UICtrl = (function () {
 
       });
 
-      // console.log(card);
-      // Insert list items
       document.querySelector(UISelectors.compCards).innerHTML = html;
-      // let node = document.getElementById("compCards").childNodes[index];
 
-      // node.replaceChild(html, node.childNodes[index]);
-      console.log(html);
     },
 
 
