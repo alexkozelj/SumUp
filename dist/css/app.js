@@ -353,17 +353,29 @@ const ItemCtrl = (function () {
         }
       }
 
-      // throwCardOnTable: function (cardId, inHandCards)
 
-      // if there are no combinations to take, throw a smallest card
+      // if there are no combinations to take, THROW a smallest CARD
       if (takeCombinations.length === 0) {
-        // sort comp cards to throw the smallest card by rank
-        compInHandCards.sort(function (a, b) {
-          return a.Rank - b.Rank;
-        })
 
-        let smallestCardId = `card-${compInHandCards[0].ID}`
+        let compCardsRank = ItemCtrl.getRank(compInHandCards)[0];
+        console.log(compCardsRank);
+
+        // function to return the index of a smallest comp in hand card
+        function indexOfSmallest(a) {
+          let lowest = 0;
+          for (let i = 1; i < a.length; i++) {
+            if (a[i] < a[lowest]) {
+              lowest = i;
+            }
+          }
+          return lowest;
+        }
+
+        indexSmall = indexOfSmallest(compCardsRank);
+
+        let smallestCardId = `card-${compInHandCards[indexSmall].ID}`
         let cardsOnTable = data.cardsOnTable[0];
+
         UICtrl.throwCardOnTable(smallestCardId, compInHandCards);
 
         // UICtrl.moveCardFromArrayToArray(cardsOnTable, playerCollectedCards);
@@ -398,8 +410,8 @@ const ItemCtrl = (function () {
         }
 
         // shows compCard that takes a combination on the table
-        UICtrl.showCard(compInHandCards, compCard, compCardIndex);
-       
+        UICtrl.showCard(compInHandCards, compCard, compCardIndex, tableCardsBestCombi);
+
         // function to be passed on to setTimeout
         function myFunc() {
           // moves compCard that takes combi to collected cards array
@@ -731,11 +743,11 @@ const UICtrl = (function () {
 
     },
 
-    showCard: function (compInHandCards, compCard, compCardIndex) {
-      
+    showCard: function (compInHandCards, compCard, compCardIndex, tableCards) {
+
       let parentNode = document.querySelector(UISelectors.compCards);
       parentNode.removeChild(parentNode.childNodes[compCardIndex])
-      
+
       let html = "";
 
       compInHandCards.forEach(card => {
@@ -754,6 +766,10 @@ const UICtrl = (function () {
 
       document.querySelector(UISelectors.compCards).innerHTML = html;
 
+      tableCards.forEach(function (card) {
+        UICtrl.addSelectedStageCardStyle(`card-${card.ID}`);
+        // ItemCtrl.moveCardFromArrayToArray(data.cardsOnTable[0], data.compCollectedCards, `card-${card.ID}`);
+      })
     },
 
 
