@@ -16,6 +16,7 @@ const ItemCtrl = (function () {
     // { ID: 10, Rank: "10", Suit: "spades", Value: 1 }
     // ],
 
+
     fullDeck: [],
 
     compCollectedCards: [],
@@ -31,6 +32,8 @@ const ItemCtrl = (function () {
     cardsToDeal: [],
 
     cardsInCalculation: [],
+
+    whoTookTheLast: 0
 
   };
 
@@ -216,6 +219,7 @@ const ItemCtrl = (function () {
         // CONDITION CONTROLLER
         if (sumOfRanked === 0) {
           calculation = true;
+
           console.log('joj joj');
           console.log(cardsThatPassTest);
           console.log(cardsNotPassTest);
@@ -236,6 +240,7 @@ const ItemCtrl = (function () {
       if (sameAsPlayerCardIsThere === false && sumOfCards === 0) {
         UICtrl.throwCardOnTable(cardId, inHandCards)
         UICtrl.populatePlayerCards(inHandCards);
+        
         // here I need to put computer move
       }
 
@@ -250,6 +255,16 @@ const ItemCtrl = (function () {
         aceIsThereRestCards,
       ]
     },
+
+    lastTook: function (x) {
+      if (x === 1) {
+        data.whoTookTheLast = 1;
+        console.log('trla baba lan')
+      } else {
+        data.whoTookTheLast = 0;
+      }
+    },
+
     compMove: function () {
       const compCards = this.getCompInHandCards();
       const tableCards = this.getCardsOnTable();
@@ -373,7 +388,7 @@ const ItemCtrl = (function () {
         }
       }
 
-
+      // THROW A CARD
       // if there are no combinations to take, THROW a smallest CARD
       if (takeCombinations.length === 0) {
 
@@ -447,8 +462,8 @@ const ItemCtrl = (function () {
 
 
 
-        // function to be passed on to setTimeout
-        function myFunc() {
+        // function to be passed on to setTimeout, comp takes combination of cards
+        function compTakeCombi() {
           // moves compCard that takes combi to collected cards array
           ItemCtrl.moveCardFromArrayToArray(data.compInHandCards[0], data.compCollectedCards, compCardId);
           // moves best combination cards from table to collected cards
@@ -470,14 +485,17 @@ const ItemCtrl = (function () {
             UICtrl.addEmptyTablePoint(compParameter);
           }
 
+          // For tha last hand to determent who takes the cards from the table
+          ItemCtrl.lastTook(0);
+
           UICtrl.populateCompCards(compInHandCards);
           UICtrl.populateTableCards(cardsOnTable);
 
         };
 
-        // slow down of takeing cards from computer
+        // slow down of takeing cards, showing which card comp takes
         setTimeout(function () {
-          myFunc()
+          compTakeCombi()
         }, 1250);
 
       }
@@ -508,7 +526,7 @@ const ItemCtrl = (function () {
         UICtrl.populatePlayerCards(playerInHandCards);
         UICtrl.populateDealDeck(dealCards);
 
-        
+
         // update deal hand number on score board
         UICtrl.updateDealNumber();
       };
@@ -659,7 +677,6 @@ const ItemCtrl = (function () {
     removeCollectedCardsFromTable: function () {
       const cardsInCalc = this.getCardsInCalculation();
       const cardsOnTable = this.getCardsOnTable();
-      let Id = 0;
 
       cardsInCalc.forEach(function (cardCalc) {
         cardsOnTable.forEach(function (cardTable) {
@@ -894,11 +911,17 @@ const UICtrl = (function () {
     updateDealNumber: () => {
       const currentDealNum = document.querySelector(UISelectors.dealNr).innerHTML;
       const currentDealNumInt = parseInt(currentDealNum);
-      if(currentDealNumInt < 4){
+      if (currentDealNumInt < 4) {
         const updatedDealNumInt = currentDealNumInt + 1;
         const updatedDealNumString = updatedDealNumInt.toString();
         document.querySelector(UISelectors.dealNr).innerHTML = updatedDealNumString;
+      } else {
+        this.endOfGame()
       }
+    },
+
+    endOfGame: function () {
+
     },
 
     addEmptyTablePoint: (playerOrComp) => {
@@ -1061,18 +1084,22 @@ const App = (function (ItemCtrl, UICtrl) {
         UICtrl.populatePlayerCards(playerInHandCards);
         UICtrl.populateTableCards(cardsOnTable);
 
-        // to slow down compMove
+        // for last deal to determent who took the last to take the rest cards from the table
+        ItemCtrl.lastTook(1);
+
+        // to slow down compMove, imitates computer Thinking
         setTimeout(function () {
           // computer move
           ItemCtrl.compMove();
 
-        }, 1250);
+        }, 1100);
 
-        // new Deal after the comp complete its move
+        // if players have no more cards
+        // new Deal after the comp complete its move, waits all timeouts to finish
         setTimeout(function () {
           ItemCtrl.newDeal();
 
-        }, 2600);
+        }, 2500);
 
 
       }
