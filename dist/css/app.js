@@ -472,7 +472,7 @@ const ItemCtrl = (function () {
 
           UICtrl.populateCompCards(compInHandCards);
           UICtrl.populateTableCards(cardsOnTable);
-          
+
         };
 
         // slow down of takeing cards from computer
@@ -498,7 +498,7 @@ const ItemCtrl = (function () {
         // because its [[0]] situation, move content from inside array to outside
         ItemCtrl.moveCardFromArrayToArray(playerInHandCards[0], playerInHandCards)
         ItemCtrl.moveCardFromArrayToArray(compInHandCards[0], compInHandCards)
-        
+
         // array remain on index 0, and it needs to be removed
         compInHandCards.shift();
         playerInHandCards.shift();
@@ -507,9 +507,10 @@ const ItemCtrl = (function () {
         UICtrl.populateCompCards(compInHandCards);
         UICtrl.populatePlayerCards(playerInHandCards);
         UICtrl.populateDealDeck(dealCards);
+
         
         // update deal hand number on score board
-        // UICtrl.updateDealNumber()
+        UICtrl.updateDealNumber();
       };
     },
     createDeck: () => {
@@ -890,6 +891,16 @@ const UICtrl = (function () {
       }
     },
 
+    updateDealNumber: () => {
+      const currentDealNum = document.querySelector(UISelectors.dealNr).innerHTML;
+      const currentDealNumInt = parseInt(currentDealNum);
+      if(currentDealNumInt < 4){
+        const updatedDealNumInt = currentDealNumInt + 1;
+        const updatedDealNumString = updatedDealNumInt.toString();
+        document.querySelector(UISelectors.dealNr).innerHTML = updatedDealNumString;
+      }
+    },
+
     addEmptyTablePoint: (playerOrComp) => {
       if (playerOrComp === "player") {
         const currentPlayerPointsString = document.querySelector(UISelectors.playerPoints).innerHTML;
@@ -1063,7 +1074,7 @@ const App = (function (ItemCtrl, UICtrl) {
 
         }, 2600);
 
-        
+
       }
 
     }
