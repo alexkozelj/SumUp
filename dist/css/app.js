@@ -253,12 +253,20 @@ const ItemCtrl = (function () {
     compMove: function () {
       const compCards = this.getCompInHandCards();
       const tableCards = this.getCardsOnTable();
+      const playerCards = this.getPlayerInHandCards();
+
+      // if(compCards.length === 0 && playerInHandCards.length === 0){
+      //   this.
+      // }
 
       // Storing potential combinations that can be taken from a computer player
       let takeCombinations = [];
 
       // Comp in hand cards
       let compInHandCards = data.compInHandCards[0];
+
+      // Player in hand cards
+      let playerInHandCards = data.playerInHandCards[0];
 
 
       // loop through COMPUTER CARDS to compare them with table cards
@@ -274,18 +282,18 @@ const ItemCtrl = (function () {
           let arrayOfTableCard = [tableCards[x]];
           let tableCardX = this.getRank(arrayOfTableCard)[0][0];
           console.log(tableCardX);
-          
+
           // SAME CARD is found and pushed
           if (compCardRank === tableCardX) {
             let valueOfCombi = compCards[i].Value + tableCards[x].Value;
             takeCombinations.push([valueOfCombi, compCards[i], tableCards[x]]);
-            
+
             // If there is ANOTHER SAME CARD
             for (let same = 0; same < tableCards.length; same++) {
               let arrayOfTableCardsSame = [tableCards[same]];
               let tableCardXSame = this.getRank(arrayOfTableCardsSame)[0][0];
               console.log(tableCardX);
-              if(tableCards[x] === tableCards[same]){
+              if (tableCards[x] === tableCards[same]) {
                 continue;
               }
               if (compCardRank === tableCardXSame) {
@@ -293,7 +301,7 @@ const ItemCtrl = (function () {
                 takeCombinations.push([valueOfCombi, compCards[i], tableCards[x], tableCards[same]]);
               }
             }
-            
+
 
             // checking if there is situation: i = x & y + z
             for (let y = 0; y < tableCards.length; y++) {
@@ -323,9 +331,6 @@ const ItemCtrl = (function () {
                   }
                   // check if THIRD card passes
                   if (compCardRank - tableCardY === tableCardZ) {
-
-                    // push the i = x & y + z situation cards
-                    // let allThreeCards = [compCards[i], tableCards[x], tableCards[y], tableCards[z]];
 
                     let valueOfCombi = compCards[i].Value + tableCards[x].Value + tableCards[y].Value + tableCards[z].Value;
                     let allThreeCards = [valueOfCombi, compCards[i], tableCards[x], tableCards[y], tableCards[z]];
@@ -393,9 +398,25 @@ const ItemCtrl = (function () {
 
         UICtrl.throwCardOnTable(smallestCardId, compInHandCards);
 
-        // UICtrl.moveCardFromArrayToArray(cardsOnTable, playerCollectedCards);
+        const playerInHandCardsArray = ItemCtrl.getPlayerInHandCards();
+        console.log(playerInHandCardsArray);
+        const compInHandCardsArray = ItemCtrl.getCompInHandCards();
+        console.log(compInHandCardsArray);
+        console.log(data.compInHandCards);
+        console.log(data.cardsToDeal[0]);
+
+
+        // if (playerInHandCardsArray.length === 0 && compInHandCardsArray.length === 0) {
+        //   console.log(data.compInHandCards);
+        //   compInHandCardsArray.push(data.cardsToDeal[0].splice(0, 6));
+        //   playerInHandCardsArray.push(data.cardsToDeal[0].splice(0, 6));
+        //   // UICtrl.populateCompCards(compCards);
+        //   // UICtrl.populatePlayerCards(playerCards);
+        // };
         UICtrl.populateCompCards(compInHandCards);
         UICtrl.populateTableCards(cardsOnTable);
+        // UICtrl.populatePlayerCards(playerInHandCards);
+
       }
 
 
@@ -405,9 +426,6 @@ const ItemCtrl = (function () {
         });
 
 
-
-
-        // moveCardFromArrayToArray: (fromArray, toArray, cardId)
         let bestCombination = takeCombinations[takeCombinations.length - 1];
         let compCardIndex = 0;
         let compCard = bestCombination[1];
@@ -426,6 +444,8 @@ const ItemCtrl = (function () {
 
         // shows compCard that takes a combination on the table
         UICtrl.showCard(compInHandCards, compCard, compCardIndex, tableCardsBestCombi);
+
+
 
         // function to be passed on to setTimeout
         function myFunc() {
@@ -450,26 +470,47 @@ const ItemCtrl = (function () {
             UICtrl.addEmptyTablePoint(compParameter);
           }
 
-
-          // console.log(compInHandCards);
-          // Update current status of cards on table and computer
           UICtrl.populateCompCards(compInHandCards);
           UICtrl.populateTableCards(cardsOnTable);
-
+          
         };
 
         // slow down of takeing cards from computer
         setTimeout(function () {
           myFunc()
-        }, 1000);
+        }, 1250);
 
-        // console.log(data.compCollectedCards);
-
-
-        // console.log(takeCombinations);
-        // console.log("comp is alive");
       }
 
+    },
+
+    newDeal: function () {
+
+      let playerInHandCards = ItemCtrl.getPlayerInHandCards();
+      let compInHandCards = ItemCtrl.getCompInHandCards();
+      let dealCards = ItemCtrl.getCardsToDeal();
+      // if no player has cards in hand => deal new hand
+      if (playerInHandCards.length === 0 && compInHandCards.length === 0) {
+        // push 6 cards from dealing deck
+        compInHandCards.push(dealCards.splice(0, 6));
+        playerInHandCards.push(dealCards.splice(0, 6));
+
+        // because its [[0]] situation, move content from inside array to outside
+        ItemCtrl.moveCardFromArrayToArray(playerInHandCards[0], playerInHandCards)
+        ItemCtrl.moveCardFromArrayToArray(compInHandCards[0], compInHandCards)
+        
+        // array remain on index 0, and it needs to be removed
+        compInHandCards.shift();
+        playerInHandCards.shift();
+
+        // populate comp, player and dealing deck cards 
+        UICtrl.populateCompCards(compInHandCards);
+        UICtrl.populatePlayerCards(playerInHandCards);
+        UICtrl.populateDealDeck(dealCards);
+        
+        // update deal hand number on score board
+        // UICtrl.updateDealNumber()
+      };
     },
     createDeck: () => {
       let deck = [];
@@ -529,6 +570,7 @@ const ItemCtrl = (function () {
       if (data.playerInHandCards.length === 0) {
         data.playerInHandCards.push(data.fullDeck[0].splice(0, 6));
       };
+
     },
     dealCardsToTable: () => {
       data.cardsOnTable.push(data.fullDeck[0].splice(0, 4));
@@ -820,7 +862,7 @@ const UICtrl = (function () {
       document.querySelector(UISelectors.compOverallScore).innerHTML = "0";
       document.querySelector(UISelectors.playerOverallScore).innerHTML = "0";
       document.querySelector(UISelectors.gameNr).innerHTML = "1";
-      document.querySelector(UISelectors.totalGameNr).innerHTML = "5";
+      document.querySelector(UISelectors.totalGameNr).innerHTML = "3";
 
       // Default current game scoreboard values
       document.querySelector(UISelectors.compPoints).innerHTML = "0";
@@ -965,8 +1007,9 @@ const App = (function (ItemCtrl, UICtrl) {
 
       const playerInHandCards = ItemCtrl.getPlayerInHandCards();
       const compInHandCards = ItemCtrl.getCompInHandCards();
+      const dealingDeck = ItemCtrl.getCardsToDeal();
       const playerCollectedCards = ItemCtrl.getPlayerCollectedCards();
-      const compCollectedCards = ItemCtrl.getCompCollectedCards();
+      // const compCollectedCards = ItemCtrl.getCompCollectedCards();
       const cardsInCalculation = ItemCtrl.getCardsInCalculation();
       const cardsOnTable = ItemCtrl.getCardsOnTable();
       // const populatePlayerCards = UICtrl.populatePlayerCards(playerInHandCards);
@@ -1009,11 +1052,18 @@ const App = (function (ItemCtrl, UICtrl) {
 
         // to slow down compMove
         setTimeout(function () {
-          // here I need to add computer move
+          // computer move
           ItemCtrl.compMove();
+
         }, 1250);
 
+        // new Deal after the comp complete its move
+        setTimeout(function () {
+          ItemCtrl.newDeal();
 
+        }, 2600);
+
+        
       }
 
     }
@@ -1022,6 +1072,7 @@ const App = (function (ItemCtrl, UICtrl) {
 
     e.preventDefault();
   }
+
 
   // Public methods
   return {
