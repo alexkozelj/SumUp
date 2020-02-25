@@ -240,7 +240,7 @@ const ItemCtrl = (function () {
       if (sameAsPlayerCardIsThere === false && sumOfCards === 0) {
         UICtrl.throwCardOnTable(cardId, inHandCards)
         UICtrl.populatePlayerCards(inHandCards);
-        
+
         // here I need to put computer move
       }
 
@@ -382,6 +382,42 @@ const ItemCtrl = (function () {
                 takeCombinations.push(allTwoCards);
 
               }
+
+              // check if a + b + c = compCard
+              if (compCardRank - tableCardX !== tableCardY && tableCardX + tableCardY < compCardRank) {
+                for (let q = 0; q < tableCards.length; q++) {
+                  let arrayOfTableCardQ = [tableCards[q]];
+                  let tableCardQ = this.getRank(arrayOfTableCardQ)[0][0];
+
+                  //  avoiding takeing same card in a loop
+                  if (tableCards[x] === tableCards[q] || tableCards[y] === tableCards[q]) {
+                    continue;
+                  }
+
+                  // if there is ACE
+                  if (compCardRank - tableCardX - tableCardY !== tableCardQ && tableCardQ === 11) {
+                    tableCardQ = 1;
+                  }
+
+                  // if there are 2 of ACE
+                  if (compCardRank - tableCardX - tableCardY !== tableCardQ && tableCardQ === 11 && tableCardY === 11) {
+                    tableCardQ = 1;
+                    tableCardY = 1;
+                  }
+
+                  // if a + b + c = compCard is found
+                  if (compCardRank - tableCardX - tableCardY === tableCardQ) {
+
+                    let valueOfCombi = compCards[i].Value + tableCards[x].Value + tableCards[y].Value + tableCards[q].Value;
+                    let allThreeSumCards = [valueOfCombi, compCards[i], tableCards[x], tableCards[y], tableCards[q]];
+                    takeCombinations.push(allThreeSumCards);
+
+                  }
+                }
+
+              }
+
+
             }
           }
 
@@ -914,13 +950,16 @@ const UICtrl = (function () {
     updateDealNumber: () => {
       const currentDealNum = document.querySelector(UISelectors.dealNr).innerHTML;
       const currentDealNumInt = parseInt(currentDealNum);
-      
+
       if (currentDealNumInt < 4) {
         const updatedDealNumInt = currentDealNumInt + 1;
         const updatedDealNumString = updatedDealNumInt.toString();
         document.querySelector(UISelectors.dealNr).innerHTML = updatedDealNumString;
       } else {
-        UICtrl.endOfGame()
+
+        setTimeout(function () {
+          UICtrl.endOfGame()
+        },800)
       }
     },
 
@@ -933,7 +972,7 @@ const UICtrl = (function () {
       console.log(tableValueOfCards);
       const lastTook = ItemCtrl.getWhoTookLast();
       // console.log(lastTook); 
-      if(lastTook === 1){
+      if (lastTook === 1) {
         // player is needed for update current scoreboard function (comp or player update)
         const playerParameter = "player";
         // Update current scoreboard with sum of collected value cards
@@ -967,9 +1006,13 @@ const UICtrl = (function () {
       const compScore = document.querySelector(UISelectors.compPoints).innerHTML;
       const compScoreInt = parseInt(compScore);
 
-      if(playerScoreInt > compScoreInt){
-        
-      }
+      // if (playerScoreInt > compScoreInt) {
+
+      // } else if () {
+      //   // if draw
+      // } else {
+      //   // if comp wins
+      // }
 
     },
 
@@ -1148,7 +1191,7 @@ const App = (function (ItemCtrl, UICtrl) {
         setTimeout(function () {
           ItemCtrl.newDeal();
 
-        }, 2500);
+        }, 2650);
 
 
       }
