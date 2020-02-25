@@ -268,7 +268,7 @@ const ItemCtrl = (function () {
     compMove: function () {
       const compCards = this.getCompInHandCards();
       const tableCards = this.getCardsOnTable();
-      const playerCards = this.getPlayerInHandCards();
+      // const playerCards = this.getPlayerInHandCards();
 
       // if(compCards.length === 0 && playerInHandCards.length === 0){
       //   this.
@@ -281,7 +281,7 @@ const ItemCtrl = (function () {
       let compInHandCards = data.compInHandCards[0];
 
       // Player in hand cards
-      let playerInHandCards = data.playerInHandCards[0];
+      // let playerInHandCards = data.playerInHandCards[0];
 
 
       // loop through COMPUTER CARDS to compare them with table cards
@@ -741,6 +741,9 @@ const ItemCtrl = (function () {
     showFullDeck: () => {
       console.log(data.fullDeck[0]);
     },
+    getWhoTookLast: () => {
+      return data.whoTookTheLast;
+    },
     logData: function () {
       return data;
     }
@@ -911,16 +914,62 @@ const UICtrl = (function () {
     updateDealNumber: () => {
       const currentDealNum = document.querySelector(UISelectors.dealNr).innerHTML;
       const currentDealNumInt = parseInt(currentDealNum);
+      
       if (currentDealNumInt < 4) {
         const updatedDealNumInt = currentDealNumInt + 1;
         const updatedDealNumString = updatedDealNumInt.toString();
         document.querySelector(UISelectors.dealNr).innerHTML = updatedDealNumString;
       } else {
-        this.endOfGame()
+        UICtrl.endOfGame()
       }
     },
 
     endOfGame: function () {
+      const cardsOnTable = ItemCtrl.getCardsOnTable();
+      const playerCollectedCards = ItemCtrl.getPlayerCollectedCards();
+      const compCollectedCards = ItemCtrl.getCompCollectedCards();
+      // count all value cards
+      const tableValueOfCards = ItemCtrl.countCardValues(cardsOnTable);
+      console.log(tableValueOfCards);
+      const lastTook = ItemCtrl.getWhoTookLast();
+      // console.log(lastTook); 
+      if(lastTook === 1){
+        // player is needed for update current scoreboard function (comp or player update)
+        const playerParameter = "player";
+        // Update current scoreboard with sum of collected value cards
+        UICtrl.updateCurrentScoreboard(tableValueOfCards, playerParameter);
+        // remove cards that are collected from table
+        ItemCtrl.removeCollectedCardsFromTable();
+        // move all cards from calculation to collected cards
+        ItemCtrl.moveCardFromArrayToArray(cardsOnTable, playerCollectedCards);
+        // update table UI
+        UICtrl.populateTableCards(cardsOnTable);
+        // who won the game
+        UICtrl.gameWinner();
+      } else {
+        // player is needed for update current scoreboard function (comp or player update)
+        const playerParameter = "computer";
+        // Update current scoreboard with sum of collected value cards
+        UICtrl.updateCurrentScoreboard(tableValueOfCards, playerParameter);
+        // remove cards that are collected from table
+        ItemCtrl.removeCollectedCardsFromTable();
+        // move all cards from calculation to collected cards
+        ItemCtrl.moveCardFromArrayToArray(cardsOnTable, compCollectedCards);
+        // update table UI 
+        UICtrl.populateTableCards(cardsOnTable);
+        // who won the game
+        UICtrl.gameWinner();
+      }
+    },
+    gameWinner: () => {
+      const playerScore = document.querySelector(UISelectors.playerPoints).innerHTML;
+      const playerScoreInt = parseInt(playerScore);
+      const compScore = document.querySelector(UISelectors.compPoints).innerHTML;
+      const compScoreInt = parseInt(compScore);
+
+      if(playerScoreInt > compScoreInt){
+        
+      }
 
     },
 
