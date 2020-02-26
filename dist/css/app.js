@@ -1001,14 +1001,30 @@ const UICtrl = (function () {
       }
     },
     gameWinner: () => {
-      const playerScore = document.querySelector(UISelectors.playerPoints).innerHTML;
-      const playerScoreInt = parseInt(playerScore);
-      const compScore = document.querySelector(UISelectors.compPoints).innerHTML;
-      const compScoreInt = parseInt(compScore);
+      // player current game score
+      const playerGameScore = document.querySelector(UISelectors.playerPoints).innerHTML;
+      const playerGameScoreInt = parseInt(playerGameScore);
+      // comp current game score
+      const compGameScore = document.querySelector(UISelectors.compPoints).innerHTML;
+      const compGameScoreInt = parseInt(compGameScore);
 
-      // if (playerScoreInt > compScoreInt) {
+      // player overall game score
+      const playerOverallScore = document.querySelector(UISelectors.playerOverallScore).innerHTML;
+      const playerOverallScoreInt = parseInt(playerOverallScore);
+      // comp overall game score 
+      const compOverallScore = document.querySelector(UISelectors.compOverallScore).innerHTML;
+      const compOverallScoreInt = parseInt(compOverallScore);
 
-      // } else if () {
+      // overall game number
+      const overallGameNum = document.querySelector(UISelectors.gameNr).innerHTML;
+      const overallGameNumInt = parseInt(overallGameNum);
+
+      // declare a winner on a stage
+      const stage = document.querySelector(UISelectors.stageCards)
+
+      // if (playerGameScoreInt > compGameScoreInt) {
+
+      // } else if (playerGameScoreInt === compGameScoreInt) {
       //   // if draw
       // } else {
       //   // if comp wins
@@ -1092,26 +1108,33 @@ const App = (function (ItemCtrl, UICtrl) {
 
   // Select card on Stage - function
   const selectDeselectStageCard = e => {
-    const classList = e.target.classList;
 
-    if (classList.contains('card') ||
-      classList.contains('rank') ||
-      classList.contains('suit')) {
-      if (e.target.parentNode.id === "stageCards") {
-        grabId = e.target.id;
-      } else {
-        grabId = e.target.parentNode.id;
+    const compInHandCards = ItemCtrl.getCompInHandCards();
+    const playerInHandCards = ItemCtrl.getPlayerInHandCards();
+    // avoid selecting a card before a computer move
+    if(playerInHandCards.length === compInHandCards.length){
+      const classList = e.target.classList;
+  
+      if (classList.contains('card') ||
+        classList.contains('rank') ||
+        classList.contains('suit')) {
+        if (e.target.parentNode.id === "stageCards") {
+          grabId = e.target.id;
+        } else {
+          grabId = e.target.parentNode.id;
+        }
+  
+        if (classList.contains('selectedCard') || e.target.parentNode.classList.contains('selectedCard')) {
+          UICtrl.removeSelectedStageCardStyle(grabId);
+          ItemCtrl.removeStageCardInCalculation(grabId);
+        } else {
+          UICtrl.addSelectedStageCardStyle(grabId);
+          ItemCtrl.addStageCardInCalculation(grabId);
+        }
+  
+        console.log(grabId);
       }
 
-      if (classList.contains('selectedCard') || e.target.parentNode.classList.contains('selectedCard')) {
-        UICtrl.removeSelectedStageCardStyle(grabId);
-        ItemCtrl.removeStageCardInCalculation(grabId);
-      } else {
-        UICtrl.addSelectedStageCardStyle(grabId);
-        ItemCtrl.addStageCardInCalculation(grabId);
-      }
-
-      console.log(grabId);
     }
 
     console.log(ItemCtrl.logData());
@@ -1120,82 +1143,87 @@ const App = (function (ItemCtrl, UICtrl) {
   }
 
   const selectPlayerCard = e => {
-    const classList = e.target.classList;
 
-    if (classList.contains('card') ||
-      classList.contains('rank') ||
-      classList.contains('suit')) {
-      if (e.target.parentNode.id === "playerCards") {
-        grabId = e.target.id;
-      } else {
-        grabId = e.target.parentNode.id;
-      }
+    const playerInHandCards = ItemCtrl.getPlayerInHandCards();
+    const compInHandCards = ItemCtrl.getCompInHandCards();
+    const dealingDeck = ItemCtrl.getCardsToDeal();
+    const playerCollectedCards = ItemCtrl.getPlayerCollectedCards();
+    // const compCollectedCards = ItemCtrl.getCompCollectedCards();
+    const cardsInCalculation = ItemCtrl.getCardsInCalculation();
+    const cardsOnTable = ItemCtrl.getCardsOnTable();
+    // const populatePlayerCards = UICtrl.populatePlayerCards(playerInHandCards);
+    
+    if(playerInHandCards.length === compInHandCards.length){
 
-      const playerInHandCards = ItemCtrl.getPlayerInHandCards();
-      const compInHandCards = ItemCtrl.getCompInHandCards();
-      const dealingDeck = ItemCtrl.getCardsToDeal();
-      const playerCollectedCards = ItemCtrl.getPlayerCollectedCards();
-      // const compCollectedCards = ItemCtrl.getCompCollectedCards();
-      const cardsInCalculation = ItemCtrl.getCardsInCalculation();
-      const cardsOnTable = ItemCtrl.getCardsOnTable();
-      // const populatePlayerCards = UICtrl.populatePlayerCards(playerInHandCards);
-
-
-      const playerRankCalc = ItemCtrl.getPlayerCardRank(grabId)[0];
-      console.log(playerRankCalc);
-      console.log(grabId);
-      console.log(playerInHandCards);
-      console.log(playerCollectedCards);
-
-      const calculate = ItemCtrl.calculus(grabId, cardsInCalculation, playerInHandCards);
-      console.log(calculate);
-      if (calculate[0] === true) {
-
-        // move player card to calculation array
-        ItemCtrl.moveCardFromArrayToArray(playerInHandCards, cardsInCalculation, grabId);
-        // count all value cards
-        const playerValueOfCollected = ItemCtrl.countCardValues(cardsInCalculation);
-        console.log(playerValueOfCollected);
-
-        // player is needed for update current scoreboard function (comp or player update)
-        const playerParameter = "player";
-        // Update current scoreboard with sum of collected value cards
-        UICtrl.updateCurrentScoreboard(playerValueOfCollected, playerParameter);
-        // remove cards that are collected from table
-        ItemCtrl.removeCollectedCardsFromTable();
-        // move all cards from calculation to collected cards
-        ItemCtrl.moveCardFromArrayToArray(cardsInCalculation, playerCollectedCards);
-        // If table has no cards after calc, add point 
-        console.log(cardsOnTable);
-        // const isItEmpty = ItemCtrl.getCardsOnTable();
-        if (cardsOnTable.length === 0) {
-          UICtrl.addEmptyTablePoint(playerParameter);
+      const classList = e.target.classList;
+  
+      if (classList.contains('card') ||
+        classList.contains('rank') ||
+        classList.contains('suit')) {
+        if (e.target.parentNode.id === "playerCards") {
+          grabId = e.target.id;
+        } else {
+          grabId = e.target.parentNode.id;
         }
-
-        // UICtrl.moveCardFromArrayToArray(cardsOnTable, playerCollectedCards);
-        UICtrl.populatePlayerCards(playerInHandCards);
-        UICtrl.populateTableCards(cardsOnTable);
-
-        // for last deal to determent who took the last to take the rest cards from the table
-        ItemCtrl.lastTook(1);
-
-        // to slow down compMove, imitates computer Thinking
-        setTimeout(function () {
-          // computer move
-          ItemCtrl.compMove();
-
-        }, 1100);
-
-        // if players have no more cards
-        // new Deal after the comp complete its move, waits all timeouts to finish
-        setTimeout(function () {
-          ItemCtrl.newDeal();
-
-        }, 2650);
-
-
+  
+  
+  
+        const playerRankCalc = ItemCtrl.getPlayerCardRank(grabId)[0];
+        console.log(playerRankCalc);
+        console.log(grabId);
+        console.log(playerInHandCards);
+        console.log(playerCollectedCards);
+  
+        const calculate = ItemCtrl.calculus(grabId, cardsInCalculation, playerInHandCards);
+        console.log(calculate);
+        if (calculate[0] === true) {
+  
+          // move player card to calculation array
+          ItemCtrl.moveCardFromArrayToArray(playerInHandCards, cardsInCalculation, grabId);
+          // count all value cards
+          const playerValueOfCollected = ItemCtrl.countCardValues(cardsInCalculation);
+          console.log(playerValueOfCollected);
+  
+          // player is needed for update current scoreboard function (comp or player update)
+          const playerParameter = "player";
+          // Update current scoreboard with sum of collected value cards
+          UICtrl.updateCurrentScoreboard(playerValueOfCollected, playerParameter);
+          // remove cards that are collected from table
+          ItemCtrl.removeCollectedCardsFromTable();
+          // move all cards from calculation to collected cards
+          ItemCtrl.moveCardFromArrayToArray(cardsInCalculation, playerCollectedCards);
+          // If table has no cards after calc, add point 
+          console.log(cardsOnTable);
+          // const isItEmpty = ItemCtrl.getCardsOnTable();
+          if (cardsOnTable.length === 0) {
+            UICtrl.addEmptyTablePoint(playerParameter);
+          }
+  
+          // UICtrl.moveCardFromArrayToArray(cardsOnTable, playerCollectedCards);
+          UICtrl.populatePlayerCards(playerInHandCards);
+          UICtrl.populateTableCards(cardsOnTable);
+  
+          // for last deal to determent who took the last to take the rest cards from the table
+          ItemCtrl.lastTook(1);
+  
+          // to slow down compMove, imitates computer Thinking
+          setTimeout(function () {
+            // computer move
+            ItemCtrl.compMove();
+  
+          }, 1100);
+  
+          // if players have no more cards
+          // new Deal after the comp complete its move, waits all timeouts to finish
+          setTimeout(function () {
+            ItemCtrl.newDeal();
+  
+          }, 2650);
+  
+  
+        }
+  
       }
-
     }
 
     console.log(ItemCtrl.logData());
