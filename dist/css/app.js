@@ -1155,31 +1155,23 @@ const UICtrl = (function () {
       if (playerGameScoreInt > compGameScoreInt) {
         // if player wins
         const newScore = playerOverallScoreInt + 1;
+        const player = "player";
         if (newScore !== 2) {
-          stage.innerHTML = "GAME POINT - PLAYER";
           stage.style.fontSize = "xx-large";
-          const player = "player";
-          const comp = "computer";
+          stage.innerHTML = "GAME POINT - PLAYER";
+          // const player = "player";
+          // const comp = "computer";
           UICtrl.updateOverallScoreBoard(newScore, player);
           UICtrl.updateGameNumber();
-          const compPoints = 0;
-          const playerPoints = 0;
-
-          UICtrl.updateCurrentScoreboard(playerPoints, player);
-          UICtrl.updateCurrentScoreboard(compPoints, comp);
-
-          clearArrays();
-          clearEmptyArr();
-          ItemCtrl.firstDeal();
+          
           setTimeout(function () {
-            populate();
-            // unpackArray();
-
-            stage.style.removeProperty("font-size");
-          }, 800)
+            startGameSetup();
+          }, 2500)
+          
         } else {
           stage.innerHTML = "PLAYER WINS!!!";
           stage.style.fontSize = "xx-large";
+          UICtrl.updateOverallScoreBoard(playerOverallScoreInt, player);
         }
 
       }
@@ -1191,25 +1183,7 @@ const UICtrl = (function () {
           // UICtrl.updateOverallScoreBoard(newScore, comp);
           // UICtrl.updateGameNumber();
           stage.style.removeProperty("font-size");
-          
-          UICtrl.resetCurrentScoreboard();
-          clearArrays();
-          clearEmptyArr();
-          
-          ItemCtrl.firstDeal();
-
-          const playerInHandCards = ItemCtrl.getPlayerInHandCards();
-          const compInHandCards = ItemCtrl.getCompInHandCards();
-          const cardsOnTable = ItemCtrl.getCardsOnTable();
-          const cardsToDeal = ItemCtrl.getCardsToDeal();
-        
-
-
-          // Populate cards comp, player & table
-          UICtrl.populateCompCards(compInHandCards);
-          UICtrl.populatePlayerCards(playerInHandCards);
-          UICtrl.populateTableCards(cardsOnTable);
-          UICtrl.populateDealDeck(cardsToDeal);
+          startGameSetup();          
 
         },2500);
 
@@ -1227,26 +1201,7 @@ const UICtrl = (function () {
             UICtrl.updateGameNumber();
      
             startGameSetup();
-            // UICtrl.resetCurrentScoreboard();
-            // clearArrays();
-            // clearEmptyArr();
   
-            // ItemCtrl.firstDeal();
-            // stage.style.removeProperty("font-size");
-  
-            // const playerInHandCards = ItemCtrl.getPlayerInHandCards();
-            // const compInHandCards = ItemCtrl.getCompInHandCards();
-            // const cardsOnTable = ItemCtrl.getCardsOnTable();
-            // const cardsToDeal = ItemCtrl.getCardsToDeal();
-          
-  
-  
-            // // Populate cards comp, player & table
-            // UICtrl.populateCompCards(compInHandCards);
-            // UICtrl.populatePlayerCards(playerInHandCards);
-            // UICtrl.populateTableCards(cardsOnTable);
-            // UICtrl.populateDealDeck(cardsToDeal);
-
           },2500);
          
         } else {
