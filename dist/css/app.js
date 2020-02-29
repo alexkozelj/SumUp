@@ -1115,6 +1115,28 @@ const UICtrl = (function () {
         compInHandCardsArr.shift();
       };
 
+      function startGameSetup() {
+        UICtrl.resetCurrentScoreboard();
+        clearArrays();
+        clearEmptyArr();
+
+        ItemCtrl.firstDeal();
+        stage.style.removeProperty("font-size");
+
+        const playerInHandCards = ItemCtrl.getPlayerInHandCards();
+        const compInHandCards = ItemCtrl.getCompInHandCards();
+        const cardsOnTable = ItemCtrl.getCardsOnTable();
+        const cardsToDeal = ItemCtrl.getCardsToDeal();
+      
+
+
+        // Populate cards comp, player & table
+        UICtrl.populateCompCards(compInHandCards);
+        UICtrl.populatePlayerCards(playerInHandCards);
+        UICtrl.populateTableCards(cardsOnTable);
+        UICtrl.populateDealDeck(cardsToDeal);
+      }
+
       function unpackArray() {
         // because its [[0]] situation, move content from inside array to outside
         //  ItemCtrl.moveCardFromArrayToArray(playerInHandCards[0], playerInHandCards);
@@ -1163,51 +1185,24 @@ const UICtrl = (function () {
       }
       else if (playerGameScoreInt === compGameScoreInt) {
         // if draw
-        UICtrl.updateDealNumber(1);
-        stage.innerHTML = "IT'S A DRAW - PLAY AGAIN"
         stage.style.fontSize = "xx-large"
-        setTimeout(function () {
-          clearArrays();
-          clearEmptyArr();
-          ItemCtrl.firstDeal();
-          // unpackArray();
-          setTimeout(function () {
-            populate();
-          }, 500);
+        stage.innerHTML = "IT'S A DRAW - PLAY AGAIN"
+        setTimeout(function(){
+          // UICtrl.updateOverallScoreBoard(newScore, comp);
+          // UICtrl.updateGameNumber();
           stage.style.removeProperty("font-size");
-        }, 800)
-
-      }
-      else {
-        // if comp wins
-        const newScore = compOverallScoreInt + 1;
-        const comp = "computer"
-        if (newScore !== 2) {
-          stage.innerHTML = "GAME POINT - COMPUTER";
-          stage.style.fontSize = "xx-large";
-          // const player = "player"
-          UICtrl.updateOverallScoreBoard(newScore, comp);
-          UICtrl.updateGameNumber();
-          compPoints = 0;
-          playerPoints = 0;
-
-          // UICtrl.updateCurrentScoreboard(compPoints, comp);
-          // UICtrl.updateCurrentScoreboard(playerPoints, player);
+          
           UICtrl.resetCurrentScoreboard();
           clearArrays();
           clearEmptyArr();
-          // ItemCtrl.firstDeal();
-          // populate();
+          
           ItemCtrl.firstDeal();
-          stage.style.removeProperty("font-size");
-          // UICtrl.defaultScoreboard();
 
           const playerInHandCards = ItemCtrl.getPlayerInHandCards();
           const compInHandCards = ItemCtrl.getCompInHandCards();
           const cardsOnTable = ItemCtrl.getCardsOnTable();
           const cardsToDeal = ItemCtrl.getCardsToDeal();
-          // const playerCollectedCards = ItemCtrl.getPlayerCollectedCards();
-          // const compCollectedCards = ItemCtrl.getCompCollectedCards();
+        
 
 
           // Populate cards comp, player & table
@@ -1215,10 +1210,45 @@ const UICtrl = (function () {
           UICtrl.populatePlayerCards(playerInHandCards);
           UICtrl.populateTableCards(cardsOnTable);
           UICtrl.populateDealDeck(cardsToDeal);
-          // setTimeout(function () {
-          //   // unpackArray();
 
-          // }, 800)
+        },2500);
+
+      }
+      else {
+        // if comp wins
+        const newScore = compOverallScoreInt + 1;
+        const comp = "computer"
+        if (newScore !== 2) {
+          stage.style.fontSize = "xx-large";
+          stage.innerHTML = "GAME POINT \n COMPUTER";
+          // timeout to show game winner
+          setTimeout(function(){
+            UICtrl.updateOverallScoreBoard(newScore, comp);
+            UICtrl.updateGameNumber();
+     
+            startGameSetup();
+            // UICtrl.resetCurrentScoreboard();
+            // clearArrays();
+            // clearEmptyArr();
+  
+            // ItemCtrl.firstDeal();
+            // stage.style.removeProperty("font-size");
+  
+            // const playerInHandCards = ItemCtrl.getPlayerInHandCards();
+            // const compInHandCards = ItemCtrl.getCompInHandCards();
+            // const cardsOnTable = ItemCtrl.getCardsOnTable();
+            // const cardsToDeal = ItemCtrl.getCardsToDeal();
+          
+  
+  
+            // // Populate cards comp, player & table
+            // UICtrl.populateCompCards(compInHandCards);
+            // UICtrl.populatePlayerCards(playerInHandCards);
+            // UICtrl.populateTableCards(cardsOnTable);
+            // UICtrl.populateDealDeck(cardsToDeal);
+
+          },2500);
+         
         } else {
           stage.innerHTML = "COMPUTER WINS!!!";
           stage.style.fontSize = "xx-large";
