@@ -532,7 +532,8 @@ const ItemCtrl = (function () {
         // slow down of takeing cards, showing which card comp takes
         setTimeout(function () {
           compTakeCombi()
-        }, 1250);
+          // 1250
+        }, 350);
 
       }
 
@@ -543,6 +544,8 @@ const ItemCtrl = (function () {
       let playerInHandCards = ItemCtrl.getPlayerInHandCards();
       let compInHandCards = ItemCtrl.getCompInHandCards();
       let dealCards = ItemCtrl.getCardsToDeal();
+
+
       // if no player has cards in hand => deal new hand
       if (playerInHandCards.length === 0 && compInHandCards.length === 0) {
         // push 6 cards from dealing deck
@@ -619,13 +622,7 @@ const ItemCtrl = (function () {
     },
     dealCardsToPlayers: () => {
       data.compInHandCards.push(data.fullDeck[0].splice(0, 6));
-      // if (data.compInHandCards.length === 0) {
-      // };
-
       data.playerInHandCards.push(data.fullDeck[0].splice(0, 6));
-      // if (data.playerInHandCards.length === 0) {
-      // };
-
     },
     dealCardsToTable: () => {
       data.cardsOnTable.push(data.fullDeck[0].splice(0, 4));
@@ -977,6 +974,13 @@ const UICtrl = (function () {
       }
     },
 
+    resetCurrentScoreboard: () => {
+      document.querySelector(UISelectors.playerPoints).innerHTML = 0;
+      document.querySelector(UISelectors.compPoints).innerHTML = 0;
+      document.querySelector(UISelectors.playerTablaPoints).innerHTML = "";
+      document.querySelector(UISelectors.compTablaPoints).innerHTML = "";
+    },
+
     updateGameNumber: () => {
       const currentGameNum = document.querySelector(UISelectors.gameNr).innerHTML;
       const currentGameNumInt = parseInt(currentGameNum);
@@ -988,19 +992,28 @@ const UICtrl = (function () {
       }
     },
 
-    updateDealNumber: () => {
+    getCurrentDealNum: () => {
       const currentDealNum = document.querySelector(UISelectors.dealNr).innerHTML;
       const currentDealNumInt = parseInt(currentDealNum);
+      return currentDealNumInt;
+    },
 
+    updateDealNumber: () => {
+      currentDealNumInt = UICtrl.getCurrentDealNum();
       if (currentDealNumInt < 4) {
         const updatedDealNumInt = currentDealNumInt + 1;
         const updatedDealNumString = updatedDealNumInt.toString();
         document.querySelector(UISelectors.dealNr).innerHTML = updatedDealNumString;
       } else {
 
-        setTimeout(function () {
-          UICtrl.endOfGame()
-        }, 800)
+        // setTimeout(function () {
+        //   UICtrl.endOfGame()
+        // }, 800)
+        // set deal num to 1
+        const setDealNumTo1 = "1";
+        document.querySelector(UISelectors.dealNr).innerHTML = setDealNumTo1;
+        // dealNumOneStr = toString(num);
+        // document.querySelector(UISelectors.dealNr).innerHTML = dealNumOneStr;
       }
     },
 
@@ -1067,26 +1080,54 @@ const UICtrl = (function () {
       const compCollectedCards = ItemCtrl.getCompCollectedCards();
       const playerCollectedCards = ItemCtrl.getPlayerCollectedCards();
 
-      const stageCards = ItemCtrl.getCardsOnTableArr();
-      const playerCards = ItemCtrl.getPlayerInHandCardsArr()
-      const compCards = ItemCtrl.getCompInHandCardsArr();
-      const cardsToDeal = ItemCtrl.getCardsToDealArr();
+      const playerInHandCardsArr = ItemCtrl.getPlayerInHandCardsArr()
+      const compInHandCardsArr = ItemCtrl.getCompInHandCardsArr();
+      const cardsOnTableArr = ItemCtrl.getCardsOnTableArr();
+      const cardsToDealArr = ItemCtrl.getCardsToDealArr();
+
+
+      const playerInHandCards = ItemCtrl.getPlayerInHandCards()
+      const compInHandCards = ItemCtrl.getCompInHandCards();
+      const cardsOnTable = ItemCtrl.getCardsOnTable();
+      const cardsToDeal = ItemCtrl.getCardsToDeal();
+
 
       function clearArrays() {
         compCollectedCards.splice(0, compCollectedCards.length);
         playerCollectedCards.splice(0, playerCollectedCards.length);
-        // stageCards.splice(0, stageCards.length);
-        // playerCards.splice(0, playerCards.length);
-        // compCards.splice(0, compCards.length);
+        // cardsOnTable.splice(0, cardsOnTable.length);
+        // playerInHandCards.splice(0, playerInHandCards.length);
+        // compInHandCards.splice(0, compInHandCards.length);
         // cardsToDeal.splice(0, cardsToDeal.length);
-      }
+      };
 
-      function clearEmptyArr () {
-        stageCards.shift();
-        cardsToDeal.shift();
-        playerCards.shift();
-        compCards.shift();
-      }
+      function populate() {
+        UICtrl.populateCompCards(compInHandCardsArr[0]);
+        UICtrl.populatePlayerCards(playerInHandCardsArr[0]);
+        UICtrl.populateTableCards(cardsOnTable);
+        UICtrl.populateDealDeck(cardsToDeal);
+      };
+
+      function clearEmptyArr() {
+        cardsOnTableArr.shift();
+        cardsToDealArr.shift();
+        playerInHandCardsArr.shift();
+        compInHandCardsArr.shift();
+      };
+
+      function unpackArray() {
+        // because its [[0]] situation, move content from inside array to outside
+        //  ItemCtrl.moveCardFromArrayToArray(playerInHandCards[0], playerInHandCards);
+        //  ItemCtrl.moveCardFromArrayToArray(compInHandCards[0], compInHandCards);
+        //  ItemCtrl.moveCardFromArrayToArray(cardsOnTable[0], cardsOnTable);
+        //  ItemCtrl.moveCardFromArrayToArray(cardsToDeal[0], cardsToDeal);
+
+        //  // array remain on index 0, and it needs to be removed
+        //  compInHandCards.shift();
+        //  playerInHandCards.shift();
+        //  cardsOnTable.shift();
+        //  cardsToDeal.shift();
+      };
 
 
       if (playerGameScoreInt > compGameScoreInt) {
@@ -1095,47 +1136,93 @@ const UICtrl = (function () {
         if (newScore !== 2) {
           stage.innerHTML = "GAME POINT - PLAYER";
           stage.style.fontSize = "xx-large";
-          const player = "player"
+          const player = "player";
+          const comp = "computer";
           UICtrl.updateOverallScoreBoard(newScore, player);
           UICtrl.updateGameNumber();
+          const compPoints = 0;
+          const playerPoints = 0;
+
+          UICtrl.updateCurrentScoreboard(playerPoints, player);
+          UICtrl.updateCurrentScoreboard(compPoints, comp);
+
+          clearArrays();
+          clearEmptyArr();
+          ItemCtrl.firstDeal();
           setTimeout(function () {
-            clearArrays();
-            ItemCtrl.firstDeal();
-            clearEmptyArr();
-          }, 1200)
+            populate();
+            // unpackArray();
+
+            stage.style.removeProperty("font-size");
+          }, 800)
         } else {
-          stage.innerHTML = "PLAYER WINS !!!";
+          stage.innerHTML = "PLAYER WINS!!!";
           stage.style.fontSize = "xx-large";
         }
 
       }
       else if (playerGameScoreInt === compGameScoreInt) {
         // if draw
+        UICtrl.updateDealNumber(1);
         stage.innerHTML = "IT'S A DRAW - PLAY AGAIN"
         stage.style.fontSize = "xx-large"
         setTimeout(function () {
           clearArrays();
-          ItemCtrl.firstDeal();
           clearEmptyArr();
-        }, 1200)
+          ItemCtrl.firstDeal();
+          // unpackArray();
+          setTimeout(function () {
+            populate();
+          }, 500);
+          stage.style.removeProperty("font-size");
+        }, 800)
+
       }
       else {
         // if comp wins
         const newScore = compOverallScoreInt + 1;
+        const comp = "computer"
         if (newScore !== 2) {
           stage.innerHTML = "GAME POINT - COMPUTER";
           stage.style.fontSize = "xx-large";
-          const player = "computer"
-          UICtrl.updateOverallScoreBoard(newScore, player);
+          // const player = "player"
+          UICtrl.updateOverallScoreBoard(newScore, comp);
           UICtrl.updateGameNumber();
-          setTimeout(function () {
-            clearArrays();
-            ItemCtrl.firstDeal();
-            clearEmptyArr();
-          }, 1200)
+          compPoints = 0;
+          playerPoints = 0;
+
+          // UICtrl.updateCurrentScoreboard(compPoints, comp);
+          // UICtrl.updateCurrentScoreboard(playerPoints, player);
+          UICtrl.resetCurrentScoreboard();
+          clearArrays();
+          clearEmptyArr();
+          // ItemCtrl.firstDeal();
+          // populate();
+          ItemCtrl.firstDeal();
+          stage.style.removeProperty("font-size");
+          // UICtrl.defaultScoreboard();
+
+          const playerInHandCards = ItemCtrl.getPlayerInHandCards();
+          const compInHandCards = ItemCtrl.getCompInHandCards();
+          const cardsOnTable = ItemCtrl.getCardsOnTable();
+          const cardsToDeal = ItemCtrl.getCardsToDeal();
+          // const playerCollectedCards = ItemCtrl.getPlayerCollectedCards();
+          // const compCollectedCards = ItemCtrl.getCompCollectedCards();
+
+
+          // Populate cards comp, player & table
+          UICtrl.populateCompCards(compInHandCards);
+          UICtrl.populatePlayerCards(playerInHandCards);
+          UICtrl.populateTableCards(cardsOnTable);
+          UICtrl.populateDealDeck(cardsToDeal);
+          // setTimeout(function () {
+          //   // unpackArray();
+
+          // }, 800)
         } else {
-          stage.innerHTML = "COMPUTER WINS !!!";
+          stage.innerHTML = "COMPUTER WINS!!!";
           stage.style.fontSize = "xx-large";
+          UICtrl.updateOverallScoreBoard(compOverallScoreInt, comp);
         }
       }
 
@@ -1291,8 +1378,14 @@ const App = (function (ItemCtrl, UICtrl) {
           ItemCtrl.moveCardFromArrayToArray(playerInHandCards, cardsInCalculation, grabId);
           // count all value cards
           const playerValueOfCollected = ItemCtrl.countCardValues(cardsInCalculation);
+          if(cardsInCalculation !== 0){
+            // for last deal to determent who took the last to take the rest cards from the table
+            ItemCtrl.lastTook(1);
+          }
           console.log(playerValueOfCollected);
-
+          // get a deal number to check if it's a end of a game
+          const dealNr = UICtrl.getCurrentDealNum();
+          const cardsToDeal = ItemCtrl.getCardsToDeal();
           // player is needed for update current scoreboard function (comp or player update)
           const playerParameter = "player";
           // Update current scoreboard with sum of collected value cards
@@ -1312,22 +1405,30 @@ const App = (function (ItemCtrl, UICtrl) {
           UICtrl.populatePlayerCards(playerInHandCards);
           UICtrl.populateTableCards(cardsOnTable);
 
-          // for last deal to determent who took the last to take the rest cards from the table
-          ItemCtrl.lastTook(1);
-
-          // to slow down compMove, imitates computer Thinking
           setTimeout(function () {
-            // computer move
             ItemCtrl.compMove();
-
-          }, 1100);
-
-          // if players have no more cards
-          // new Deal after the comp complete its move, waits all timeouts to finish
+            // 1100
+          }, 400);
+          // to slow down compMove, imitates computer Thinking
+          // if there are no more cards and it's end of game
           setTimeout(function () {
-            ItemCtrl.newDeal();
+            if (playerInHandCards.length === 0 && compInHandCards.length === 0 && cardsToDeal.length === 0 && dealNr === 4) {
+              UICtrl.updateDealNumber();
+              UICtrl.endOfGame();
+            // computer move
+            };
+            // 1100
+          }, 1000);
 
-          }, 2650);
+          // if players have no more cards and it's not end of a game
+          // new Deal after the comp complete its move, waits all timeouts to finish
+          if (dealNr !== 4) {
+
+            setTimeout(function () {
+              ItemCtrl.newDeal();
+              // 2650
+            }, 1650);
+          }
 
 
         }
