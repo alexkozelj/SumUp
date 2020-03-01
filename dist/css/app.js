@@ -533,7 +533,7 @@ const ItemCtrl = (function () {
         setTimeout(function () {
           compTakeCombi()
           // 1250
-        }, 350);
+        }, 1250);
 
       }
 
@@ -1005,15 +1005,9 @@ const UICtrl = (function () {
         const updatedDealNumString = updatedDealNumInt.toString();
         document.querySelector(UISelectors.dealNr).innerHTML = updatedDealNumString;
       } else {
-
-        // setTimeout(function () {
-        //   UICtrl.endOfGame()
-        // }, 800)
-        // set deal num to 1
         const setDealNumTo1 = "1";
         document.querySelector(UISelectors.dealNr).innerHTML = setDealNumTo1;
-        // dealNumOneStr = toString(num);
-        // document.querySelector(UISelectors.dealNr).innerHTML = dealNumOneStr;
+        
       }
     },
 
@@ -1137,18 +1131,18 @@ const UICtrl = (function () {
         const player = "player";
         if (newScore !== 2) {
           stage.style.fontSize = "xx-large";
-          stage.innerHTML = "GAME POINT - PLAYER";
+          stage.innerHTML = "GAME POINT PLAYER !";
           // const player = "player";
           // const comp = "computer";
           UICtrl.updateOverallScoreBoard(newScore, player);
           UICtrl.updateGameNumber();
-          
+          // slow down to show who wins
           setTimeout(function () {
             startGameSetup();
-          }, 2500)
+          }, 2800)
           
         } else {
-          stage.innerHTML = "PLAYER WINS!!!";
+          stage.innerHTML = "PLAYER WINS ! ! !";
           stage.style.fontSize = "xx-large";
           UICtrl.updateOverallScoreBoard(playerOverallScoreInt, player);
         }
@@ -1164,7 +1158,7 @@ const UICtrl = (function () {
           stage.style.removeProperty("font-size");
           startGameSetup();          
 
-        },2500);
+        },2800);
 
       }
       else {
@@ -1173,7 +1167,7 @@ const UICtrl = (function () {
         const comp = "computer"
         if (newScore !== 2) {
           stage.style.fontSize = "xx-large";
-          stage.innerHTML = "GAME POINT \n COMPUTER";
+          stage.innerHTML = "GAME POINT COMPUTER !";
           // timeout to show game winner
           setTimeout(function(){
             UICtrl.updateOverallScoreBoard(newScore, comp);
@@ -1181,10 +1175,10 @@ const UICtrl = (function () {
      
             startGameSetup();
   
-          },2500);
+          },2800);
          
         } else {
-          stage.innerHTML = "COMPUTER WINS!!!";
+          stage.innerHTML = "COMPUTER WINS ! ! !";
           stage.style.fontSize = "xx-large";
           UICtrl.updateOverallScoreBoard(compOverallScoreInt, comp);
         }
@@ -1374,7 +1368,7 @@ const App = (function (ItemCtrl, UICtrl) {
           setTimeout(function () {
             ItemCtrl.compMove();
             // 1100
-          }, 400);
+          }, 950);
           // to slow down compMove, imitates computer Thinking
           // if there are no more cards and it's end of game
           setTimeout(function () {
@@ -1384,7 +1378,7 @@ const App = (function (ItemCtrl, UICtrl) {
             // computer move
             };
             // 1100
-          }, 1000);
+          }, 2500);
 
           // if players have no more cards and it's not end of a game
           // new Deal after the comp complete its move, waits all timeouts to finish
@@ -1393,7 +1387,7 @@ const App = (function (ItemCtrl, UICtrl) {
             setTimeout(function () {
               ItemCtrl.newDeal();
               // 2650
-            }, 1650);
+            }, 2650);
           }
 
 
