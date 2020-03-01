@@ -532,8 +532,8 @@ const ItemCtrl = (function () {
         // slow down of takeing cards, showing which card comp takes
         setTimeout(function () {
           compTakeCombi()
-          // 1250
-        }, 1250);
+          // 1150
+        }, 350);
 
       }
 
@@ -1065,7 +1065,9 @@ const UICtrl = (function () {
 
 
       // declare a winner on a stage
-      const stage = document.querySelector(UISelectors.stageCards)
+      const stage = document.querySelector(UISelectors.stageCards);
+      const compCards = document.querySelector(UISelectors.compCards);
+      const playerCards = document.querySelector(UISelectors.playerCards);
 
       // get collected cards
       const compCollectedCards = ItemCtrl.getCompCollectedCards();
@@ -1110,6 +1112,15 @@ const UICtrl = (function () {
         UICtrl.populateDealDeck(cardsToDeal);
       }
 
+      function tadaAnim(UISelector) {
+        const element = document.getElementById(UISelector);
+        element.classList.add("tada");
+      }
+
+      function insertEl() {
+        let html = `<span><h1 class="animated tada">COMPUTER WINS !</h1></span>`
+        stage.innerHTML = html;
+      }
       // function unpackArray() {
         // because its [[0]] situation, move content from inside array to outside
         //  ItemCtrl.moveCardFromArrayToArray(playerInHandCards[0], playerInHandCards);
@@ -1132,8 +1143,6 @@ const UICtrl = (function () {
         if (newScore !== 2) {
           stage.style.fontSize = "xx-large";
           stage.innerHTML = "GAME POINT PLAYER !";
-          // const player = "player";
-          // const comp = "computer";
           UICtrl.updateOverallScoreBoard(newScore, player);
           UICtrl.updateGameNumber();
           // slow down to show who wins
@@ -1142,6 +1151,8 @@ const UICtrl = (function () {
           }, 2800)
           
         } else {
+          compCards.innerHTML = "PLAYER WINS ! ! !";
+          playerCards.innerHTML = "PLAYER WINS ! ! !";
           stage.innerHTML = "PLAYER WINS ! ! !";
           stage.style.fontSize = "xx-large";
           UICtrl.updateOverallScoreBoard(playerOverallScoreInt, player);
@@ -1166,8 +1177,11 @@ const UICtrl = (function () {
         const newScore = compOverallScoreInt + 1;
         const comp = "computer"
         if (newScore !== 2) {
-          stage.style.fontSize = "xx-large";
-          stage.innerHTML = "GAME POINT COMPUTER !";
+          // tadaAnim(stage);
+          // stage.className = "tada";
+          insertEl();
+          // stage.style.fontSize = "xx-large";
+          // stage.innerHTML = "GAME POINT COMPUTER !";
           // timeout to show game winner
           setTimeout(function(){
             UICtrl.updateOverallScoreBoard(newScore, comp);
@@ -1178,6 +1192,9 @@ const UICtrl = (function () {
           },2800);
          
         } else {
+          // tadaAnim(stage);
+          compCards.innerHTML = "COMPUTER WINS ! ! !";
+          playerCards.innerHTML = "COMPUTER WINS ! ! !";
           stage.innerHTML = "COMPUTER WINS ! ! !";
           stage.style.fontSize = "xx-large";
           UICtrl.updateOverallScoreBoard(compOverallScoreInt, comp);
@@ -1367,8 +1384,8 @@ const App = (function (ItemCtrl, UICtrl) {
 
           setTimeout(function () {
             ItemCtrl.compMove();
-            // 1100
-          }, 950);
+            // 920
+          }, 320);
           // to slow down compMove, imitates computer Thinking
           // if there are no more cards and it's end of game
           setTimeout(function () {
@@ -1386,8 +1403,8 @@ const App = (function (ItemCtrl, UICtrl) {
 
             setTimeout(function () {
               ItemCtrl.newDeal();
-              // 2650
-            }, 2650);
+              // 2450
+            }, 1650);
           }
 
 
