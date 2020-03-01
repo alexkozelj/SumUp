@@ -1007,7 +1007,7 @@ const UICtrl = (function () {
       } else {
         const setDealNumTo1 = "1";
         document.querySelector(UISelectors.dealNr).innerHTML = setDealNumTo1;
-        
+
       }
     },
 
@@ -1082,7 +1082,7 @@ const UICtrl = (function () {
       function clearArrays() {
         compCollectedCards.splice(0, compCollectedCards.length);
         playerCollectedCards.splice(0, playerCollectedCards.length);
-        
+
       };
       // by dealing, it leaves a old array that needs to be removed
       function clearEmptyArr() {
@@ -1104,7 +1104,7 @@ const UICtrl = (function () {
         const compInHandCards = ItemCtrl.getCompInHandCards();
         const cardsOnTable = ItemCtrl.getCardsOnTable();
         const cardsToDeal = ItemCtrl.getCardsToDeal();
- 
+
         // Populate cards comp, player & table
         UICtrl.populateCompCards(compInHandCards);
         UICtrl.populatePlayerCards(playerInHandCards);
@@ -1112,27 +1112,44 @@ const UICtrl = (function () {
         UICtrl.populateDealDeck(cardsToDeal);
       }
 
-      function tadaAnim(UISelector) {
-        const element = document.getElementById(UISelector);
-        element.classList.add("tada");
-      }
 
-      function insertEl() {
-        let html = `<span><h1 class="animated tada">COMPUTER WINS !</h1></span>`
-        stage.innerHTML = html;
-      }
+      // Animation for comp wins
+      function compPoint(id, animation) {
+        let html = `<span><h2 class="animated infinite ${animation} center">GAME POINT - COMPUTER !</h2></span>`
+        id.innerHTML = html;
+      };
+      function compWin(id, animation) {
+        let html = `<span><h1 class="animated infinite ${animation}">COMPUTER WINS ! ! !</h1></span>`
+        id.innerHTML = html;
+      };
+
+      // Animation for player wins
+      function playerPoint(id, animation) {
+        let html = `<span><h1 class="animated ${animation}">GAME POINT - PLAYER !</h1></span>`
+        id.innerHTML = html;
+      };
+      function playerWin(id, animation) {
+        let html = `<span><h1 class="animated ${animation}">PLAYER WINS ! ! !</h1></span>`
+        id.innerHTML = html;
+      };
+
+      // Animation for a draw
+      function draw(id, animation) {
+        let html = `<span><h1 class="animated ${animation}">GAME DRAW - PLAY AGAIN !</h1></span>`
+        id.innerHTML = html;
+      };
       // function unpackArray() {
-        // because its [[0]] situation, move content from inside array to outside
-        //  ItemCtrl.moveCardFromArrayToArray(playerInHandCards[0], playerInHandCards);
-        //  ItemCtrl.moveCardFromArrayToArray(compInHandCards[0], compInHandCards);
-        //  ItemCtrl.moveCardFromArrayToArray(cardsOnTable[0], cardsOnTable);
-        //  ItemCtrl.moveCardFromArrayToArray(cardsToDeal[0], cardsToDeal);
+      // because its [[0]] situation, move content from inside array to outside
+      //  ItemCtrl.moveCardFromArrayToArray(playerInHandCards[0], playerInHandCards);
+      //  ItemCtrl.moveCardFromArrayToArray(compInHandCards[0], compInHandCards);
+      //  ItemCtrl.moveCardFromArrayToArray(cardsOnTable[0], cardsOnTable);
+      //  ItemCtrl.moveCardFromArrayToArray(cardsToDeal[0], cardsToDeal);
 
-        //  // array remain on index 0, and it needs to be removed
-        //  compInHandCards.shift();
-        //  playerInHandCards.shift();
-        //  cardsOnTable.shift();
-        //  cardsToDeal.shift();
+      //  // array remain on index 0, and it needs to be removed
+      //  compInHandCards.shift();
+      //  playerInHandCards.shift();
+      //  cardsOnTable.shift();
+      //  cardsToDeal.shift();
       // };
 
 
@@ -1141,35 +1158,40 @@ const UICtrl = (function () {
         const newScore = playerOverallScoreInt + 1;
         const player = "player";
         if (newScore !== 2) {
-          stage.style.fontSize = "xx-large";
-          stage.innerHTML = "GAME POINT PLAYER !";
+          // stage.style.fontSize = "xx-large";
+          // stage.innerHTML = "GAME POINT PLAYER !";
+          playerPoint(stage, "tada");
           UICtrl.updateOverallScoreBoard(newScore, player);
           UICtrl.updateGameNumber();
           // slow down to show who wins
           setTimeout(function () {
             startGameSetup();
           }, 2800)
-          
+
         } else {
-          compCards.innerHTML = "PLAYER WINS ! ! !";
-          playerCards.innerHTML = "PLAYER WINS ! ! !";
-          stage.innerHTML = "PLAYER WINS ! ! !";
-          stage.style.fontSize = "xx-large";
+          // compCards.innerHTML = "PLAYER WINS ! ! !";
+          // playerCards.innerHTML = "PLAYER WINS ! ! !";
+          // stage.innerHTML = "PLAYER WINS ! ! !";
+          playerWin(compCards, "zoomIn");
+          playerWin(playerCards, "zoomIn");
+          playerWin(stage, "pulse");
+          // stage.style.fontSize = "xx-large";
           UICtrl.updateOverallScoreBoard(playerOverallScoreInt, player);
         }
 
       }
       else if (playerGameScoreInt === compGameScoreInt) {
         // if draw
-        stage.style.fontSize = "xx-large"
-        stage.innerHTML = "IT'S A DRAW - PLAY AGAIN"
-        setTimeout(function(){
+        // stage.style.fontSize = "xx-large"
+        // stage.innerHTML = "IT'S A DRAW - PLAY AGAIN"
+        draw(stage, "pulse");
+        setTimeout(function () {
           // UICtrl.updateOverallScoreBoard(newScore, comp);
           // UICtrl.updateGameNumber();
-          stage.style.removeProperty("font-size");
-          startGameSetup();          
+          // stage.style.removeProperty("font-size");
+          startGameSetup();
 
-        },2800);
+        }, 2800);
 
       }
       else {
@@ -1177,26 +1199,27 @@ const UICtrl = (function () {
         const newScore = compOverallScoreInt + 1;
         const comp = "computer"
         if (newScore !== 2) {
-          // tadaAnim(stage);
-          // stage.className = "tada";
-          insertEl();
+          // insertEl(stage);
           // stage.style.fontSize = "xx-large";
-          // stage.innerHTML = "GAME POINT COMPUTER !";
-          // timeout to show game winner
-          setTimeout(function(){
+
+          compPoint(stage, "pulse");
+          setTimeout(function () {
             UICtrl.updateOverallScoreBoard(newScore, comp);
             UICtrl.updateGameNumber();
-     
+
             startGameSetup();
-  
-          },2800);
-         
+            // 2800
+          }, 1600);
+
         } else {
           // tadaAnim(stage);
-          compCards.innerHTML = "COMPUTER WINS ! ! !";
-          playerCards.innerHTML = "COMPUTER WINS ! ! !";
-          stage.innerHTML = "COMPUTER WINS ! ! !";
-          stage.style.fontSize = "xx-large";
+          // compCards.innerHTML = "COMPUTER WINS ! ! !";
+          // playerCards.innerHTML = "COMPUTER WINS ! ! !";
+          // stage.innerHTML = "COMPUTER WINS ! ! !";
+          // stage.style.fontSize = "xx-large";
+          compWin(compCards, "heartBeat slower");
+          compWin(playerCards, "heartBeat slower");
+          compWin(stage, "pulse");
           UICtrl.updateOverallScoreBoard(compOverallScoreInt, comp);
         }
       }
@@ -1353,7 +1376,7 @@ const App = (function (ItemCtrl, UICtrl) {
           ItemCtrl.moveCardFromArrayToArray(playerInHandCards, cardsInCalculation, grabId);
           // count all value cards
           const playerValueOfCollected = ItemCtrl.countCardValues(cardsInCalculation);
-          
+
           // if(cardsInCalculation !== 0){
           //   // for last deal to determent who took the last to take the rest cards from the table
           // }
@@ -1375,7 +1398,7 @@ const App = (function (ItemCtrl, UICtrl) {
           if (cardsOnTable.length === 0) {
             UICtrl.addEmptyTablePoint(playerParameter);
           }
-          if (numOfCollected !== playerCollectedCards.length){
+          if (numOfCollected !== playerCollectedCards.length) {
             ItemCtrl.lastTook(1);
           }
           // UICtrl.moveCardFromArrayToArray(cardsOnTable, playerCollectedCards);
@@ -1392,10 +1415,10 @@ const App = (function (ItemCtrl, UICtrl) {
             if (playerInHandCards.length === 0 && compInHandCards.length === 0 && cardsToDeal.length === 0 && dealNr === 4) {
               UICtrl.updateDealNumber();
               UICtrl.endOfGame();
-            // computer move
+              // computer move
             };
             // 1100
-          }, 2500);
+          }, 1100);
 
           // if players have no more cards and it's not end of a game
           // new Deal after the comp complete its move, waits all timeouts to finish
