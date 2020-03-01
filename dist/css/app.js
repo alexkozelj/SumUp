@@ -1069,9 +1069,6 @@ const UICtrl = (function () {
       const compOverallScore = document.querySelector(UISelectors.compOverallScore).innerHTML;
       const compOverallScoreInt = parseInt(compOverallScore);
 
-      // overall game number
-      const overallGameNum = document.querySelector(UISelectors.gameNr).innerHTML;
-      const overallGameNumInt = parseInt(overallGameNum);
 
       // declare a winner on a stage
       const stage = document.querySelector(UISelectors.stageCards)
@@ -1085,36 +1082,20 @@ const UICtrl = (function () {
       const cardsOnTableArr = ItemCtrl.getCardsOnTableArr();
       const cardsToDealArr = ItemCtrl.getCardsToDealArr();
 
-
-      const playerInHandCards = ItemCtrl.getPlayerInHandCards()
-      const compInHandCards = ItemCtrl.getCompInHandCards();
-      const cardsOnTable = ItemCtrl.getCardsOnTable();
-      const cardsToDeal = ItemCtrl.getCardsToDeal();
-
-
+      // when new game starts, clear all old cards for new ones to be deal
       function clearArrays() {
         compCollectedCards.splice(0, compCollectedCards.length);
         playerCollectedCards.splice(0, playerCollectedCards.length);
-        // cardsOnTable.splice(0, cardsOnTable.length);
-        // playerInHandCards.splice(0, playerInHandCards.length);
-        // compInHandCards.splice(0, compInHandCards.length);
-        // cardsToDeal.splice(0, cardsToDeal.length);
+        
       };
-
-      function populate() {
-        UICtrl.populateCompCards(compInHandCardsArr[0]);
-        UICtrl.populatePlayerCards(playerInHandCardsArr[0]);
-        UICtrl.populateTableCards(cardsOnTable);
-        UICtrl.populateDealDeck(cardsToDeal);
-      };
-
+      // by dealing, it leaves a old array that needs to be removed
       function clearEmptyArr() {
         cardsOnTableArr.shift();
         cardsToDealArr.shift();
         playerInHandCardsArr.shift();
         compInHandCardsArr.shift();
       };
-
+      // setup for a new game
       function startGameSetup() {
         UICtrl.resetCurrentScoreboard();
         clearArrays();
@@ -1127,9 +1108,7 @@ const UICtrl = (function () {
         const compInHandCards = ItemCtrl.getCompInHandCards();
         const cardsOnTable = ItemCtrl.getCardsOnTable();
         const cardsToDeal = ItemCtrl.getCardsToDeal();
-      
-
-
+ 
         // Populate cards comp, player & table
         UICtrl.populateCompCards(compInHandCards);
         UICtrl.populatePlayerCards(playerInHandCards);
@@ -1137,7 +1116,7 @@ const UICtrl = (function () {
         UICtrl.populateDealDeck(cardsToDeal);
       }
 
-      function unpackArray() {
+      // function unpackArray() {
         // because its [[0]] situation, move content from inside array to outside
         //  ItemCtrl.moveCardFromArrayToArray(playerInHandCards[0], playerInHandCards);
         //  ItemCtrl.moveCardFromArrayToArray(compInHandCards[0], compInHandCards);
@@ -1149,7 +1128,7 @@ const UICtrl = (function () {
         //  playerInHandCards.shift();
         //  cardsOnTable.shift();
         //  cardsToDeal.shift();
-      };
+      // };
 
 
       if (playerGameScoreInt > compGameScoreInt) {
@@ -1347,7 +1326,7 @@ const App = (function (ItemCtrl, UICtrl) {
           grabId = e.target.parentNode.id;
         }
 
-
+        let numOfCollected = playerCollectedCards.length;
 
         const playerRankCalc = ItemCtrl.getPlayerCardRank(grabId)[0];
         console.log(playerRankCalc);
@@ -1363,10 +1342,10 @@ const App = (function (ItemCtrl, UICtrl) {
           ItemCtrl.moveCardFromArrayToArray(playerInHandCards, cardsInCalculation, grabId);
           // count all value cards
           const playerValueOfCollected = ItemCtrl.countCardValues(cardsInCalculation);
-          if(cardsInCalculation !== 0){
-            // for last deal to determent who took the last to take the rest cards from the table
-            ItemCtrl.lastTook(1);
-          }
+          
+          // if(cardsInCalculation !== 0){
+          //   // for last deal to determent who took the last to take the rest cards from the table
+          // }
           console.log(playerValueOfCollected);
           // get a deal number to check if it's a end of a game
           const dealNr = UICtrl.getCurrentDealNum();
@@ -1385,7 +1364,9 @@ const App = (function (ItemCtrl, UICtrl) {
           if (cardsOnTable.length === 0) {
             UICtrl.addEmptyTablePoint(playerParameter);
           }
-
+          if (numOfCollected !== playerCollectedCards.length){
+            ItemCtrl.lastTook(1);
+          }
           // UICtrl.moveCardFromArrayToArray(cardsOnTable, playerCollectedCards);
           UICtrl.populatePlayerCards(playerInHandCards);
           UICtrl.populateTableCards(cardsOnTable);
