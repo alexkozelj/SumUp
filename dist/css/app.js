@@ -805,7 +805,13 @@ const ItemCtrl = (function () {
 // ///////// >>>>>>> UI Controller <<<<<<< //////// //
 const UICtrl = (function () {
   const UISelectors = {
-    // computer point parent
+    // player points parent
+    playerPointsParent: "#playerPointsParent",
+
+    // for setting playerPoints attribute
+    playerPointsAttribute: "playerPoints",
+
+    // computer points parent
     compPointsParent: "#compPointsParent",
 
     // for setting compPoints attribute
