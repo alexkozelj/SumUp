@@ -801,6 +801,12 @@ const ItemCtrl = (function () {
 // ///////// >>>>>>> UI Controller <<<<<<< //////// //
 const UICtrl = (function () {
   const UISelectors = {
+    // computer point parent
+    compPointsParent: "#compPointsParent",
+
+    // for setting compPoints attribute
+    compPointsAttribute: "compPoints",
+
     // New Game
     newGame: "#newGame",
 
@@ -966,6 +972,7 @@ const UICtrl = (function () {
         const updatedPlayerPointsInt = currentPlayerPointsInt + value;
         const updatedPlayerPointsString = updatedPlayerPointsInt.toString();
         document.querySelector(UISelectors.playerPoints).innerHTML = updatedPlayerPointsString;
+        // const html = ""
       }
 
       if (playerOrComp === "computer") {
@@ -973,7 +980,15 @@ const UICtrl = (function () {
         const currentCompPointsInt = parseInt(currentCompPointsString);
         const updatedCompPointsInt = currentCompPointsInt + value;
         const updatedCompPointsString = updatedCompPointsInt.toString();
-        document.querySelector(UISelectors.compPoints).innerHTML = updatedCompPointsString;
+        // document.querySelector(UISelectors.compPoints).innerHTML = updatedCompPointsString;
+        const span = document.createElement("SPAN");
+        span.setAttribute("class", "animated zoomIn faster");
+        span.setAttribute("id", `${UISelectors.compPointsAttribute}`);
+        const html = updatedCompPointsString;
+        span.innerHTML = html;
+        UICtrl.pointUp(value, span);
+        
+
       }
     },
 
@@ -1172,9 +1187,9 @@ const UICtrl = (function () {
 
         } else {
 
-          playerWin(compCards, "heartBeat slower");
-          playerWin(playerCards, "heartBeat slower");
-          playerWin(stage, "pulse");
+          playerWin(compCards, "pulse");
+          playerWin(playerCards, "pulse");
+          playerWin(stage, "heartBeat slower");
           // stage.style.fontSize = "xx-large";
           UICtrl.updateOverallScoreBoard(playerOverallScoreInt, player);
         }
@@ -1208,13 +1223,29 @@ const UICtrl = (function () {
 
         } else {
 
-          compWin(compCards, "heartBeat slower");
-          compWin(playerCards, "heartBeat slower");
-          compWin(stage, "pulse");
+          compWin(compCards, "pulse");
+          compWin(playerCards, "pulse");
+          compWin(stage, "heartBeat slower");
           UICtrl.updateOverallScoreBoard(compOverallScoreInt, comp);
         }
       }
 
+    },
+
+    pointUp: (value, newResult) => {
+      const compPoints = document.querySelector(UISelectors.compPoints).innerHTML;
+      const compPointsParent = document.querySelector(UISelectors.compPointsParent);
+      const span = document.createElement("SPAN");
+      span.setAttribute("class", "animated zoomOutLeft faster");
+      span.setAttribute("id", "pointUp");
+      const html = compPoints + "+" + value;
+      span.innerHTML = html;
+      compPointsParent.removeChild(compPointsParent.childNodes[1]);
+      compPointsParent.appendChild(span);
+      setTimeout(function(){
+        compPointsParent.removeChild(compPointsParent.childNodes[1]);
+        compPointsParent.appendChild(newResult);
+      },550);
     },
 
     addEmptyTablePoint: (playerOrComp) => {
