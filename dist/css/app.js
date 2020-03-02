@@ -801,6 +801,9 @@ const ItemCtrl = (function () {
 // ///////// >>>>>>> UI Controller <<<<<<< //////// //
 const UICtrl = (function () {
   const UISelectors = {
+    // New Game
+    newGame: "#newGame",
+
     // Comp cards
     compCards: "#compCards",
 
@@ -1158,7 +1161,7 @@ const UICtrl = (function () {
         const newScore = playerOverallScoreInt + 1;
         const player = "player";
         if (newScore !== 2) {
- 
+
           playerPoint(stage, "pulse");
           UICtrl.updateOverallScoreBoard(newScore, player);
           UICtrl.updateGameNumber();
@@ -1192,7 +1195,7 @@ const UICtrl = (function () {
         const newScore = compOverallScoreInt + 1;
         const comp = "computer"
         if (newScore !== 2) {
- 
+
 
           compPoint(stage, "pulse");
           setTimeout(function () {
@@ -1204,7 +1207,7 @@ const UICtrl = (function () {
           }, 1600);
 
         } else {
-   
+
           compWin(compCards, "heartBeat slower");
           compWin(playerCards, "heartBeat slower");
           compWin(stage, "pulse");
@@ -1285,8 +1288,62 @@ const App = (function (ItemCtrl, UICtrl) {
 
     // Player card selection
     document.querySelector(UISelectors.playerCards).addEventListener('click', selectPlayerCard);
+
+    // New Game button
+    document.querySelector(UISelectors.newGame).addEventListener('click', startNewGame)
   }
 
+  // Start a new game
+  const startNewGame = () => {
+
+
+
+
+    const playerInHandCards = ItemCtrl.getPlayerInHandCards();
+    const compInHandCards = ItemCtrl.getCompInHandCards();
+    const cardsOnTable = ItemCtrl.getCardsOnTable();
+    const cardsToDeal = ItemCtrl.getCardsToDeal();
+    const playerCollectedCards = ItemCtrl.getPlayerCollectedCards();
+    const compCollectedCards = ItemCtrl.getCompCollectedCards();
+
+    playerInHandCards.splice(0, playerInHandCards.length);
+    compInHandCards.splice(0, compInHandCards.length);
+    cardsOnTable.splice(0, cardsOnTable.length);
+    cardsToDeal.splice(0, cardsToDeal.length);
+    compCollectedCards.splice(0, compCollectedCards.length);
+    playerCollectedCards.splice(0, playerCollectedCards.length);
+
+    const playerInHandCardsArr = ItemCtrl.getPlayerInHandCardsArr()
+    const compInHandCardsArr = ItemCtrl.getCompInHandCardsArr();
+    const cardsOnTableArr = ItemCtrl.getCardsOnTableArr();
+    const cardsToDealArr = ItemCtrl.getCardsToDealArr();
+
+
+    playerInHandCardsArr.shift();
+    compInHandCardsArr.shift();
+    cardsOnTableArr.shift();
+    cardsToDealArr.shift();
+    compCollectedCards.shift();
+    playerCollectedCards.shift();
+
+    ItemCtrl.firstDeal();
+    UICtrl.defaultScoreboard();
+
+    const playerInHandCardsNew = ItemCtrl.getPlayerInHandCards();
+    const compInHandCardsNew = ItemCtrl.getCompInHandCards();
+    const cardsOnTableNew = ItemCtrl.getCardsOnTable();
+    const cardsToDealNew = ItemCtrl.getCardsToDeal();
+    // const playerCollectedCards = ItemCtrl.getPlayerCollectedCards();
+    // const compCollectedCards = ItemCtrl.getCompCollectedCards();
+
+    // Populate cards comp, player & table
+    UICtrl.populateCompCards(compInHandCardsNew);
+    UICtrl.populatePlayerCards(playerInHandCardsNew);
+    UICtrl.populateTableCards(cardsOnTableNew);
+    UICtrl.populateDealDeck(cardsToDealNew);
+
+    // preventDefault();
+  }
 
   // Select card on Stage - function
   const selectDeselectStageCard = e => {
