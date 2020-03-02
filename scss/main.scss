@@ -10,9 +10,21 @@ body {
 }
 
 .navbar {
-  justify-content: center;
-}
+  justify-content: space-around;
+  display: flex ;
 
+}
+#newGame {
+  // align-self: flex-end !important;
+  // margin-left: 5.2rem;
+}
+.navbar-brand {
+  // align-self: center;
+  margin: 0;
+}
+// .right {
+//   align-self: flex-end;
+// }
 
 
 .container-fluid {

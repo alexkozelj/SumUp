@@ -1,118 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="bootstrap.min.css" />
-    <link
-      rel="stylesheet"
-      href="cards.css"
-    />
-    <link rel="stylesheet" type="text/css" href="main.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
-    <title>SumUp - Tablic</title>
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-      <a class="navbar-brand" href="#">SumUp!</a>
-      <button type="button" class="btn btn-secondary">Secondary</button>
-    </nav>
 
-    <section class="container-fluid row">
-      <div class="col-9 card-container">
-        <div class="col-2 stage-area-left">
-          <div class="comp-img-container">
-            <div class="comp-img">
-              <img src="players img\homer1.png" alt="">
-            </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link rel="stylesheet" href="bootstrap.min.css" />
+  <link rel="stylesheet" href="cards.css" />
+  <link rel="stylesheet" type="text/css" href="main.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <title>SumUp - Tablic</title>
+</head>
+
+<body>
+
+
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div>
+    </div>
+    <div>
+      <a class="navbar-brand" href="#">SumUp!</a>
+    </div>
+    <div>
+      <button type="button" id="newGame" class="btn btn-secondary">New Game</button>
+      <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModalLong">
+        How To Play!
+      </button>
+
+    </div>
+  </nav>
+
+  <section class="container-fluid row">
+    <div class="col-9 card-container">
+      <div class="col-2 stage-area-left">
+        <div class="comp-img-container">
+          <div class="comp-img">
+            <img src="players img\homer1.png" alt="">
           </div>
-          <div class="deck-container playingCards">
-            <ul class="deck placeholder center">
-              <!-- <li class="card back" id="deck"></li>
+        </div>
+        <div class="deck-container playingCards">
+          <ul class="deck placeholder center">
+            <!-- <li class="card back" id="deck"></li>
               <li class="card back" id="deck"></li>
               <li class="card back" id="deck"></li> -->
-            </ul>
-          </div>
-          <div class="player-img-container">
-            <div class="player-img">
-              <img src="players img\krang.png">
-            </div>
-          </div>
+          </ul>
         </div>
-        <!-- Stage Section -->
-        <div class="col-10 stage-area-right">
-          <section class="comp-cards-section center" >
-            <ul class="table playingCards simpleCards center" id="compCards"></ul>
-          </section>
-
-          <section class="stage center">
-            <ul class="table playingCards simpleCards center" id="stageCards"></ul>
-          </section>
-
-          <section class="player-cards-section center">
-            <ul class="table playingCards simpleCards center" id="playerCards"></ul>
-            
-          </section>
+        <div class="player-img-container">
+          <div class="player-img">
+            <img src="players img\krang.png">
+          </div>
         </div>
       </div>
-      <div class="col-3 result-div">
-        <!-- Overall Game Scoreboard -->
-          <table class="table">
-            <thead>
-              <tr class="table-dark">
-                <th scope="col" colspan="2">
-                  <h3>
-                    Overall Scoreboard    
-                  </h3>
-                </th>
-              </tr>
-              <tr class="table-success table-hover">
-                <th scope="col">Computer: <span id="compOverallScore">5</span></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="table-success table-hover">
-                <td scope="col"><span>Player: <span id="playerOverallScore">3</span></td>
-              </tr>
-              <tr>
-                <th>
-                  <p class="text-muted"> <em>Game <span id="numberOfPlayedGames">8</span> of <span id="numberOfScheduledGames">10</span></em></p>
-                </th>
-              </tr>
-            </tbody>
-          </table>
-          <!-- Current Game Scoreboard -->
-          <table class="table">
-            <thead >
-              <tr class="table-dark">
-                <th scope="col" colspan="2">
-                  <h3>
-                    <p class="text-warning">Current Game Scoreboard</p>   
-                  </h3>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="table-warning">
-                <th scope="col">Computer: <span id="compPoints"></span></th>
-                <th><span id="compTablaPoints"></span></th>
-              </tr>
-              <tr class="table-warning">
-                <th scope="col">Player: <span id="playerPoints"></span></th>
-                <th><span id="playerTablaPoints"></span></th>
-              </tr> 
-              <tr>
-                <th colspan="2">
-                  <p class="text-muted"> Deal: <span id="dealNr">3</span>/4</p>
-                </th>
-              </tr>
-            </tbody>
-          </table>
+      <!-- Stage Section -->
+      <div class="col-10 stage-area-right">
+        <section class="comp-cards-section center">
+          <ul class="table playingCards simpleCards center" id="compCards"></ul>
+        </section>
+
+        <section class="stage center">
+          <ul class="table playingCards simpleCards center" id="stageCards"></ul>
+        </section>
+
+        <section class="player-cards-section center">
+          <ul class="table playingCards simpleCards center" id="playerCards"></ul>
+
+        </section>
+      </div>
+    </div>
+    <div class="col-3 result-div">
+      <!-- Overall Game Scoreboard -->
+      <table class="table">
+        <thead>
+          <tr class="table-dark">
+            <th scope="col" colspan="2">
+              <h3>
+                Overall Scoreboard
+              </h3>
+            </th>
+          </tr>
+          <tr class="table-success table-hover">
+            <th scope="col">Computer: <span id="compOverallScore">5</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="table-success table-hover">
+            <td scope="col"><span>Player: <span id="playerOverallScore">3</span></td>
+          </tr>
+          <tr>
+            <th>
+              <p class="text-muted"> <em>Game <span id="numberOfPlayedGames">8</span> of <span
+                    id="numberOfScheduledGames">10</span></em></p>
+            </th>
+          </tr>
+        </tbody>
+      </table>
+      <!-- Current Game Scoreboard -->
+      <table class="table">
+        <thead>
+          <tr class="table-dark">
+            <th scope="col" colspan="2">
+              <h3>
+                <p class="text-warning">Current Game Scoreboard</p>
+              </h3>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="table-warning">
+            <th scope="col">Computer: <span id="compPoints"></span></th>
+            <th><span id="compTablaPoints"></span></th>
+          </tr>
+          <tr class="table-warning">
+            <th scope="col">Player: <span id="playerPoints"></span></th>
+            <th><span id="playerTablaPoints"></span></th>
+          </tr>
+          <tr>
+            <th colspan="2">
+              <p class="text-muted"> Deal: <span id="dealNr">3</span>/4</p>
+            </th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    </div>
+  </section>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <ul class="table playingCards simpleCards center" id="stageCards">
+            <li class=" center card rank-q diams" id="card-25">
+              <span class="rank">Q</span>
+              <span class="suit">♦</span>
+            </li>
+            <li>+</li>
+            <li class=" center card rank-a diams" id="card-14">
+              <span class="rank">A</span>
+              <span class="suit">♦</span>
+            </li>
+            <li class=" center card rank-5 spades" id="card-5">
+              <span class="rank">5</span>
+              <span class="suit">♠</span>
+            </li>
+            <li class=" center card rank-5 diams" id="card-18">
+              <span class="rank">5</span>
+              <span class="suit">♦</span>
+            </li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
         </div>
       </div>
-    </section>
+    </div>
+  </div>
 
-    <script src="app.js"></script>
-  </body>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <script src="app.js"></script>
+</body>
+
 </html>

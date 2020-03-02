@@ -1158,9 +1158,8 @@ const UICtrl = (function () {
         const newScore = playerOverallScoreInt + 1;
         const player = "player";
         if (newScore !== 2) {
-          // stage.style.fontSize = "xx-large";
-          // stage.innerHTML = "GAME POINT PLAYER !";
-          playerPoint(stage, "tada");
+ 
+          playerPoint(stage, "pulse");
           UICtrl.updateOverallScoreBoard(newScore, player);
           UICtrl.updateGameNumber();
           // slow down to show who wins
@@ -1169,11 +1168,9 @@ const UICtrl = (function () {
           }, 2800)
 
         } else {
-          // compCards.innerHTML = "PLAYER WINS ! ! !";
-          // playerCards.innerHTML = "PLAYER WINS ! ! !";
-          // stage.innerHTML = "PLAYER WINS ! ! !";
-          playerWin(compCards, "zoomIn");
-          playerWin(playerCards, "zoomIn");
+
+          playerWin(compCards, "heartBeat slower");
+          playerWin(playerCards, "heartBeat slower");
           playerWin(stage, "pulse");
           // stage.style.fontSize = "xx-large";
           UICtrl.updateOverallScoreBoard(playerOverallScoreInt, player);
@@ -1181,14 +1178,10 @@ const UICtrl = (function () {
 
       }
       else if (playerGameScoreInt === compGameScoreInt) {
-        // if draw
-        // stage.style.fontSize = "xx-large"
-        // stage.innerHTML = "IT'S A DRAW - PLAY AGAIN"
+
         draw(stage, "pulse");
         setTimeout(function () {
-          // UICtrl.updateOverallScoreBoard(newScore, comp);
-          // UICtrl.updateGameNumber();
-          // stage.style.removeProperty("font-size");
+
           startGameSetup();
 
         }, 2800);
@@ -1199,8 +1192,7 @@ const UICtrl = (function () {
         const newScore = compOverallScoreInt + 1;
         const comp = "computer"
         if (newScore !== 2) {
-          // insertEl(stage);
-          // stage.style.fontSize = "xx-large";
+ 
 
           compPoint(stage, "pulse");
           setTimeout(function () {
@@ -1212,11 +1204,7 @@ const UICtrl = (function () {
           }, 1600);
 
         } else {
-          // tadaAnim(stage);
-          // compCards.innerHTML = "COMPUTER WINS ! ! !";
-          // playerCards.innerHTML = "COMPUTER WINS ! ! !";
-          // stage.innerHTML = "COMPUTER WINS ! ! !";
-          // stage.style.fontSize = "xx-large";
+   
           compWin(compCards, "heartBeat slower");
           compWin(playerCards, "heartBeat slower");
           compWin(stage, "pulse");
@@ -1449,6 +1437,10 @@ const App = (function (ItemCtrl, UICtrl) {
       // 1st Round of Game
       ItemCtrl.firstDeal();
       UICtrl.defaultScoreboard();
+
+      // $('#myModal').on('shown.bs.modal', function () {
+      //   $('#myInput').trigger('focus')
+      // })
 
       const playerInHandCards = ItemCtrl.getPlayerInHandCards();
       const compInHandCards = ItemCtrl.getCompInHandCards();
