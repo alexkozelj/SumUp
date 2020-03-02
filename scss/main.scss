@@ -106,11 +106,14 @@ body {
         // justify-content: left;
         // margin-left: 5em;
         // padding-left: 3em;
-        #compPoints {
-          // margin-left: 3em;
-        }
+        // #compPoints {
+        //   // margin-left: 3em;
+        // }
       }
-
+      #playerPointsParent {
+        text-align: left;
+        padding-left: 18%;
+      }
     
       th,
       tr,
