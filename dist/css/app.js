@@ -513,13 +513,17 @@ const ItemCtrl = (function () {
           const compParameter = "computer";
           // Update current scoreboard with sum of collected value cards
           UICtrl.updateCurrentScoreboard(compValueOfCollected, compParameter);
+          setTimeout(function(){
+            // var for checking if any card left on table to score a point for empty table
+            const cardsOnTable = data.cardsOnTable[0];
+            // If table has no cards after calc, add point 
+            if (cardsOnTable.length === 0) {
+              UICtrl.addEmptyTablePoint(compParameter);
+            }
 
-          // var for checking if any card left on table to score a point for empty table
-          let cardsOnTable = data.cardsOnTable[0];
-          // If table has no cards after calc, add point 
-          if (cardsOnTable.length === 0) {
-            UICtrl.addEmptyTablePoint(compParameter);
-          }
+          },300)
+
+          const cardsOnTable = data.cardsOnTable[0];
 
           // For tha last hand to determent who takes the cards from the table
           ItemCtrl.lastTook(0);
@@ -986,6 +990,7 @@ const UICtrl = (function () {
         span.setAttribute("id", `${UISelectors.compPointsAttribute}`);
         const html = updatedCompPointsString;
         span.innerHTML = html;
+        
         UICtrl.pointUp(value, span);
         
 
@@ -1063,7 +1068,10 @@ const UICtrl = (function () {
         // update table UI 
         UICtrl.populateTableCards(cardsOnTable);
         // who won the game
-        UICtrl.gameWinner();
+        setTimeout(function(){
+          UICtrl.gameWinner();
+
+        },1000)
       }
     },
     gameWinner: () => {
@@ -1245,7 +1253,7 @@ const UICtrl = (function () {
       setTimeout(function(){
         compPointsParent.removeChild(compPointsParent.childNodes[1]);
         compPointsParent.appendChild(newResult);
-      },550);
+      },250);
     },
 
     addEmptyTablePoint: (playerOrComp) => {
@@ -1261,11 +1269,19 @@ const UICtrl = (function () {
       if (playerOrComp === "computer") {
         const currentCompPointsString = document.querySelector(UISelectors.compPoints).innerHTML;
         const currentCompPointsInt = parseInt(currentCompPointsString);
-        const updatedCompPointsInt = currentCompPointsInt + 1;
+        const value = 1;
+        const updatedCompPointsInt = currentCompPointsInt + value;
         const updatedCompPointsString = updatedCompPointsInt.toString();
-        document.querySelector(UISelectors.compPoints).innerHTML = updatedCompPointsString;
+        // document.querySelector(UISelectors.compPoints).innerHTML = updatedCompPointsString;
+        const span = document.createElement("SPAN");
+        span.setAttribute("class", "animated zoomIn faster");
+        span.setAttribute("id", `${UISelectors.compPointsAttribute}`);
+        const html = updatedCompPointsString;
+        span.innerHTML = html;
+        
         const currentCompTablaPointsString = document.querySelector(UISelectors.compTablaPoints).innerHTML;
         document.querySelector(UISelectors.compTablaPoints).innerHTML = currentCompTablaPointsString + "|";
+        UICtrl.pointUp(value, span);
       }
     },
 
@@ -1494,7 +1510,7 @@ const App = (function (ItemCtrl, UICtrl) {
               // computer move
             };
             // 1100
-          }, 1100);
+          }, 1000);
 
           // if players have no more cards and it's not end of a game
           // new Deal after the comp complete its move, waits all timeouts to finish
