@@ -521,7 +521,7 @@ const ItemCtrl = (function () {
               UICtrl.addEmptyTablePoint(compParameter);
             }
 
-          },300)
+          },450)
 
           const cardsOnTable = data.cardsOnTable[0];
 
@@ -537,7 +537,7 @@ const ItemCtrl = (function () {
         setTimeout(function () {
           compTakeCombi()
           // 1150
-        }, 350);
+        }, 450);
 
       }
 
@@ -991,7 +991,7 @@ const UICtrl = (function () {
         const html = updatedCompPointsString;
         span.innerHTML = html;
         
-        UICtrl.pointUp(value, span);
+        UICtrl.compPointUp(value, span);
         
 
       }
@@ -1191,7 +1191,7 @@ const UICtrl = (function () {
           // slow down to show who wins
           setTimeout(function () {
             startGameSetup();
-          }, 2800)
+          }, 3600)
 
         } else {
 
@@ -1210,7 +1210,7 @@ const UICtrl = (function () {
 
           startGameSetup();
 
-        }, 2800);
+        }, 3600);
 
       }
       else {
@@ -1227,7 +1227,7 @@ const UICtrl = (function () {
 
             startGameSetup();
             // 2800
-          }, 1600);
+          }, 2800);
 
         } else {
 
@@ -1240,12 +1240,12 @@ const UICtrl = (function () {
 
     },
 
-    pointUp: (value, newResult) => {
+    compPointUp: (value, newResult) => {
       const compPoints = document.querySelector(UISelectors.compPoints).innerHTML;
       const compPointsParent = document.querySelector(UISelectors.compPointsParent);
       const span = document.createElement("SPAN");
-      span.setAttribute("class", "animated zoomOutLeft faster");
-      span.setAttribute("id", "pointUp");
+      span.setAttribute("class", "animated zoomOutLeft fast");
+      // span.setAttribute("id", "pointUp");
       const html = compPoints + "+" + value;
       span.innerHTML = html;
       compPointsParent.removeChild(compPointsParent.childNodes[1]);
@@ -1253,7 +1253,23 @@ const UICtrl = (function () {
       setTimeout(function(){
         compPointsParent.removeChild(compPointsParent.childNodes[1]);
         compPointsParent.appendChild(newResult);
-      },250);
+      },350);
+    },
+
+    playerPointUp: (value, newResult) => {
+      const playerPoints = document.querySelector(UISelectors.playerPoints).innerHTML;
+      const playerPointsParent = document.querySelector(UISelectors.playerPointsParent);
+      const span = document.createElement("SPAN");
+      span.setAttribute("class", "animated zoomOutLeft fast");
+      // span.setAttribute("id", "pointUp");
+      const html = playerPoints + "+" + value;
+      span.innerHTML = html;
+      playerPointsParent.removeChild(playerPointsParent.childNodes[1]);
+      playerPointsParent.appendChild(span);
+      setTimeout(function(){
+        playerPointsParent.removeChild(playerPointsParent.childNodes[1]);
+        playerPointsParent.appendChild(newResult);
+      },350);
     },
 
     addEmptyTablePoint: (playerOrComp) => {
@@ -1281,7 +1297,7 @@ const UICtrl = (function () {
         
         const currentCompTablaPointsString = document.querySelector(UISelectors.compTablaPoints).innerHTML;
         document.querySelector(UISelectors.compTablaPoints).innerHTML = currentCompTablaPointsString + "|";
-        UICtrl.pointUp(value, span);
+        UICtrl.compPointUp(value, span);
       }
     },
 
@@ -1500,7 +1516,7 @@ const App = (function (ItemCtrl, UICtrl) {
           setTimeout(function () {
             ItemCtrl.compMove();
             // 920
-          }, 320);
+          }, 750);
           // to slow down compMove, imitates computer Thinking
           // if there are no more cards and it's end of game
           setTimeout(function () {
@@ -1510,7 +1526,7 @@ const App = (function (ItemCtrl, UICtrl) {
               // computer move
             };
             // 1100
-          }, 1000);
+          }, 1700);
 
           // if players have no more cards and it's not end of a game
           // new Deal after the comp complete its move, waits all timeouts to finish
