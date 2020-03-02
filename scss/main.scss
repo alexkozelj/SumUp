@@ -13,18 +13,28 @@ body {
   justify-content: space-around;
   display: flex ;
 
+  :nth-child(2) {
+    justify-content: flex-end;
+  }
+  div {
+    width: 100%;
+    display: flex;
+  }
+  #buttons {
+    display: flex;
+
+    // justify-content: space-evenly;
+    #newGame {
+      // align-self: flex-end !important;
+      margin-right: 0.5rem;
+    }
+  }
+  .navbar-brand {
+    // align-self: 
+    margin: 0;
+  }
 }
-#newGame {
-  // align-self: flex-end !important;
-  // margin-left: 5.2rem;
-}
-.navbar-brand {
-  // align-self: center;
-  margin: 0;
-}
-// .right {
-//   align-self: flex-end;
-// }
+
 
 
 .container-fluid {

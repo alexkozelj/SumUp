@@ -10,9 +10,17 @@ body {
 .navbar {
   justify-content: space-around;
   display: flex; }
-
-.navbar-brand {
-  margin: 0; }
+  .navbar :nth-child(2) {
+    justify-content: flex-end; }
+  .navbar div {
+    width: 100%;
+    display: flex; }
+  .navbar #buttons {
+    display: flex; }
+    .navbar #buttons #newGame {
+      margin-right: 0.5rem; }
+  .navbar .navbar-brand {
+    margin: 0; }
 
 .container-fluid {
   height: 90vh; }
