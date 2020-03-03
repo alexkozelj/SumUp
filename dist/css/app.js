@@ -811,6 +811,9 @@ const UICtrl = (function () {
     // for setting compPoints attribute
     compPointsAttribute: "compPoints",
 
+    // for setting playerPoints attribute
+    playerPointsAttribute: "playerPoints",
+
     // New Game
     newGame: "#newGame",
 
@@ -975,8 +978,15 @@ const UICtrl = (function () {
         const currentPlayerPointsInt = parseInt(currentPlayerPointsString);
         const updatedPlayerPointsInt = currentPlayerPointsInt + value;
         const updatedPlayerPointsString = updatedPlayerPointsInt.toString();
-        document.querySelector(UISelectors.playerPoints).innerHTML = updatedPlayerPointsString;
-        // const html = ""
+        // document.querySelector(UISelectors.playerPoints).innerHTML = updatedPlayerPointsString;
+
+        const span = document.createElement("SPAN");
+        span.setAttribute("class", "animated zoomIn faster");
+        span.setAttribute("id", `${UISelectors.playerPointsAttribute}`);
+        const html = updatedPlayerPointsString;
+        span.innerHTML = html;
+        
+        UICtrl.pointUp(value, span);
       }
 
       if (playerOrComp === "computer") {
@@ -1278,9 +1288,16 @@ const UICtrl = (function () {
         const currentPlayerPointsInt = parseInt(currentPlayerPointsString);
         const updatedPlayerPointsInt = currentPlayerPointsInt + 1;
         const updatedPlayerPointsString = updatedPlayerPointsInt.toString();
-        document.querySelector(UISelectors.playerPoints).innerHTML = updatedPlayerPointsString;
+        // document.querySelector(UISelectors.playerPoints).innerHTML = updatedPlayerPointsString;
+        const span = document.createElement("SPAN");
+        span.setAttribute("class", "animated zoomIn faster");
+        span.setAttribute("id", `${UISelectors.playerPointsAttribute}`);
+        const html = updatedPlayerPointsString;
+        span.innerHTML = html;
+
         const currentPlayerTablaPointsString = document.querySelector(UISelectors.playerTablaPoints).innerHTML;
         document.querySelector(UISelectors.playerTablaPoints).innerHTML = currentPlayerTablaPointsString + "|";
+        UICtrl.pointUp(value, span);
       }
       if (playerOrComp === "computer") {
         const currentCompPointsString = document.querySelector(UISelectors.compPoints).innerHTML;
