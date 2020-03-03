@@ -113,7 +113,7 @@
             <th><span id="compTablaPoints"></span></th>
           </tr>
           <tr class="table-warning">
-            <th scope="col" id="playerPointsParent">Player: <span id="playerPoints" ></span></th>
+            <th scope="col" id="playerPointsParent">Player: <span id="playerPoints"></span></th>
             <th><span id="playerTablaPoints"></span></th>
           </tr>
           <tr>
@@ -140,29 +140,83 @@
           </button>
         </div>
         <div class="modal-body">
+          <p>GOAL is to beat the computer by takeing as much as VALUE CARDS from the table !
+          </p>
+          <p>Value cards are all the cards in range from 10 to 14 and each of them caries 1 POINT except: <br>
+            10 DIAMS - 2 POINTS <br>
+            2 CLUBS - 1 POINT </p>
+          <br>
+          <p>Sum up combination of cards from the table with ONE of your cards in hand.</p>
+          <p>It doesn't matter if it's hearts or clubs, as long the numbers on cards adds up!</p>
+          <br>
+          <p style="text-align: center;">A = 11 or 1 <br>
+            J = 12 <br>
+            Q = 13 <br>
+            K = 14</p>
+          <br>
+          <p>NOTICE: ACE (A on card) can be 11 or 1 !</p>
+          <br>
+
+          <!-- 8 + 2 = 10 -->
+          <h2 style="text-align: center;">EXAMPLES</h2>
+          <br>
           <ul class="table playingCards simpleCards center" id="stageCards">
-            <li class=" center card rank-q diams" id="card-25">
-              <span class="rank">Q</span>
+            <li class=" center card rank-2 diams" id="card-15">
+              <span class="rank">2</span>
               <span class="suit">♦</span>
             </li>
-            <li>+</li>
-            <li class=" center card rank-a diams" id="card-14">
-              <span class="rank">A</span>
-              <span class="suit">♦</span>
+            <li style="font-size: xx-large;">+</li>
+            <li class=" center card rank-8 hearts" id="card-47">
+              <span class="rank">8</span>
+              <span class="suit">♥</span>
             </li>
-            <li class=" center card rank-5 spades" id="card-5">
-              <span class="rank">5</span>
+            <li style="font-size: xx-large;">=</li>
+            <li class=" center card rank-10 spades" id="card-10">
+              <span class="rank">10</span>
               <span class="suit">♠</span>
             </li>
+          </ul>
+
+          <!-- J + A = Q -->
+          <ul class="table playingCards simpleCards center" id="stageCards">
+            <li class=" center card rank-j hearts" id="card-50">
+              <span class="rank">J</span>
+              <span class="suit">♥</span>
+            </li>
+            <li style="font-size: xx-large;">+</li>
+            <li class=" center card rank-a spades" id="card-1">
+              <span class="rank">A</span>
+              <span class="suit">♠</span>
+            </li>
+            <li style="font-size: xx-large;">=</li>
+            <li class=" center card rank-q clubs" id="card-38">
+              <span class="rank">Q</span>
+              <span class="suit">♣</span>
+            </li>
+          </ul>
+ 
+          <!-- 6 + 5 = 11 -->
+          <ul class="table playingCards simpleCards center" id="stageCards">
+            <li class=" center card rank-6 clubs" id="card-32">
+              <span class="rank">6</span>
+              <span class="suit">♣</span>
+            </li>
+            <li style="font-size: xx-large;">+</li>
             <li class=" center card rank-5 diams" id="card-18">
               <span class="rank">5</span>
               <span class="suit">♦</span>
             </li>
+            <li style="font-size: xx-large;">=</li>
+            <li class=" center card rank-a diams" id="card-14">
+              <span class="rank">A</span>
+              <span class="suit">♦</span>
+            </li>
           </ul>
+
+
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
         </div>
       </div>
     </div>
