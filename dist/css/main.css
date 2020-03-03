@@ -82,6 +82,9 @@ body {
     .container-fluid .result-div #compPointsParent {
       text-align: left;
       padding-left: 14%; }
+    .container-fluid .result-div #playerPointsParent {
+      text-align: left;
+      padding-left: 18%; }
     .container-fluid .result-div th,
     .container-fluid .result-div tr,
     .container-fluid .result-div td,
