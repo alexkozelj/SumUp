@@ -986,9 +986,12 @@ const UICtrl = (function () {
         const updatedPlayerPointsString = updatedPlayerPointsInt.toString();
         // document.querySelector(UISelectors.playerPoints).innerHTML = updatedPlayerPointsString;
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> calculus_1.2
+=======
+>>>>>>> correctedForUI
         const span = document.createElement("SPAN");
         span.setAttribute("class", "animated zoomIn faster");
         span.setAttribute("id", `${UISelectors.playerPointsAttribute}`);
@@ -996,10 +999,14 @@ const UICtrl = (function () {
         span.innerHTML = html;
         
 <<<<<<< HEAD
+<<<<<<< HEAD
         UICtrl.pointUp(value, span);
 =======
         UICtrl.playerPointUp(value, span);
 >>>>>>> calculus_1.2
+=======
+        UICtrl.playerPointUp(value, span);
+>>>>>>> correctedForUI
       }
 
       if (playerOrComp === "computer") {
@@ -1547,12 +1554,19 @@ const App = (function (ItemCtrl, UICtrl) {
             
             // Update current scoreboard with sum of collected value cards
             UICtrl.updateCurrentScoreboard(playerValueOfCollected, playerParameter);
+<<<<<<< HEAD
             setTimeout(() => {
               
               if (cardsOnTable.length === 0) {
                 UICtrl.addEmptyTablePoint(playerParameter);
               }
             }, 350);
+=======
+            
+            if (cardsOnTable.length === 0) {
+              UICtrl.addEmptyTablePoint(playerParameter);
+            }
+>>>>>>> correctedForUI
 
           }
           // UICtrl.moveCardFromArrayToArray(cardsOnTable, playerCollectedCards);
