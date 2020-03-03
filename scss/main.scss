@@ -127,6 +127,29 @@ body {
     }
 }
 
+.modal-body {
+  // text-justify: center;
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    text-align: center;
+  }
+  
+  p {
+    font-size: 1.3rem;
+  }
+
+  .card {
+    margin-left: 0.65em;
+    margin-right: 0.7em;
+  }  
+  
+}
+
+
 .row {
   display: flex;
   flex-direction: row;

@@ -134,32 +134,44 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+          <h2 class="modal-title" id="exampleModalLongTitle">How To Play</h2>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <p>GOAL is to beat the computer by takeing as much as VALUE CARDS from the table !
+          <p>GOAL is to beat the computer by takeing as much VALUE CARDS from the table !
           </p>
           <p>Value cards are all the cards in range from 10 to 14 and each of them caries 1 POINT except: <br>
             10 DIAMS - 2 POINTS <br>
             2 CLUBS - 1 POINT </p>
           <br>
           <p>Sum up combination of cards from the table with ONE of your cards in hand.</p>
-          <p>It doesn't matter if it's hearts or clubs, as long the numbers on cards adds up!</p>
+          <p>It doesn't matter if it's hearts or clubs, as long as the numbers on cards add up!</p>
           <br>
-          <p style="text-align: center;">A = 11 or 1 <br>
-            J = 12 <br>
-            Q = 13 <br>
-            K = 14</p>
+          <p style="text-align: center;">A (ace) = 11 or 1 <br>
+            J ( jack ) = 12 <br>
+            Q ( queen ) = 13 <br>
+            K ( king ) = 14</p>
           <br>
-          <p>NOTICE: ACE (A on card) can be 11 or 1 !</p>
+          <p>NOTICE: ACE (A on the card) can be 11 or 1 !</p>
           <br>
-
-          <!-- 8 + 2 = 10 -->
+          <br>
+          <br>
           <h2 style="text-align: center;">EXAMPLES</h2>
           <br>
+          <ul class="table playingCards simpleCards center" id="stageCards">
+            <li class=" center card rank-9 hearts" id="card-48">
+              <span class="rank">9</span>
+              <span class="suit">♥</span>
+            </li>
+            <li style="font-size: xx-large;">=</li>
+            <li class=" center card rank-9 spades" id="card-9">
+              <span class="rank">9</span>
+              <span class="suit">♠</span>
+            </li>
+          </ul>
+          <!-- 8 + 2 = 10 -->
           <ul class="table playingCards simpleCards center" id="stageCards">
             <li class=" center card rank-2 diams" id="card-15">
               <span class="rank">2</span>
@@ -194,7 +206,7 @@
               <span class="suit">♣</span>
             </li>
           </ul>
- 
+
           <!-- 6 + 5 = 11 -->
           <ul class="table playingCards simpleCards center" id="stageCards">
             <li class=" center card rank-6 clubs" id="card-32">
@@ -212,7 +224,105 @@
               <span class="suit">♦</span>
             </li>
           </ul>
-
+          <br>
+          <br>
+          <br>
+          <h2>POSSIBLE COMBINATIONS</h2>
+          <p>There are many possibilities to take as many cards from the table</p>
+          <br>
+          <br>
+          <h4>1. SAME CARDS</h4>
+          <ul class="table playingCards simpleCards center" id="stageCards">
+            <li class="center card rank-q diams selectedCard" id="card-25">
+              <span class="rank">Q</span>
+              <span class="suit">♦</span>
+            </li>
+            <li style="font-size: xx-large;">+</li>
+            <li class="center card rank-q hearts selectedCard" id="card-51">
+              <span class="rank">Q</span>
+              <span class="suit">♥</span>
+            </li>
+            <li style="font-size: xx-large;">=</li>
+            <li class=" center card rank-q spades" id="card-12">
+              <span class="rank">Q</span>
+              <span class="suit">♠</span>
+            </li>
+          </ul>
+          <br>
+          <br>
+          <h4>2. SUM UP 3, 4 OR EVEN 5 CARDS</h4>
+          <ul class="table playingCards simpleCards center" id="stageCards">
+            <li class=" center card rank-2 spades selectedCard" id="card-2">
+              <span class="rank">2</span>
+              <span class="suit">♠</span>
+            </li>
+            <li style="font-size: xx-large;">+</li>
+            <li class=" center card rank-3 spades selectedCard" id="card-3">
+              <span class="rank">3</span>
+              <span class="suit">♠</span>
+            </li>
+            <li style="font-size: xx-large;">+</li>
+            <li class="center card rank-a spades selectedCard" id="card-1">
+              <span class="rank">A</span>
+              <span class="suit">♠</span>
+            </li>
+            <li style="font-size: xx-large;">=</li>
+            <li class=" center card rank-6 hearts" id="card-45">
+              <span class="rank">6</span>
+              <span class="suit">♥</span>
+            </li>
+          </ul>
+          <br>
+          <br>
+          <h4>3. PAIR OF COMBINATIONS THAT ADDS UP TO SAME NUMBER</h4>
+          <ul class="table playingCards simpleCards center" id="stageCards">
+            <li class=" center card rank-10 hearts selectedCard" id="card-49">
+              <span class="rank">10</span>
+              <span class="suit">♥</span>
+            </li>
+            <li style="font-size: xx-large;">+</li>
+            <li class=" center card rank-2 diams selectedCard" id="card-15">
+              <span class="rank">2</span>
+              <span class="suit">♦</span>
+            </li>
+            <li style="font-size: xx-large;">+</li>
+            <li class=" center card rank-j spades selectedCard" id="card-11">
+              <span class="rank">J</span>
+              <span class="suit">♠</span>
+            </li>
+            <li style="font-size: xx-large;">=</li>
+            <li class=" center card rank-j hearts" id="card-50">
+              <span class="rank">J</span>
+              <span class="suit">♥</span>
+            </li>
+          </ul>
+          <br>
+          <br>
+          <br>
+          <h2>IMPORTANT !!!</h2>
+          <p>The order of selecting cards is very important!</p>
+          <p>Try to select cards in order that adds up to a number that you want to take !</p>
+          <p>The ACE in your hand will be calculated as 11 ! <br>
+            Example: So if you want to take 10 and ACE as 1 for 11, you should select 10 first and then the ACE to add
+            up to 11.</p>
+            <br>
+            <br>
+          <ul class="table playingCards simpleCards center" id="stageCards">
+            <li class=" center card rank-a diams" id="card-14">
+              <span class="rank">A</span>
+              <span class="suit">♦</span>
+            </li>
+            <li style="font-size: xx-large;">+</li>
+            <li class="center card rank-10 spades selectedCard" id="card-10">
+              <span class="rank">10</span>
+              <span class="suit">♠</span>
+            </li>
+            <li style="font-size: xx-large;">=</li>
+            <li class=" center card rank-a hearts" id="card-40">
+              <span class="rank">A</span>
+              <span class="suit">♥</span>
+            </li>
+          </ul>
 
         </div>
         <div class="modal-footer">

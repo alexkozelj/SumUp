@@ -93,6 +93,19 @@ body {
       text-align: center;
       width: 100%; }
 
+.modal-body p,
+.modal-body h1,
+.modal-body h2,
+.modal-body h3,
+.modal-body h4,
+.modal-body h5 {
+  text-align: center; }
+.modal-body p {
+  font-size: 1.3rem; }
+.modal-body .card {
+  margin-left: 0.65em;
+  margin-right: 0.7em; }
+
 .row {
   display: flex;
   flex-direction: row;
