@@ -981,8 +981,14 @@ const UICtrl = (function () {
         const currentPlayerPointsInt = parseInt(currentPlayerPointsString);
         const updatedPlayerPointsInt = currentPlayerPointsInt + value;
         const updatedPlayerPointsString = updatedPlayerPointsInt.toString();
-        document.querySelector(UISelectors.playerPoints).innerHTML = updatedPlayerPointsString;
-        // const html = ""
+        // document.querySelector(UISelectors.playerPoints).innerHTML = updatedPlayerPointsString;
+        const span = document.createElement("SPAN");
+        span.setAttribute("class", "animated zoomIn faster");
+        span.setAttribute("id", `${UISelectors.playerPointsAttribute}`);
+        const html = updatedPlayerPointsString;
+        span.innerHTML = html;
+        
+        UICtrl.playerPointUp(value, span);
       }
 
       if (playerOrComp === "computer") {
@@ -1500,20 +1506,23 @@ const App = (function (ItemCtrl, UICtrl) {
           const cardsToDeal = ItemCtrl.getCardsToDeal();
           // player is needed for update current scoreboard function (comp or player update)
           const playerParameter = "player";
-          // Update current scoreboard with sum of collected value cards
-          UICtrl.updateCurrentScoreboard(playerValueOfCollected, playerParameter);
           // remove cards that are collected from table
           ItemCtrl.removeCollectedCardsFromTable();
           // move all cards from calculation to collected cards
           ItemCtrl.moveCardFromArrayToArray(cardsInCalculation, playerCollectedCards);
           // If table has no cards after calc, add point 
           console.log(cardsOnTable);
-          // const isItEmpty = ItemCtrl.getCardsOnTable();
-          if (cardsOnTable.length === 0) {
-            UICtrl.addEmptyTablePoint(playerParameter);
-          }
+
           if (numOfCollected !== playerCollectedCards.length) {
             ItemCtrl.lastTook(1);
+            
+            // Update current scoreboard with sum of collected value cards
+            UICtrl.updateCurrentScoreboard(playerValueOfCollected, playerParameter);
+            
+            if (cardsOnTable.length === 0) {
+              UICtrl.addEmptyTablePoint(playerParameter);
+            }
+
           }
           // UICtrl.moveCardFromArrayToArray(cardsOnTable, playerCollectedCards);
           UICtrl.populatePlayerCards(playerInHandCards);
