@@ -985,28 +985,28 @@ const UICtrl = (function () {
         const updatedPlayerPointsInt = currentPlayerPointsInt + value;
         const updatedPlayerPointsString = updatedPlayerPointsInt.toString();
         // document.querySelector(UISelectors.playerPoints).innerHTML = updatedPlayerPointsString;
-<<<<<<< HEAD
-<<<<<<< HEAD
+// <<<<<<< HEAD
+// <<<<<<< HEAD
 
-=======
->>>>>>> calculus_1.2
-=======
->>>>>>> correctedForUI
+// =======
+// >>>>>>> calculus_1.2
+// =======
+// >>>>>>> correctedForUI
         const span = document.createElement("SPAN");
         span.setAttribute("class", "animated zoomIn faster");
         span.setAttribute("id", `${UISelectors.playerPointsAttribute}`);
         const html = updatedPlayerPointsString;
         span.innerHTML = html;
         
-<<<<<<< HEAD
-<<<<<<< HEAD
-        UICtrl.pointUp(value, span);
-=======
+// <<<<<<< HEAD
+// <<<<<<< HEAD
+//         UICtrl.pointUp(value, span);
+// =======
+//         UICtrl.playerPointUp(value, span);
+// >>>>>>> calculus_1.2
+// =======
         UICtrl.playerPointUp(value, span);
->>>>>>> calculus_1.2
-=======
-        UICtrl.playerPointUp(value, span);
->>>>>>> correctedForUI
+// >>>>>>> correctedForUI
       }
 
       if (playerOrComp === "computer") {
@@ -1322,12 +1322,8 @@ const UICtrl = (function () {
 
         const currentPlayerTablaPointsString = document.querySelector(UISelectors.playerTablaPoints).innerHTML;
         document.querySelector(UISelectors.playerTablaPoints).innerHTML = currentPlayerTablaPointsString + "|";
-<<<<<<< HEAD
-        UICtrl.pointUp(value, span);
-=======
 
         UICtrl.playerPointUp(value, span);
->>>>>>> calculus_1.2
       }
       if (playerOrComp === "computer") {
         const currentCompPointsString = document.querySelector(UISelectors.compPoints).innerHTML;
@@ -1554,19 +1550,12 @@ const App = (function (ItemCtrl, UICtrl) {
             
             // Update current scoreboard with sum of collected value cards
             UICtrl.updateCurrentScoreboard(playerValueOfCollected, playerParameter);
-<<<<<<< HEAD
             setTimeout(() => {
               
               if (cardsOnTable.length === 0) {
                 UICtrl.addEmptyTablePoint(playerParameter);
               }
             }, 350);
-=======
-            
-            if (cardsOnTable.length === 0) {
-              UICtrl.addEmptyTablePoint(playerParameter);
-            }
->>>>>>> correctedForUI
 
           }
           // UICtrl.moveCardFromArrayToArray(cardsOnTable, playerCollectedCards);
