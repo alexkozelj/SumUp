@@ -1067,7 +1067,10 @@ const UICtrl = (function () {
         // update table UI
         UICtrl.populateTableCards(cardsOnTable);
         // who won the game
-        UICtrl.gameWinner();
+        setTimeout(function(){
+          UICtrl.gameWinner();
+
+        }, 1200)
       } else {
         // player is needed for update current scoreboard function (comp or player update)
         const playerParameter = "computer";
@@ -1083,7 +1086,7 @@ const UICtrl = (function () {
         setTimeout(function(){
           UICtrl.gameWinner();
 
-        },1000)
+        }, 1200)
       }
     },
     gameWinner: () => {
@@ -1163,17 +1166,17 @@ const UICtrl = (function () {
 
       // Animation for player wins
       function playerPoint(id, animation) {
-        let html = `<span><h1 class="animated ${animation}">GAME POINT - PLAYER !</h1></span>`
+        let html = `<span><h1 class="animated infinite ${animation}">GAME POINT - PLAYER !</h1></span>`
         id.innerHTML = html;
       };
       function playerWin(id, animation) {
-        let html = `<span><h1 class="animated ${animation}">PLAYER WINS ! ! !</h1></span>`
+        let html = `<span><h1 class="animated infinite ${animation}">PLAYER WINS ! ! !</h1></span>`
         id.innerHTML = html;
       };
 
       // Animation for a draw
       function draw(id, animation) {
-        let html = `<span><h1 class="animated ${animation}">GAME DRAW - PLAY AGAIN !</h1></span>`
+        let html = `<span><h1 class="animated infinite ${animation}">GAME DRAW - PLAY AGAIN !</h1></span>`
         id.innerHTML = html;
       };
       // function unpackArray() {
@@ -1288,11 +1291,21 @@ const UICtrl = (function () {
       if (playerOrComp === "player") {
         const currentPlayerPointsString = document.querySelector(UISelectors.playerPoints).innerHTML;
         const currentPlayerPointsInt = parseInt(currentPlayerPointsString);
-        const updatedPlayerPointsInt = currentPlayerPointsInt + 1;
+        // It's always 1
+        const value = 1;
+        const updatedPlayerPointsInt = currentPlayerPointsInt + value;
         const updatedPlayerPointsString = updatedPlayerPointsInt.toString();
-        document.querySelector(UISelectors.playerPoints).innerHTML = updatedPlayerPointsString;
+        // document.querySelector(UISelectors.playerPoints).innerHTML = updatedPlayerPointsString;
+        const span = document.createElement("SPAN");
+        span.setAttribute("class", "animated zoomIn faster");
+        span.setAttribute("id", `${UISelectors.playerPointsAttribute}`);
+        const html = updatedPlayerPointsString;
+        span.innerHTML = html;
+
         const currentPlayerTablaPointsString = document.querySelector(UISelectors.playerTablaPoints).innerHTML;
         document.querySelector(UISelectors.playerTablaPoints).innerHTML = currentPlayerTablaPointsString + "|";
+
+        UICtrl.playerPointUp(value, span);
       }
       if (playerOrComp === "computer") {
         const currentCompPointsString = document.querySelector(UISelectors.compPoints).innerHTML;
@@ -1309,6 +1322,7 @@ const UICtrl = (function () {
         
         const currentCompTablaPointsString = document.querySelector(UISelectors.compTablaPoints).innerHTML;
         document.querySelector(UISelectors.compTablaPoints).innerHTML = currentCompTablaPointsString + "|";
+
         UICtrl.compPointUp(value, span);
       }
     },
@@ -1518,10 +1532,12 @@ const App = (function (ItemCtrl, UICtrl) {
             
             // Update current scoreboard with sum of collected value cards
             UICtrl.updateCurrentScoreboard(playerValueOfCollected, playerParameter);
-            
-            if (cardsOnTable.length === 0) {
-              UICtrl.addEmptyTablePoint(playerParameter);
-            }
+            setTimeout(() => {
+              
+              if (cardsOnTable.length === 0) {
+                UICtrl.addEmptyTablePoint(playerParameter);
+              }
+            }, 350);
 
           }
           // UICtrl.moveCardFromArrayToArray(cardsOnTable, playerCollectedCards);
@@ -1541,7 +1557,7 @@ const App = (function (ItemCtrl, UICtrl) {
               // computer move
             };
             // 1100
-          }, 1700);
+          }, 1900);
 
           // if players have no more cards and it's not end of a game
           // new Deal after the comp complete its move, waits all timeouts to finish
