@@ -985,21 +985,13 @@ const UICtrl = (function () {
         const updatedPlayerPointsInt = currentPlayerPointsInt + value;
         const updatedPlayerPointsString = updatedPlayerPointsInt.toString();
         // document.querySelector(UISelectors.playerPoints).innerHTML = updatedPlayerPointsString;
-<<<<<<< HEAD
-
-=======
->>>>>>> added animation for player takeing points, need to add tabla points animation
         const span = document.createElement("SPAN");
         span.setAttribute("class", "animated zoomIn faster");
         span.setAttribute("id", `${UISelectors.playerPointsAttribute}`);
         const html = updatedPlayerPointsString;
         span.innerHTML = html;
         
-<<<<<<< HEAD
-        UICtrl.pointUp(value, span);
-=======
         UICtrl.playerPointUp(value, span);
->>>>>>> added animation for player takeing points, need to add tabla points animation
       }
 
       if (playerOrComp === "computer") {
