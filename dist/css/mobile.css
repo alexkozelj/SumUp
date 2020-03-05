@@ -1,0 +1,91 @@
+@media only screen and (min-width: 501px) and (max-width : 768px) {
+    /* Styles */
+    /* body {
+      background-color: pink;
+    } */
+    .container-fluid .result-div th,
+    .container-fluid .result-div tr,
+    .container-fluid .result-div td,
+    .container-fluid .result-div thead,
+    .container-fluid .result-div tbody     {
+      font-size: 0.8rem;
+    }
+
+    .navbar-brand{
+      font-size: 1.1rem;
+    }
+    .btn{
+      font-size: 0.8rem;
+    }
+
+    .navbar div {
+      width: 50%;
+
+      }
+
+    .playingCards .card {
+      font-size: 1rem;
+    }
+
+    .playingCards ul.deck {
+      height: 5rem;
+      width: 4rem;
+    }
+
+    .stage ul {
+      width: 22rem;
+    }
+
+    .selectedCard {
+      font-size: 1.1rem !important;
+    }
+
+    .table th, .table td {
+      padding: 0.65rem;
+    }
+
+    .container-fluid .result-div #compPointsParent{
+      padding-left: 0.35rem;
+    }
+
+    h1 {
+      font-size: medium;
+    }
+
+    .container-fluid .stage-area-right .comp-img-container,
+    .container-fluid .stage-area-right .player-img-container,
+    .container-fluid .stage-area-left .comp-img-container,
+    .container-fluid .stage-area-left .player-img-container {
+      margin: 0;
+    }
+
+    .container-fluid .stage-area-right .comp-img-container .player-img,
+    .container-fluid .stage-area-right .comp-img-container .comp-img,
+    .container-fluid .stage-area-right .player-img-container .player-img {
+      height: 4rem;
+      width: 4rem;
+    }
+
+    .container-fluid #overall-game-header {
+      font-size: 1.4rem; }
+
+    .deck-container {
+        display: flex;
+        align-self: center;
+        /* width: 6em;  */
+        width: 4em;
+    }
+
+    img {
+      object-fit: contain;
+      /* max-width: 3.8rem;
+      max-height: 3.8rem; } */
+      max-width: 3rem;
+      max-height: 3rem;
+    }
+
+  }
+
+  /* margin: 0 0 0 10px; }
+  /* margin: 0 0 0 10px; */
+  /*  */

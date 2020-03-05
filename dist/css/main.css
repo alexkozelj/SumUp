@@ -17,7 +17,8 @@ body {
     display: flex;
     justify-content: flex-end; }
   .navbar #buttons {
-    display: flex; }
+    display: flex;
+    justify-content: center; }
     .navbar #buttons #newGame {
       margin-right: 0.5rem; }
   .navbar .navbar-brand {
@@ -75,6 +76,10 @@ body {
         /* width: 85.081px; */
         /* height: 114.206px; */
         background-color: #7ca385; }
+  .container-fluid #overall-game-header {
+    font-size: 1.6rem; }
+  .container-fluid #current-game-header {
+    font-size: 1.2rem; }
   .container-fluid .result-div {
     display: flex;
     flex-direction: column;
