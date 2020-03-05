@@ -9,6 +9,8 @@
   <link rel="stylesheet" href="cards.css" />
   <link rel="stylesheet" type="text/css" href="main.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="mobile.css">
+
   <title>SumUp - Tablic</title>
 </head>
 
@@ -17,12 +19,10 @@
 
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div></div>
     <div>
       <a class="navbar-brand" href="#">SumUp!</a>
     </div>
-    <div>
-    </div>
+
     <div id="buttons">
       <button type="button" id="newGame" class="btn btn-secondary">New Game</button>
       <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModalLong">
@@ -142,9 +142,21 @@
         <div class="modal-body">
           <p>GOAL is to beat the computer by takeing as much VALUE CARDS from the table !
           </p>
-          <p>Value cards are all the cards in range from 10 to 14 and each of them caries 1 POINT except: <br>
-            10 DIAMS - 2 POINTS <br>
+          <p>Value cards are all the cards in range from 10 to 14 and each of them caries 1 POINT except: 
+            <br>
+
+            10 DIAMONDS - 2 POINTS <br>
             2 CLUBS - 1 POINT </p>
+            <ul class="table playingCards simpleCards center" id="stageCards">
+              <li class=" center card rank-2 clubs" id="card-28">
+              <span class="rank">2</span>
+              <span class="suit">♣</span>
+            </li>
+            <li class=" center card rank-10 diams" id="card-23">
+              <span class="rank">10</span>
+              <span class="suit">♦</span>
+            </li>
+          </ul>
           <br>
           <p>Sum up combination of cards from the table with ONE of your cards in hand.</p>
           <p>It doesn't matter if it's hearts or clubs, as long as the numbers on cards add up!</p>
@@ -305,8 +317,8 @@
           <p>The ACE in your hand will be calculated as 11 ! <br>
             Example: So if you want to take 10 and ACE as 1 for 11, you should select 10 first and then the ACE to add
             up to 11.</p>
-            <br>
-            <br>
+          <br>
+          <br>
           <ul class="table playingCards simpleCards center" id="stageCards">
             <li class=" center card rank-a diams" id="card-14">
               <span class="rank">A</span>
@@ -323,7 +335,8 @@
               <span class="suit">♥</span>
             </li>
           </ul>
-
+          <br>
+          <br>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

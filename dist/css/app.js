@@ -5,7 +5,7 @@
 // //////// >>>>>> Item Controller <<<<<< //////// //
 const ItemCtrl = (function () {
 
-  // Data Structure / State
+  // Data Structure 
   const data = {
     suits: ["spades", "diams", "clubs", "hearts"],
 
