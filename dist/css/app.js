@@ -1,6 +1,3 @@
-// //////// >>>>>> Storage Controller <<<<<<< ////////// //
-
-
 
 // //////// >>>>>> Item Controller <<<<<< //////// //
 const ItemCtrl = (function () {
@@ -10,12 +7,6 @@ const ItemCtrl = (function () {
     suits: ["spades", "diams", "clubs", "hearts"],
 
     ranks: ["a", "2", "3", "4", "5", "6", "7", "8", "9", "10", "j", "q", "k"],
-
-    // items: [{ ID: 1, Rank: "a", Suit: "spades", Value: 1 },
-    // { ID: 2, Rank: "2", Suit: "spades", Value: 0 },
-    // { ID: 10, Rank: "10", Suit: "spades", Value: 1 }
-    // ],
-
 
     fullDeck: [],
 
@@ -33,6 +24,7 @@ const ItemCtrl = (function () {
 
     cardsInCalculation: [],
 
+    // Player who takes last combination in game, takes rest of cards
     whoTookTheLast: 0
 
   };

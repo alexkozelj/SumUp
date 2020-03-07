@@ -238,4 +238,13 @@
     .modal-body p {
       font-size: 0.8rem;
     }
+
   }
+
+  /* for mobile landscape */
+  @media (max-height : 450px) {
+    * {
+      display: none;
+    }
+  }
+  
