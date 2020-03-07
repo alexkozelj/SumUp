@@ -73,8 +73,6 @@ body {
         border-radius: 0.4em;
         height: 4rem;
         width: 4rem;
-        /* width: 85.081px; */
-        /* height: 114.206px; */
         background-color: #7ca385; }
   .container-fluid #overall-game-header {
     font-size: 1.6rem; }
@@ -156,8 +154,6 @@ p {
 .placeholder {
   border-style: groove;
   border-radius: 0.4em;
-  /* width: 85.081px;  99.284px;*/
-  /* height: 114.206px; 119.409px*/
   background-color: #7ca385; }
 
 img {

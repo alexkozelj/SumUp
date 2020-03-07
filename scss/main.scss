@@ -15,25 +15,23 @@ body {
 
   :nth-child(2) {
     justify-content: flex-end;
-    // margin-right: 3.2rem;
   }
+
   div {
     width: 100%;
     display: flex;
     justify-content: flex-end;
   }
+
   #buttons {
     display: flex;
     justify-content: center;
 
-    // justify-content: space-evenly;
     #newGame {
-      // align-self: flex-end !important;
       margin-right: 0.5rem;
     }
   }
   .navbar-brand {
-    // align-self: 
     margin: 0;
   }
 }
@@ -45,7 +43,6 @@ body {
 
   .card-container {
     display: flex;
-    // grid-template-columns: 1fr 8fr;
   }
 
     .stage-area-right,
@@ -63,7 +60,6 @@ body {
       .stage {
         display: flex;
         justify-content: space-around;
-        // padding: 0 0 0 0.5rem;
         border-style: groove;
         border-radius: 1em;
         background-color: #7ca385;
@@ -86,14 +82,9 @@ body {
           align-items: center; 
           border-style: groove;
           border-radius: 0.4em;
-          // padding: 11.2px 0 0 11.2px;
           height: 4rem;
           width: 4rem;
-          /* width: 85.081px; */
-          /* height: 114.206px; */
           background-color: #7ca385;
-          // justify-self: center;
-          // align-self: center;
         }
       }
     }
@@ -114,34 +105,12 @@ body {
       #compPointsParent {
         text-align: left;
         padding-left: 14%;
-        // justify-content: left;
-        // margin-left: 5em;
-        // padding-left: 3em;
-        #compPoints {
-          // margin-left: 3em;
-        }
       }
       #playerPointsParent {
         text-align: left;
         padding-left: 14%;
       }
 
-      // #compTablaPointsParent {
-      //   margin-right: 2rem;
-
-      //   #compTablaPoints {
-      //     margin-right: 2rem;
-      //   }
-      // }
-
-      // #playerTablaPointsParent {
-      //   margin-right: 2rem;
-
-      //   #playerTablaPoints {
-      //     margin-right: 2rem;
-      //   }
-      // }
-    
       th,
       tr,
       td,
@@ -154,7 +123,7 @@ body {
 }
 
 .modal-body {
-  // text-justify: center;
+
   p,
   h1,
   h2,
@@ -222,39 +191,22 @@ p {
   ul {
     width: 27rem;
   }
-  // &-up {
-  //   @extend %stage-shared;
-  // }
-
-  // &-down {
-  //   @extend %stage-shared;
-  // }
 }
+
 #stageCards {
   flex-wrap: wrap;
-
 }
 
 .deck-container {
   display: flex;
-  // justify-self: center;
   align-self: center;
   width:6em;
-  // height: 100px;
 }
 
 .placeholder {
   border-style: groove;
   border-radius: 0.4em;
-  // padding: 11.2px 0 0 11.2px;
-  // height: ;
-  /* width: 85.081px;  99.284px;*/
-  /* height: 114.206px; 119.409px*/
-  // margin: 5px;
   background-color: #7ca385;
-  // margin: ;
-  // align-items: center;
-  // justify-content: center;
 }
 
 img {
@@ -278,7 +230,6 @@ img {
 .selectedCard {
   border: 0.16em outset rgb(68, 249, 255) !important;
   font-size: 1.39em !important;
-  // border-color: rgb(164, 230, 164) !important;
 }
 
 .playingCards ul.deck {

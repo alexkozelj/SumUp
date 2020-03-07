@@ -17,7 +17,7 @@
 <body>
 
 
-
+  <!-- NAVBAR -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div>
       <a class="navbar-brand" href="#">SumUp!</a>
@@ -31,9 +31,11 @@
 
     </div>
   </nav>
-
+  <!-- STAGE -->
   <section class="container-fluid row">
+    <!-- PLAYING STAGE -->
     <div class="col-9 card-container">
+      <!-- DECK, PLAYERS IMG SECTION -->
       <div class="col-2 stage-area-left">
         <div class="comp-img-container">
           <div class="comp-img">
@@ -42,9 +44,6 @@
         </div>
         <div class="deck-container playingCards">
           <ul class="deck placeholder center">
-            <!-- <li class="card back" id="deck"></li>
-              <li class="card back" id="deck"></li>
-              <li class="card back" id="deck"></li> -->
           </ul>
         </div>
         <div class="player-img-container">
@@ -53,31 +52,31 @@
           </div>
         </div>
       </div>
-      <!-- Stage Section -->
+      <!-- TABLE SECTION -->
       <div class="col-10 stage-area-right">
+        <!-- COMP CARDS -->
         <section class="comp-cards-section center">
           <ul class="table playingCards simpleCards center" id="compCards"></ul>
         </section>
-
+        <!-- TABLE -->
         <section class="stage center">
           <ul class="table playingCards simpleCards center" id="stageCards"></ul>
         </section>
-
+        <!-- PLAYER CARDS -->
         <section class="player-cards-section center">
           <ul class="table playingCards simpleCards center" id="playerCards"></ul>
-
         </section>
       </div>
     </div>
+    <!-- SCOREBOARD -->
     <div class="col-3 result-div">
-      <!-- Overall Game Scoreboard -->
+      <!-- OVERALL GAME SCOREBOARD -->
       <table class="table">
         <thead>
           <tr class="table-dark">
             <th scope="col" colspan="2">
               <h6 id="overall-game-header">
                 OVERALL SCORE
-
               </h6>
             </th>
           </tr>
@@ -91,20 +90,18 @@
           </tr>
           <tr>
             <th>
-              <p class="text-muted"> <em>Game <span id="numberOfPlayedGames">8</span> of <span
-                    id="numberOfScheduledGames">10</span></em></p>
+              <p class="text-muted"> <em>Game <span id="numberOfPlayedGames">8</span> of <span id="numberOfScheduledGames">10</span></em>
+              </p>
             </th>
           </tr>
         </tbody>
       </table>
-      <!-- Current Game Scoreboard -->
+      <!-- CURRENT GAME SCOREBOARD -->
       <table class="table">
         <thead>
           <tr class="table-dark">
             <th scope="col" colspan="2">
-
               <h6 class="text-warning" id="current-game-header">Current Game Scoreboard</h6>
-
             </th>
           </tr>
         </thead>
@@ -129,7 +126,7 @@
   </section>
 
 
-  <!-- Modal -->
+  <!-- MODAL -->
   <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
