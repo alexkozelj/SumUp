@@ -5,6 +5,8 @@ SumUp! a.k.a. Tablic is a fishing card game that is played against the computer.
 <h4><b>  Vanilla JavaScript (Revealing Module Pattern), HTML, CSS, Sass, Bootstrap, Responsive</b></h4>
 
 <br>
+<h4>You can visit on https://alexkozelj.github.io/SumUp/</h4>
+<br>
 
 <h2>Introduction to the Game</h2>
 

@@ -131,8 +131,7 @@
 
     /* STAGE AREA */
 
-    .playingCards .card.rank-a .suit:after,
-    .playingCards .card.joker .rank:after {
+    .playingCards.simpleCards .card .suit:after, .playingCards .card.rank-j .suit:after, .playingCards .card.rank-q .suit:after, .playingCards .card.rank-k .suit:after, .playingCards .card.rank-a .suit:after, .playingCards .card.joker .rank:after {
       /* font-family: Georgia, serif; */
       /* position: absolute; */
       /* font-size: 2.5em; */
@@ -279,8 +278,7 @@
 
     /* STAGE AREA */
 
-    .playingCards .card.rank-a .suit:after,
-    .playingCards .card.joker .rank:after {
+    .playingCards.simpleCards .card .suit:after, .playingCards .card.rank-j .suit:after, .playingCards .card.rank-q .suit:after, .playingCards .card.rank-k .suit:after, .playingCards .card.rank-a .suit:after, .playingCards .card.joker .rank:after {
       /* font-family: Georgia, serif; */
       /* position: absolute; */
       /* font-size: 2.5em; */
