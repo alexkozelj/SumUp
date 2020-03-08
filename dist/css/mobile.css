@@ -286,7 +286,9 @@
     }
 
     .playingCards.simpleCards .card .suit:after, .playingCards .card.rank-j .suit:after, .playingCards .card.rank-q .suit:after, .playingCards .card.rank-k .suit:after, .playingCards .card.rank-a .suit:after, .playingCards .card.joker .rank:after {
-      right: 0.1rem;
+      /* right: 0.1rem; */
+      top: 2.2rem;
+      font-size: 1.3rem;
     }
 
     .playingCards .card.rank-k .suit:after,
