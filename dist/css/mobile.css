@@ -282,7 +282,7 @@
       font-family: Georgia, serif;
       position: absolute;
       /* font-size: 2.5em; */
-      font-size: 1.1rem;
+      font-size: 1.6rem;
     }
 
     /* .playingCards.simpleCards .card .suit:after, .playingCards .card.rank-j .suit:after, .playingCards .card.rank-q .suit:after, .playingCards .card.rank-k .suit:after, .playingCards .card.rank-a .suit:after, .playingCards .card.joker .rank:after {
@@ -292,8 +292,8 @@
       font-size: 1.3rem; */
     /* } */ 
     .playingCards .card .suit {
-      line-height: 0.6rem;
-      font-size: 0.35rem;
+      line-height: 0.4rem;
+      font-size: 0.4rem;
     }
 
      .playingCards .card.rank-k .suit:after,
@@ -310,7 +310,7 @@
      } 
 
      .playingCards .card.rank-a .suit:after {
-       font-size: 1.1rem;
+       font-size: 1.5rem;
      }
 
 
