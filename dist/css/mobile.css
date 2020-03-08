@@ -309,8 +309,8 @@
       font-size: 1.3rem;
      } 
 
-     .playingCards .card.rank-a  {
-       font-size: 0.3rem;
+     .playingCards .card.rank-a .suit:after {
+       font-size: 0.3em;
      }
 
 
