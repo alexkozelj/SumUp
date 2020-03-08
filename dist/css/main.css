@@ -8,7 +8,21 @@ body {
   background-color: #77bd98; }
 
 .navbar {
-  justify-content: center; }
+  justify-content: space-around;
+  display: flex; }
+  .navbar :nth-child(2) {
+    justify-content: flex-end; }
+  .navbar div {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end; }
+  .navbar #buttons {
+    display: flex;
+    justify-content: center; }
+    .navbar #buttons #newGame {
+      margin-right: 0.5rem; }
+  .navbar .navbar-brand {
+    margin: 0; }
 
 .container-fluid {
   height: 90vh; }
@@ -59,14 +73,22 @@ body {
         border-radius: 0.4em;
         height: 4rem;
         width: 4rem;
-        /* width: 85.081px; */
-        /* height: 114.206px; */
         background-color: #7ca385; }
+  .container-fluid #overall-game-header {
+    font-size: 1.6rem; }
+  .container-fluid #current-game-header {
+    font-size: 1.2rem; }
   .container-fluid .result-div {
     display: flex;
     flex-direction: column;
     padding: 15px 30px 15px 0;
     height: 100%; }
+    .container-fluid .result-div #compPointsParent {
+      text-align: left;
+      padding-left: 14%; }
+    .container-fluid .result-div #playerPointsParent {
+      text-align: left;
+      padding-left: 14%; }
     .container-fluid .result-div th,
     .container-fluid .result-div tr,
     .container-fluid .result-div td,
@@ -74,6 +96,19 @@ body {
     .container-fluid .result-div tbody {
       text-align: center;
       width: 100%; }
+
+.modal-body p,
+.modal-body h1,
+.modal-body h2,
+.modal-body h3,
+.modal-body h4,
+.modal-body h5 {
+  text-align: center; }
+.modal-body p {
+  font-size: 1.3rem; }
+.modal-body .card {
+  margin-left: 0.65em;
+  margin-right: 0.7em; }
 
 .row {
   display: flex;
@@ -93,11 +128,6 @@ p {
   margin-bottom: 0em;
   margin-top: 0.5em; }
 
-.stage-up, .stage-down {
-  width: 100%;
-  display: flex;
-  flex-wrap: nowrap; }
-
 .comp-cards-section {
   height: 23%; }
 
@@ -110,6 +140,11 @@ p {
 .stage {
   flex-direction: column;
   height: 47%; }
+  .stage ul {
+    width: 27rem; }
+
+#stageCards {
+  flex-wrap: wrap; }
 
 .deck-container {
   display: flex;
@@ -119,8 +154,6 @@ p {
 .placeholder {
   border-style: groove;
   border-radius: 0.4em;
-  /* width: 85.081px;  99.284px;*/
-  /* height: 114.206px; 119.409px*/
   background-color: #7ca385; }
 
 img {

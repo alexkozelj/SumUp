@@ -1,0 +1,389 @@
+/* pad */
+@media only screen and (min-width: 501px) and (max-width : 768px) {
+    /* Styles */
+    
+   
+      /* NAVBAR */
+    .navbar-brand{
+      font-size: 1.1rem;
+    }
+    .btn{
+      font-size: 0.8rem;
+    }
+
+    .navbar div {
+      width: 50%;
+
+      }
+
+
+      /* STAGE AREA */
+    .playingCards .card {
+      font-size: 0.7rem;
+    }
+
+    .playingCards ul.deck {
+      height: 3rem;
+      width: 2rem;
+    }
+
+    .stage ul {
+      width: 22rem;
+    }
+
+    .selectedCard {
+      font-size: 0.75rem !important;
+    }
+
+    /* winner declaration on end of a game */
+    h1,
+    h2 {
+      font-size: medium;
+    }
+
+
+    /* RESULT TABLE */
+    .container-fluid .stage-area-left .comp-img-container, .container-fluid .stage-area-left .player-img-container{
+      width: 2rem;
+    }
+
+  
+    .container-fluid .result-div th,
+    .container-fluid .result-div tr,
+    .container-fluid .result-div td,
+    .container-fluid .result-div thead,
+    .container-fluid .result-div tbody     {
+      font-size: 0.65rem;
+    }
+
+    .container-fluid .stage-area-right .comp-img-container,
+    .container-fluid .stage-area-right .player-img-container,
+    .container-fluid .stage-area-left .comp-img-container,
+    .container-fluid .stage-area-left .player-img-container {
+      margin: 0;
+    }
+
+    .container-fluid .stage-area-right .comp-img-container .player-img,
+    .container-fluid .stage-area-right .comp-img-container .comp-img,
+    .container-fluid .stage-area-right .player-img-container .player-img {
+      height: 4rem;
+      width: 4rem;
+    }
+
+    .container-fluid .result-div th {
+      /* text-align: center; */
+      /* width: 100%; } */
+      width: 0;
+      }
+
+    .table th, .table td {
+      padding: 0.65rem;
+    }
+
+    .container-fluid .result-div #compPointsParent{
+      /* padding-left: 0.35rem; */
+    }
+
+    .container-fluid #overall-game-header {
+      font-size: 1.4rem; }
+
+
+
+      /* LEFT SIDE WITH IMG AND DECK */
+    .deck-container {
+        display: flex;
+        align-self: center;
+        /* width: 6em;  */
+        width: 4em;
+    }
+
+    img {
+      object-fit: contain;
+      /* max-width: 3.8rem;
+      max-height: 3.8rem; } */
+      max-width: 2.5rem;
+      max-height: 2.5rem;
+    }
+
+  }
+
+
+
+  /* mobile */
+  @media only screen and (min-width: 300px) and (max-width : 359px) {
+     /* NAVBAR */
+     .navbar-brand{
+      font-size: 1.1rem;
+      padding-right: 1.5rem;
+    }
+    .btn{
+      font-size: 0.5rem;
+    }
+
+    .navbar div {
+      width: 50%;
+
+      }
+
+
+      /* STAGE AREA */
+    .playingCards .card {
+      font-size: 0.51rem;
+    }
+
+    .playingCards ul.deck {
+      height: 3rem;
+      width: 2rem;
+    }
+
+    .stage ul {
+      width: 10rem;
+      padding: 2px;
+    }
+
+    .selectedCard {
+      font-size: 0.5rem !important;
+    }
+
+    /* winner declaration on end of a game */
+    h1,
+    h2 {
+      font-size: small;
+    }
+
+
+    /* RESULT TABLE */
+    .container-fluid .stage-area-left .comp-img-container, .container-fluid .stage-area-left .player-img-container{
+      width: 2rem;
+    }
+
+  
+    .container-fluid .result-div th,
+    .container-fluid .result-div tr,
+    .container-fluid .result-div td,
+    .container-fluid .result-div thead,
+    .container-fluid .result-div tbody     {
+      font-size: 0.49rem;
+    }
+
+    .container-fluid .stage-area-right .comp-img-container,
+    .container-fluid .stage-area-right .player-img-container,
+    .container-fluid .stage-area-left .comp-img-container,
+    .container-fluid .stage-area-left .player-img-container {
+      margin: 0;
+      /* display: none; */
+    }
+
+    .container-fluid .stage-area-left {
+      display: none;
+    }
+
+    .container-fluid .stage-area-right .comp-img-container .player-img,
+    .container-fluid .stage-area-right .comp-img-container .comp-img,
+    .container-fluid .stage-area-right .player-img-container .player-img {
+      height: 4rem;
+      width: 4rem;
+    }
+
+    .container-fluid .result-div th {
+      /* text-align: center; */
+      /* width: 100%; } */
+      width: 0;
+      }
+
+    .table th, .table td {
+      padding: 0.65rem;
+    }
+
+    .container-fluid .result-div #compPointsParent{
+      /* padding-left: 0.35rem; */
+    }
+
+    .container-fluid #overall-game-header {
+      font-size: 0.99rem; }
+
+    .container-fluid #current-game-header {
+        font-size: 0.89rem;
+    }
+
+    .col-10 {
+      max-width: 112%;
+      padding: 0 1px 0 1px;
+      flex: 0 0 100%;
+    }
+
+    .col-9 {
+      padding: 0 8px 0 8px;
+    }
+
+
+      /* LEFT SIDE WITH IMG AND DECK */
+    .deck-container {
+        display: flex;
+        align-self: center;
+        /* width: 6em;  */
+        width: 4em;
+    }
+
+    .comp-img-container,
+    .player-img-container{
+      display: none;
+    }
+
+    img { 
+      /* display: none; */
+      object-fit: contain;
+      /* max-width: 3.8rem;
+      max-height: 3.8rem; } */
+      max-width: 2.5rem;
+      max-height: 2.5rem;
+    }
+
+    .modal-body p {
+      font-size: 0.8rem;
+    }
+
+  }
+
+  /* mobile phones, mid to large devices */
+  @media only screen and (min-width: 360px) and (max-width : 500px) {
+    /* NAVBAR */
+    .navbar-brand{
+      font-size: 1.1rem;
+      padding-right: 1.5rem;
+    }
+    .btn{
+      font-size: 0.58rem;
+    }
+
+    .navbar div {
+      width: 50%;
+
+      }
+
+
+      /* STAGE AREA */
+    .playingCards .card {
+      font-size: 0.6rem;
+    }
+
+    .playingCards ul.deck {
+      height: 3rem;
+      width: 2rem;
+    }
+
+    .stage ul {
+      width: 10rem;
+      padding: 2px;
+    }
+
+    .selectedCard {
+      font-size: 0.5rem !important;
+    }
+
+    /* winner declaration on end of a game against */
+    h1,
+    h2 {
+      font-size: small;
+    }
+
+
+    /* RESULT TABLE */
+    .container-fluid .stage-area-left .comp-img-container, .container-fluid .stage-area-left .player-img-container{
+      width: 2rem;
+    }
+
+  
+    .container-fluid .result-div th,
+    .container-fluid .result-div tr,
+    .container-fluid .result-div td,
+    .container-fluid .result-div thead,
+    .container-fluid .result-div tbody     {
+      font-size: 0.6rem;
+    }
+
+    .container-fluid .stage-area-right .comp-img-container,
+    .container-fluid .stage-area-right .player-img-container,
+    .container-fluid .stage-area-left .comp-img-container,
+    .container-fluid .stage-area-left .player-img-container {
+      margin: 0;
+      /* display: none; */
+    }
+
+    .container-fluid .stage-area-left {
+      display: none;
+    }
+
+    .container-fluid .stage-area-right .comp-img-container .player-img,
+    .container-fluid .stage-area-right .comp-img-container .comp-img,
+    .container-fluid .stage-area-right .player-img-container .player-img {
+      height: 4rem;
+      width: 4rem;
+    }
+
+    .container-fluid .result-div th {
+      /* text-align: center; */
+      /* width: 100%; } */
+      width: 0;
+      }
+
+    .table th, .table td {
+      padding: 0.65rem;
+    }
+
+    .container-fluid .result-div #compPointsParent{
+      /* padding-left: 0.35rem; */
+    }
+
+    .container-fluid #overall-game-header {
+      font-size: 1.1rem; }
+
+    .container-fluid #current-game-header {
+        font-size: 1rem;
+    }
+
+    .col-10 {
+      max-width: 112%;
+      padding: 0 1px 0 1px;
+      flex: 0 0 100%;
+    }
+
+    .col-9 {
+      padding: 0 8px 0 8px;
+    }
+
+
+      /* LEFT SIDE WITH IMG AND DECK */
+    .deck-container {
+        display: flex;
+        align-self: center;
+        /* width: 6em;  */
+        width: 4em;
+    }
+
+    .comp-img-container,
+    .player-img-container{
+      display: none;
+    }
+
+    img { 
+      /* display: none; */
+      object-fit: contain;
+      /* max-width: 3.8rem;
+      max-height: 3.8rem; } */
+      max-width: 2.5rem;
+      max-height: 2.5rem;
+    }
+
+    .modal-body p {
+      font-size: 0.8rem;
+    }
+  }
+
+  /* for mobile landscape */
+  @media (max-height : 450px) {
+    * {
+      display: none;
+    }
+  }
+  
