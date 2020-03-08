@@ -478,7 +478,7 @@ const ItemCtrl = (function () {
         setTimeout(function () {
           compTakeCombi()
           // 1150
-        }, 450);
+        }, 700);
 
       }
 
@@ -1193,7 +1193,7 @@ const UICtrl = (function () {
 
             startGameSetup();
             // 2800
-          }, 2800);
+          }, 3600);
 
         } else {
 
@@ -1491,7 +1491,7 @@ const App = (function (ItemCtrl, UICtrl) {
               // computer move
             };
             // 1100
-          }, 1900);
+          }, 2250);
 
           // if players have no more cards and it's not end of a game
           // new Deal after the comp complete its move, waits all timeouts to finish
@@ -1500,7 +1500,7 @@ const App = (function (ItemCtrl, UICtrl) {
             setTimeout(function () {
               ItemCtrl.newDeal();
               // 2450
-            }, 1650);
+            }, 2000);
           }
 
 
