@@ -292,7 +292,7 @@
       font-size: 1.3rem; */
     /* } */ 
     .playingCards .card .suit {
-      line-height: 1.2rem;
+      line-height: 1rem;
       font-size: 0.2rem;
     }
 
@@ -310,7 +310,7 @@
      } 
 
      .playingCards .card.rank-a .suit:after {
-       font-size: 0.5rem;
+       font-size: 0.65rem;
      }
 
 
