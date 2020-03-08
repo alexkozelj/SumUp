@@ -1,4 +1,6 @@
-/* pad */
+
+
+/* Pad size devices */
 @media only screen and (min-width: 501px) and (max-width : 768px) {
     /* Styles */
     
@@ -109,9 +111,10 @@
 
 
 
-  /* mobile */
+  /* mobile - small devices */
   @media only screen and (min-width: 300px) and (max-width : 359px) {
-     /* NAVBAR */
+     
+    /* NAVBAR */
      .navbar-brand{
       font-size: 1.1rem;
       padding-right: 1.5rem;
@@ -126,7 +129,16 @@
       }
 
 
-      /* STAGE AREA */
+    /* STAGE AREA */
+
+    .playingCards .card.rank-a .suit:after,
+    .playingCards .card.joker .rank:after {
+      /* font-family: Georgia, serif; */
+      /* position: absolute; */
+      /* font-size: 2.5em; */
+      font-size: 1.1rem;
+    }
+
     .playingCards .card {
       font-size: 0.51rem;
     }
@@ -245,6 +257,9 @@
 
   }
 
+
+
+
   /* mobile phones, mid to large devices */
   @media only screen and (min-width: 360px) and (max-width : 500px) {
     /* NAVBAR */
@@ -262,7 +277,16 @@
       }
 
 
-      /* STAGE AREA */
+    /* STAGE AREA */
+
+    .playingCards .card.rank-a .suit:after,
+    .playingCards .card.joker .rank:after {
+      /* font-family: Georgia, serif; */
+      /* position: absolute; */
+      /* font-size: 2.5em; */
+      font-size: 1.1rem;
+    }
+
     .playingCards .card {
       font-size: 0.6rem;
     }
