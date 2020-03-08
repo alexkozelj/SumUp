@@ -1,6 +1,6 @@
 <h1> SumUp! </h1>
-SumUp! a.k.a. Tablic is a fishing card game that is played against the computer.
-Vanilla JavaScript (Module Pattern), HTML, CSS, Sass, Bootstrap
+SumUp! a.k.a. Tablic is a fishing card game that is played against the computer. <br>
+<b>Vanilla JavaScript (Module Pattern), HTML, CSS, Sass, Bootstrap</b>
 
 
 
