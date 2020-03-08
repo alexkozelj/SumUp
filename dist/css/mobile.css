@@ -19,7 +19,7 @@
 
       /* STAGE AREA */
     .playingCards .card {
-      font-size: 0.6rem;
+      font-size: 0.7rem;
     }
 
     .playingCards ul.deck {
@@ -245,6 +245,7 @@
 
   }
 
+  /* mobile phones, mid to large devices */
   @media only screen and (min-width: 360px) and (max-width : 500px) {
     /* NAVBAR */
     .navbar-brand{
