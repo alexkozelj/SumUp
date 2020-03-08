@@ -133,9 +133,9 @@
 
     .playingCards.simpleCards .card .suit:after, .playingCards .card.rank-j .suit:after, .playingCards .card.rank-q .suit:after, .playingCards .card.rank-k .suit:after, .playingCards .card.rank-a .suit:after, .playingCards .card.joker .rank:after {
       /* font-family: Georgia, serif; */
-      /* position: absolute; */
+      position: absolute;
       /* font-size: 2.5em; */
-      font-size: 1.1rem;
+      font-size: 0.5rem;
     }
 
     .playingCards .card {
@@ -280,9 +280,9 @@
 
     .playingCards.simpleCards .card .suit:after, .playingCards .card.rank-j .suit:after, .playingCards .card.rank-q .suit:after, .playingCards .card.rank-k .suit:after, .playingCards .card.rank-a .suit:after, .playingCards .card.joker .rank:after {
       /* font-family: Georgia, serif; */
-      /* position: absolute; */
+      position: absolute;
       /* font-size: 2.5em; */
-      font-size: 1.1rem;
+      font-size: 0.5rem;
     }
 
     .playingCards .card {
