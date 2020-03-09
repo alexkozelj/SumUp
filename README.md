@@ -51,5 +51,5 @@ In addition, 1 point is added for each tabla.
 Ending the Game
 The object of the game is to achieve a score of more points than computer.
 
->Claiming Victory
-First who wins 2 games is a winner. That means that there are 3 game to play at highest for a winner to be known.
+<h2>Claiming Victory</h2>
+<p>First who wins 2 games is a winner.</p>
