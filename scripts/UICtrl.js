@@ -53,7 +53,7 @@ const UICtrl = (function () {
   return {
     populateCompCards: comp => {
       let html = "";
-      console.log(comp);
+      // console.log(comp);
       comp.forEach(card => {
 
         html += `<div class="card back" id="card-${card.ID}"></div>`
@@ -245,7 +245,7 @@ const UICtrl = (function () {
       const compCollectedCards = ItemCtrl.getCompCollectedCards();
       // count all value cards
       const tableValueOfCards = ItemCtrl.countCardValues(cardsOnTable);
-      console.log(tableValueOfCards);
+      // console.log(tableValueOfCards);
       const lastTook = ItemCtrl.getWhoTookLast();
       // console.log(lastTook); 
       if (lastTook === 1) {
@@ -519,14 +519,14 @@ const UICtrl = (function () {
 
     addSelectedStageCardStyle: function (id) {
       const selectedCard = document.querySelector(`#${id}`);
-      console.log(selectedCard);
+      // console.log(selectedCard);
       const styledCard = selectedCard.classList.add('selectedCard');
       return styledCard;
     },
 
     removeSelectedStageCardStyle: function (id) {
       let selectedCard = document.querySelector(`#${id}`);
-      console.log(selectedCard);
+      // console.log(selectedCard);
       const styledCard = selectedCard.classList.remove('selectedCard');
       return styledCard;
     },

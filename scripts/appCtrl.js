@@ -121,7 +121,7 @@ const App = (function (ItemCtrl, UICtrl) {
         let numOfCollected = playerCollectedCards.length;
 
         const calculate = ItemCtrl.calculus(grabId, cardsInCalculation, playerInHandCards);
-        console.log(calculate);
+        // console.log(calculate);
 
         if (calculate[0] === true) {
 
@@ -133,7 +133,7 @@ const App = (function (ItemCtrl, UICtrl) {
           // if(cardsInCalculation !== 0){
           //   // for last deal to determent who took the last to take the rest cards from the table
           // }
-          console.log(playerValueOfCollected);
+          // console.log(playerValueOfCollected);
           // get a deal number to check if it's a end of a game
           const dealNr = UICtrl.getCurrentDealNum();
           const cardsToDeal = ItemCtrl.getCardsToDeal();
@@ -144,7 +144,7 @@ const App = (function (ItemCtrl, UICtrl) {
           // move all cards from calculation to collected cards
           ItemCtrl.moveCardFromArrayToArray(cardsInCalculation, playerCollectedCards);
           // If table has no cards after calc, add point 
-          console.log(cardsOnTable);
+          // console.log(cardsOnTable);
 
           if (numOfCollected !== playerCollectedCards.length) {
             ItemCtrl.lastTook(1);
@@ -194,7 +194,6 @@ const App = (function (ItemCtrl, UICtrl) {
 
       }
     }
-    console.log(ItemCtrl.logData());
     e.preventDefault();
   }
 
@@ -218,7 +217,7 @@ const App = (function (ItemCtrl, UICtrl) {
       UICtrl.populateTableCards(cardsOnTable);
       UICtrl.populateDealDeck(cardsToDeal);
 
-      console.log(ItemCtrl.logData())
+      // console.log(ItemCtrl.logData())
 
       // Load event listeners
       loadEventListeners();

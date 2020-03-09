@@ -185,8 +185,8 @@ const ItemCtrl = (function () {
               // checking if it adds up & reset to 0
               if (sumOfRanked === playerCard[0]) {
                 sumOfRanked = 0;
-                console.log(sumOfRanked);
-                console.log(rankedCards[i]);
+                // console.log(sumOfRanked);
+                // console.log(rankedCards[i]);
               }
 
             } else {
@@ -387,7 +387,7 @@ const ItemCtrl = (function () {
       if (takeCombinations.length === 0) {
 
         let compCardsRank = ItemCtrl.getRank(compInHandCards)[0];
-        console.log(compCardsRank);
+        // console.log(compCardsRank);
 
         // function to return the index of a smallest comp in hand card
         function indexOfSmallest(a) {
@@ -751,7 +751,7 @@ const ItemCtrl = (function () {
     },
 
     showFullDeck: () => {
-      console.log(data.fullDeck[0]);
+      // console.log(data.fullDeck[0]);
     },
 
     getWhoTookLast: () => {
