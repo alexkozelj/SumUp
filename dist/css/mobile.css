@@ -140,13 +140,13 @@
     }
 
     /* targeting central suit for color */
-    .playingCards.simpleCards .card.hearts .suit:after, .playingCards .card.rank-q.hearts .suit:after {
+    /* .playingCards.simpleCards .card.hearts .suit:after, .playingCards .card.rank-q.hearts .suit:after {
       color: #f00 !important;
     }
 
     .playingCards .card.hearts {
       color: #f00 !important;
-    }
+    } */
     /* .playingCards.simpleCards .card .suit:after, .playingCards .card.rank-j .suit:after, .playingCards .card.rank-q .suit:after, .playingCards .card.rank-k .suit:after, .playingCards .card.rank-a .suit:after, .playingCards .card.joker .rank:after {
       /* right: 0.1rem; */
       /* top: 2.2rem;
@@ -169,7 +169,7 @@
        /* content: "\265A" !important;  */
       /* left: 1.2rem;
       top: 3.45rem;  */
-      color: #f00 !important;
+      /* color: #f00 !important; */
       top: 2rem;
       left: 0.5rem;
       font-size: 0.6rem;
