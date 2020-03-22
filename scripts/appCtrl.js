@@ -177,7 +177,7 @@ const App = (function (ItemCtrl, UICtrl) {
                      // computer move
                   };
                   // 1100
-               }, 2250);
+               }, 2500);
 
                // if players have no more cards and it's not end of a game
                // new Deal after the comp complete its move, waits all timeouts to finish
