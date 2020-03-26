@@ -117,7 +117,7 @@ const App = (function (ItemCtrl, UICtrl) {
             } else {
                grabId = e.target.parentNode.id;
             }
-
+            // determine who took the cards last
             let numOfCollected = playerCollectedCards.length;
 
             const calculate = ItemCtrl.calculus(grabId, cardsInCalculation, playerInHandCards);
@@ -130,10 +130,7 @@ const App = (function (ItemCtrl, UICtrl) {
                // count all value cards
                const playerValueOfCollected = ItemCtrl.countCardValues(cardsInCalculation);
 
-               // if(cardsInCalculation !== 0){
-               //   // for last deal to determent who took the last to take the rest cards from the table
-               // }
-               // console.log(playerValueOfCollected);
+             
                // get a deal number to check if it's a end of a game
                const dealNr = UICtrl.getCurrentDealNum();
                const cardsToDeal = ItemCtrl.getCardsToDeal();
@@ -143,16 +140,16 @@ const App = (function (ItemCtrl, UICtrl) {
                ItemCtrl.removeCollectedCardsFromTable();
                // move all cards from calculation to collected cards
                ItemCtrl.moveCardFromArrayToArray(cardsInCalculation, playerCollectedCards);
-               // If table has no cards after calc, add point 
-               // console.log(cardsOnTable);
-
+               
+               // determine who took the cards last
                if (numOfCollected !== playerCollectedCards.length) {
                   ItemCtrl.lastTook(1);
-
+                  
                   // Update current scoreboard with sum of collected value cards
                   UICtrl.updateCurrentScoreboard(playerValueOfCollected, playerParameter);
                   setTimeout(() => {
-
+                     
+                     // If table has no cards after calc, add point 
                      if (cardsOnTable.length === 0) {
                         UICtrl.addEmptyTablePoint(playerParameter);
                      }
@@ -163,12 +160,12 @@ const App = (function (ItemCtrl, UICtrl) {
                UICtrl.populatePlayerCards(playerInHandCards);
                UICtrl.populateTableCards(cardsOnTable);
 
+               // to slow down compMove, imitates computer Thinking
                setTimeout(function () {
                   ItemCtrl.compMove();
                   // 920
                }, 750);
 
-               // to slow down compMove, imitates computer Thinking
                // if there are no more cards and it's end of game
                setTimeout(function () {
                   if (playerInHandCards.length === 0 && compInHandCards.length === 0 && cardsToDeal.length === 0 && dealNr === 4) {
@@ -177,7 +174,7 @@ const App = (function (ItemCtrl, UICtrl) {
                      // computer move
                   };
                   // 1100
-               }, 2500);
+               }, 3000);
 
                // if players have no more cards and it's not end of a game
                // new Deal after the comp complete its move, waits all timeouts to finish
@@ -186,7 +183,7 @@ const App = (function (ItemCtrl, UICtrl) {
                   setTimeout(function () {
                      ItemCtrl.newDeal();
                      // 2450
-                  }, 2000);
+                  }, 2450);
                }
 
 
