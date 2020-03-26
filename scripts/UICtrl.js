@@ -263,7 +263,7 @@ const UICtrl = (function () {
             setTimeout(function () {
                UICtrl.gameWinner();
 
-            }, 1200)
+            }, 1800)
          } else {
             // player is needed for update current scoreboard function (comp or player update)
             const playerParameter = "computer";
@@ -279,7 +279,7 @@ const UICtrl = (function () {
             setTimeout(function () {
                UICtrl.gameWinner();
 
-            }, 1200)
+            }, 1800)
          }
       },
 
@@ -382,10 +382,10 @@ const UICtrl = (function () {
 
                playerPoint(stage, "pulse");
                UICtrl.updateOverallScoreBoard(newScore, player);
-               UICtrl.updateDealNumber();
-               UICtrl.updateGameNumber();
                // slow down to show who wins
                setTimeout(function () {
+                  UICtrl.updateDealNumber();
+                  UICtrl.updateGameNumber();
                   startGameSetup();
                }, 3600)
 
@@ -417,11 +417,12 @@ const UICtrl = (function () {
             if (newScore !== 2) {
 
                compPoint(stage, "pulse");
+               UICtrl.updateOverallScoreBoard(newScore, comp);
+
                setTimeout(function () {
-                  UICtrl.updateOverallScoreBoard(newScore, comp);
+                  
                   UICtrl.updateDealNumber();
                   UICtrl.updateGameNumber();
-
                   startGameSetup();
                   // 2800
                }, 3600);

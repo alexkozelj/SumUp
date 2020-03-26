@@ -174,7 +174,7 @@ const App = (function (ItemCtrl, UICtrl) {
                      // computer move
                   };
                   // 1100
-               }, 3000);
+               }, 2000);
 
                // if players have no more cards and it's not end of a game
                // new Deal after the comp complete its move, waits all timeouts to finish
@@ -182,8 +182,9 @@ const App = (function (ItemCtrl, UICtrl) {
 
                   setTimeout(function () {
                      ItemCtrl.newDeal();
+                     // console.log("deljenje")
                      // 2450
-                  }, 2450);
+                  }, 1850);
                }
 
 
