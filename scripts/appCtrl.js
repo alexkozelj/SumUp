@@ -182,11 +182,7 @@ const App = (function (ItemCtrl, UICtrl) {
 
                   setTimeout(function () {
                      ItemCtrl.newDeal();
-<<<<<<< HEAD
                      // console.log("deljenje")
-=======
-                     console.log("deljenje")
->>>>>>> 957090c4fccc2e03f3fb8bd7f181a66a404a86b3
                      // 2450
                   }, 1850);
                }
