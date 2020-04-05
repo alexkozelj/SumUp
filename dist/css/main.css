@@ -108,7 +108,8 @@ body {
   font-size: 1.3rem; }
 .modal-body .card {
   margin-left: 0.65em;
-  margin-right: 0.7em; }
+  margin-right: 0.7em;
+  cursor: pointer; }
 
 .row {
   display: flex;
