@@ -370,7 +370,7 @@ const UICtrl = (function () {
 
          // Animation for a draw
          function draw(id, animation) {
-            let html = `<span><h1 class="animated infinite ${animation}">GAME DRAW - PLAY AGAIN !</h1></span>`
+            let html = `<span><h1 class="animated infinite ${animation}">DRAW - PLAY AGAIN !</h1></span>`
             id.innerHTML = html;
          };
 
