@@ -424,9 +424,7 @@ const ItemCtrl = (function () {
             let compCardId = `card-${bestCombination[1].ID}`;
             // take table cards from the array
             let tableCardsBestCombi = bestCombination.slice(2, bestCombination.length);
-            // console.log(bestCombination);
-            // console.log(compCardId);
-            // console.log(tableCardsBestCombi);
+            
 
             for (let k = 0; k < compInHandCards.length; k++) {
                if (compInHandCards[k] === compCard) {
