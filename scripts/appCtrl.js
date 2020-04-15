@@ -161,33 +161,31 @@ const App = (function (ItemCtrl, UICtrl) {
                UICtrl.populateTableCards(cardsOnTable);
 
                // to slow down compMove, imitates computer Thinking
-               setTimeout(function () {
+               setTimeout( () => {
+
                   ItemCtrl.compMove();
-                  // 920
-               }, 750);
 
-               // if there are no more cards and it's end of game
-               setTimeout(function () {
+                  // if there are no more cards and it's end of game
                   if (playerInHandCards.length === 0 && compInHandCards.length === 0 && cardsToDeal.length === 0 && dealNr === 4) {
-                     // UICtrl.updateDealNumber();
-                     UICtrl.endOfGame();
-                     // computer move
-                  };
-                  // 1100
-               }, 2000);
+                     setTimeout(() => {
+                        UICtrl.endOfGame();
+                     }, 1650);
+                  }
 
-               // if players have no more cards and it's not end of a game
-               // new Deal after the comp complete its move, waits all timeouts to finish
-               if (dealNr !== 4) {
+                  // if players have no more cards and it's not end of a game
+                  // new Deal after the comp complete its move, waits all timeouts to finish
+                  if (dealNr < 4) {
 
-                  setTimeout(function () {
-                     ItemCtrl.newDeal();
-                     // console.log("deljenje")
-                     // 2450
-                  }, 1850);
-               }
+                     setTimeout(() => {
+                        ItemCtrl.newDeal();
+                        // 2450
+                     }, 1700);
+                  }
 
+                  // 920
+               }, 890);
 
+               
             }
 
          }
