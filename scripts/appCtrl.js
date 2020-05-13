@@ -162,15 +162,15 @@ const App = (function (ItemCtrl, UICtrl) {
 
                // to slow down compMove, imitates computer Thinking
                setTimeout( () => {
-
+                  
                   ItemCtrl.compMove();
 
                   // if there are no more cards and it's end of game
-                  if (playerInHandCards.length === 0 && compInHandCards.length === 0 && cardsToDeal.length === 0 && dealNr === 4) {
-                     setTimeout(() => {
-                        UICtrl.endOfGame();
-                     }, 1650);
-                  }
+                  // if (playerInHandCards.length === 0 && compInHandCards.length === 0 && cardsToDeal.length === 0 && dealNr === 4) {
+                  //    setTimeout(() => {
+                  //       UICtrl.endOfGame();
+                  //    }, 1650);
+                  // }
 
                   // if players have no more cards and it's not end of a game
                   // new Deal after the comp complete its move, waits all timeouts to finish

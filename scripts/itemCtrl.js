@@ -417,6 +417,12 @@ const ItemCtrl = (function () {
                return a[0] - b[0];
             });
 
+            const playerInHandCards = ItemCtrl.getPlayerInHandCards();
+            const compInHandCards = ItemCtrl.getCompInHandCards();
+            // get a deal number to check if it's a end of a game
+            const dealNr = UICtrl.getCurrentDealNum();
+            const cardsToDeal = ItemCtrl.getCardsToDeal();
+
 
             let bestCombination = takeCombinations[takeCombinations.length - 1];
             let compCardIndex = 0;
@@ -424,7 +430,7 @@ const ItemCtrl = (function () {
             let compCardId = `card-${bestCombination[1].ID}`;
             // take table cards from the array
             let tableCardsBestCombi = bestCombination.slice(2, bestCombination.length);
-            
+
 
             for (let k = 0; k < compInHandCards.length; k++) {
                if (compInHandCards[k] === compCard) {
@@ -451,13 +457,16 @@ const ItemCtrl = (function () {
                // Update current scoreboard with sum of collected value cards
                UICtrl.updateCurrentScoreboard(compValueOfCollected, compParameter);
                setTimeout(function () {
+
                   // var for checking if any card left on table to score a point for empty table
                   const cardsOnTable = data.cardsOnTable[0];
                   // If table has no cards after calc, add point 
                   if (cardsOnTable.length === 0) {
                      UICtrl.addEmptyTablePoint(compParameter);
                   }
-
+                  if (playerInHandCards.length === 0 && compInHandCards.length === 0 && cardsToDeal.length === 0 && dealNr === 4) {
+                     UICtrl.endOfGame();
+                  }
                }, 450)
 
                const cardsOnTable = data.cardsOnTable[0];
@@ -468,15 +477,35 @@ const ItemCtrl = (function () {
                UICtrl.populateCompCards(compInHandCards);
                UICtrl.populateTableCards(cardsOnTable);
 
+               if (playerInHandCards.length === 0 && compInHandCards.length === 0 && cardsToDeal.length === 0 && dealNr === 4) {
+                  UICtrl.endOfGame();
+               }
+
             };
 
             // slow down of takeing cards, showing which card comp takes
             setTimeout(function () {
-               compTakeCombi()
+               compTakeCombi();
+
                // 1150
             }, 700);
 
          }
+         
+         setTimeout(function () {
+            
+            const playerInHandCards = ItemCtrl.getPlayerInHandCards();
+            // const compInHandCards = ItemCtrl.getCompInHandCards();
+            // get a deal number to check if it's a end of a game
+            const dealNr = UICtrl.getCurrentDealNum();
+            const cardsToDeal = ItemCtrl.getCardsToDeal();
+   
+            if (playerInHandCards.length === 0 && compInHandCards.length === 0 && cardsToDeal.length === 0 && dealNr === 4) {
+               UICtrl.endOfGame();
+            }
+
+            // 1150
+         }, 700);
 
       },
 
