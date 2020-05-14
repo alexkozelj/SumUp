@@ -505,7 +505,7 @@ const ItemCtrl = (function () {
             }
 
             // 1150
-         }, 700);
+         }, 1200);
 
       },
 
