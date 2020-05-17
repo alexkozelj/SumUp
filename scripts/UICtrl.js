@@ -227,16 +227,30 @@ const UICtrl = (function () {
       },
 
       updateDealNumber: () => {
-         currentDealNumInt = UICtrl.getCurrentDealNum();
-         if (currentDealNumInt < 4) {
-            const updatedDealNumInt = currentDealNumInt + 1;
-            const updatedDealNumString = updatedDealNumInt.toString();
-            document.querySelector(UISelectors.dealNr).innerHTML = updatedDealNumString;
-         } else {
-            const setDealNumTo1 = "1";
-            document.querySelector(UISelectors.dealNr).innerHTML = setDealNumTo1;
-
+         switch (ItemCtrl.getCardsToDeal().length) {
+            case 36:
+               document.querySelector(UISelectors.dealNr).innerHTML = "1";
+               break;
+            case 24:
+               document.querySelector(UISelectors.dealNr).innerHTML = "2";
+               break;
+            case 12:
+               document.querySelector(UISelectors.dealNr).innerHTML = "3";
+               break;
+            case 0:
+               document.querySelector(UISelectors.dealNr).innerHTML = "4";
+               break;
          }
+         // currentDealNumInt = UICtrl.getCurrentDealNum();
+         // if (currentDealNumInt < 4) {
+         //    const updatedDealNumInt = currentDealNumInt + 1;
+         //    const updatedDealNumString = updatedDealNumInt.toString();
+         //    document.querySelector(UISelectors.dealNr).innerHTML = updatedDealNumString;
+         // } else {
+         //    const setDealNumTo1 = "1";
+         //    document.querySelector(UISelectors.dealNr).innerHTML = setDealNumTo1;
+
+         // }
       },
 
       endOfGame: function () {
@@ -384,9 +398,9 @@ const UICtrl = (function () {
                UICtrl.updateOverallScoreBoard(newScore, player);
                // slow down to show who wins
                setTimeout(function () {
-                  UICtrl.updateDealNumber();
                   UICtrl.updateGameNumber();
                   startGameSetup();
+                  UICtrl.updateDealNumber();
                }, 3600)
 
             } else {
@@ -404,8 +418,8 @@ const UICtrl = (function () {
             draw(stage, "pulse");
             setTimeout(function () {
 
-               UICtrl.updateDealNumber();
                startGameSetup();
+               UICtrl.updateDealNumber();
 
             }, 3600);
 
@@ -420,10 +434,10 @@ const UICtrl = (function () {
                UICtrl.updateOverallScoreBoard(newScore, comp);
 
                setTimeout(function () {
-                  
-                  UICtrl.updateDealNumber();
+
                   UICtrl.updateGameNumber();
                   startGameSetup();
+                  UICtrl.updateDealNumber();
                   // 2800
                }, 3600);
 

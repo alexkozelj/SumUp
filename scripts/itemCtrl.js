@@ -477,7 +477,9 @@ const ItemCtrl = (function () {
             };
 
             // Chained promises
-            ItemCtrl.timeoutPromise(700, compTakeCombi)
+            ItemCtrl.timeoutPromise(700, () => {
+               compTakeCombi();
+            })
                .then(() => {
                   if (playerInHandCards.length === 0 && compInHandCards.length === 0) {
                      ItemCtrl.timeoutPromise(2000, ItemCtrl.newDeal);
