@@ -234,8 +234,8 @@ const ItemCtrl = (function () {
       },
 
       compMove: function () {
-         const compCards = this.getCompInHandCards();
-         const tableCards = this.getCardsOnTable();
+         const compCards = ItemCtrl.getCompInHandCards();
+         const tableCards = ItemCtrl.getCardsOnTable();
 
          // Storing potential combinations that can be taken from a computer player
          let takeCombinations = [];
@@ -249,12 +249,12 @@ const ItemCtrl = (function () {
             // convert current card to a [{}]
             let arrayOfCompCard = [compCards[i]];
             // convert current card to a number
-            let compCardRank = this.getRank(arrayOfCompCard)[0][0];
+            let compCardRank = ItemCtrl.getRank(arrayOfCompCard)[0][0];
 
             // loop through FIRST potential table card to be taken - check if there is same cards as comp card 
             for (let x = 0; x < tableCards.length; x++) {
                let arrayOfTableCard = [tableCards[x]];
-               let tableCardX = this.getRank(arrayOfTableCard)[0][0];
+               let tableCardX = ItemCtrl.getRank(arrayOfTableCard)[0][0];
                // console.log(tableCardX);
 
                // SAME CARD is found and pushed
@@ -265,7 +265,7 @@ const ItemCtrl = (function () {
                   // If there is ANOTHER SAME CARD
                   for (let same = 0; same < tableCards.length; same++) {
                      let arrayOfTableCardsSame = [tableCards[same]];
-                     let tableCardXSame = this.getRank(arrayOfTableCardsSame)[0][0];
+                     let tableCardXSame = ItemCtrl.getRank(arrayOfTableCardsSame)[0][0];
                      // console.log(tableCardX);
                      if (tableCards[x] === tableCards[same]) {
                         continue;
@@ -280,7 +280,7 @@ const ItemCtrl = (function () {
                   // checking if there is situation: i = x & y + z
                   for (let y = 0; y < tableCards.length; y++) {
                      let arrayOfTableCardY = [tableCards[y]];
-                     let tableCardY = this.getRank(arrayOfTableCardY)[0][0];
+                     let tableCardY = ItemCtrl.getRank(arrayOfTableCardY)[0][0];
                      // avoiding takeing same card in a loop
                      if (tableCards[x] === tableCards[y]) {
                         continue;
@@ -294,7 +294,7 @@ const ItemCtrl = (function () {
                         // when comp card is greater, look for next one 
                         for (let z = 0; z < tableCards.length; z++) {
                            let arrayOfTableCardZ = [tableCards[z]];
-                           let tableCardZ = this.getRank(arrayOfTableCardZ)[0][0];
+                           let tableCardZ = ItemCtrl.getRank(arrayOfTableCardZ)[0][0];
                            // avoiding takeing same card in a loop
                            if (tableCards[x] === tableCards[z] || tableCards[y] === tableCards[z]) {
                               continue;
@@ -320,7 +320,7 @@ const ItemCtrl = (function () {
                if (compCardRank !== tableCardX && tableCardX < compCardRank) {
                   for (let y = 0; y < tableCards.length; y++) {
                      let arrayOfTableCardY = [tableCards[y]];
-                     let tableCardY = this.getRank(arrayOfTableCardY)[0][0];
+                     let tableCardY = ItemCtrl.getRank(arrayOfTableCardY)[0][0];
 
                      // avoiding takeing same card in a loop
                      if (tableCards[x] === tableCards[y]) {
@@ -345,7 +345,7 @@ const ItemCtrl = (function () {
                      if (compCardRank - tableCardX !== tableCardY && tableCardX + tableCardY < compCardRank) {
                         for (let q = 0; q < tableCards.length; q++) {
                            let arrayOfTableCardQ = [tableCards[q]];
-                           let tableCardQ = this.getRank(arrayOfTableCardQ)[0][0];
+                           let tableCardQ = ItemCtrl.getRank(arrayOfTableCardQ)[0][0];
 
                            //  avoiding takeing same card in a loop
                            if (tableCards[x] === tableCards[q] || tableCards[y] === tableCards[q]) {
@@ -456,18 +456,15 @@ const ItemCtrl = (function () {
                const compParameter = "computer";
                // Update current scoreboard with sum of collected value cards
                UICtrl.updateCurrentScoreboard(compValueOfCollected, compParameter);
-               setTimeout(function () {
 
+               ItemCtrl.timeoutPromise(450, () => {
                   // var for checking if any card left on table to score a point for empty table
                   const cardsOnTable = data.cardsOnTable[0];
                   // If table has no cards after calc, add point 
                   if (cardsOnTable.length === 0) {
                      UICtrl.addEmptyTablePoint(compParameter);
                   }
-                  if (playerInHandCards.length === 0 && compInHandCards.length === 0 && cardsToDeal.length === 0 && dealNr === 4) {
-                     UICtrl.endOfGame();
-                  }
-               }, 450)
+               })
 
                const cardsOnTable = data.cardsOnTable[0];
 
@@ -477,36 +474,31 @@ const ItemCtrl = (function () {
                UICtrl.populateCompCards(compInHandCards);
                UICtrl.populateTableCards(cardsOnTable);
 
-               if (playerInHandCards.length === 0 && compInHandCards.length === 0 && cardsToDeal.length === 0 && dealNr === 4) {
-                  UICtrl.endOfGame();
-               }
-
             };
 
-            // slow down of takeing cards, showing which card comp takes
-            setTimeout(function () {
-               compTakeCombi();
+            // Chained promises
+            ItemCtrl.timeoutPromise(700, compTakeCombi)
+               .then(() => {
+                  if (playerInHandCards.length === 0 && compInHandCards.length === 0) {
+                     ItemCtrl.timeoutPromise(2000, ItemCtrl.newDeal);
+                     // console.log("condition fulfilled from ITEM CTRL")
+                  }
+               })
+               .then(() => {
+                  const playerInHandCards = ItemCtrl.getPlayerInHandCards();
+                  // get a deal number to check if it's a end of a game
+                  const dealNr = UICtrl.getCurrentDealNum();
+                  const cardsToDeal = ItemCtrl.getCardsToDeal();
 
-               // 1150
-            }, 700);
+                  if (playerInHandCards.length === 0 && compInHandCards.length === 0 && cardsToDeal.length === 0 && dealNr === 4) {
+                     ItemCtrl.timeoutPromise(2500, () => {
+                        UICtrl.endOfGame();
+                     })
 
+                     // console.log("hej game is over from APP");
+                  }
+               })
          }
-         
-         setTimeout(function () {
-            
-            const playerInHandCards = ItemCtrl.getPlayerInHandCards();
-            // const compInHandCards = ItemCtrl.getCompInHandCards();
-            // get a deal number to check if it's a end of a game
-            const dealNr = UICtrl.getCurrentDealNum();
-            const cardsToDeal = ItemCtrl.getCardsToDeal();
-   
-            if (playerInHandCards.length === 0 && compInHandCards.length === 0 && cardsToDeal.length === 0 && dealNr === 4) {
-               UICtrl.endOfGame();
-            }
-
-            // 1150
-         }, 1200);
-
       },
 
       newDeal: function () {
@@ -539,6 +531,14 @@ const ItemCtrl = (function () {
             // update deal hand number on score board
             UICtrl.updateDealNumber();
          };
+      },
+
+      timeoutPromise: function (time, func) {
+         return new Promise(function (res, rej) {
+            setTimeout(function () {
+               res(func());
+            }, time);
+         })
       },
 
       createDeck: () => {
