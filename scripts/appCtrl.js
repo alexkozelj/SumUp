@@ -130,7 +130,7 @@ const App = (function (ItemCtrl, UICtrl) {
                // count all value cards
                const playerValueOfCollected = ItemCtrl.countCardValues(cardsInCalculation);
 
-             
+
                // get a deal number to check if it's a end of a game
                const dealNr = UICtrl.getCurrentDealNum();
                const cardsToDeal = ItemCtrl.getCardsToDeal();
@@ -140,15 +140,15 @@ const App = (function (ItemCtrl, UICtrl) {
                ItemCtrl.removeCollectedCardsFromTable();
                // move all cards from calculation to collected cards
                ItemCtrl.moveCardFromArrayToArray(cardsInCalculation, playerCollectedCards);
-               
+
                // determine who took the cards last
                if (numOfCollected !== playerCollectedCards.length) {
                   ItemCtrl.lastTook(1);
-                  
+
                   // Update current scoreboard with sum of collected value cards
                   UICtrl.updateCurrentScoreboard(playerValueOfCollected, playerParameter);
                   setTimeout(() => {
-                     
+
                      // If table has no cards after calc, add point 
                      if (cardsOnTable.length === 0) {
                         UICtrl.addEmptyTablePoint(playerParameter);
@@ -160,34 +160,31 @@ const App = (function (ItemCtrl, UICtrl) {
                UICtrl.populatePlayerCards(playerInHandCards);
                UICtrl.populateTableCards(cardsOnTable);
 
+
                // to slow down compMove, imitates computer Thinking
-               setTimeout( () => {
+               ItemCtrl.timeoutPromise(900, () => {
+                  ItemCtrl.compMove()
+               })
+               .then(() => {
+                  if (playerInHandCards.length === 0 && compInHandCards.length === 0) {
+                     ItemCtrl.timeoutPromise(2000, ItemCtrl.newDeal);
+                     // console.log("condition fulfilled from APP CTRL")
+                  }
+               })
+               .then(() => {
+                  const playerInHandCards = ItemCtrl.getPlayerInHandCards();
+                  // get a deal number to check if it's a end of a game
+                  const dealNr = UICtrl.getCurrentDealNum();
+                  const cardsToDeal = ItemCtrl.getCardsToDeal();
 
-                  ItemCtrl.compMove();
-
-                  // if there are no more cards and it's end of game
                   if (playerInHandCards.length === 0 && compInHandCards.length === 0 && cardsToDeal.length === 0 && dealNr === 4) {
-                     setTimeout(() => {
+                     ItemCtrl.timeoutPromise(2500, () => {
                         UICtrl.endOfGame();
-                     }, 1650);
+                     })
+                     // console.log("hej game is over from APP");
                   }
-
-                  // if players have no more cards and it's not end of a game
-                  // new Deal after the comp complete its move, waits all timeouts to finish
-                  if (dealNr < 4) {
-
-                     setTimeout(() => {
-                        ItemCtrl.newDeal();
-                        // 2450
-                     }, 1700);
-                  }
-
-                  // 920
-               }, 890);
-
-               
+               })
             }
-
          }
       }
       e.preventDefault();
